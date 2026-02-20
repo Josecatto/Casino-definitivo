@@ -1,11 +1,16 @@
 # Midnight Ingenium  
-## Bitácora de Desarrollo
+## Bitácora de versionamiento
+# Equipo de Desarrollo
 
-Proyecto web desarrollado como parte del módulo de Desarrollo Web (HTML5 y CSS3).
+- Juan Torres
+
+- Valery Herrera
+
+- Jose Navia 
 
 ---
 
-# Registro de Avances
+# Registro de Avances del 20 de FEBRERO del 2026
 
 ---
 
@@ -99,3 +104,45 @@ Ejemplo de animación utilizada:
     to { transform: translateX(-50%); }
 }
 ```
+Objetivo:
+Aplicar conceptos de animación CSS y mejorar el impacto visual del sitio.
+
+## Fase 6 – Implementación de Favicon
+
+Se añadió un favicon personalizado para reforzar la identidad visual del proyecto.
+
+Se integró en todas las páginas mediante:
+```
+<link rel="icon" type="image/x-icon" href="/assets/icons/favicon.ico">
+```
+Objetivo:
+Cumplir con buenas prácticas de desarrollo web y profesionalizar la presentación.
+
+## Competencias Aplicadas
+
+Durante el desarrollo del proyecto se trabajaron los siguientes temas del módulo:
+
+- Estructura semántica HTML5
+
+- Etiquetas básicas
+
+- Enlaces y listas
+
+- Introducción a CSS
+
+- Propiedades CSS principales
+
+- Bordes redondeados
+
+- Sombras
+
+- Tipografías externas
+
+- Imágenes de fondo
+
+- Animaciones con CSS
+
+ ## Estado Actual
+
+El proyecto se encuentra en fase de desarrollo frontend.
+ 
