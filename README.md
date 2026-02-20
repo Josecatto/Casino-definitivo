@@ -1,7 +1,14 @@
 # Casino-definitivo
 Un casino Sencillo a modo de exploración de desarrollo de Paginas Web
-# Casino Midnight Ingenium
 
+# Casino Midnight Ingenium
+--
+Para este trabajo se manejan dos ramas:
+## MAIN
+Se manejará toda la parte documental y textual
+## MASTER
+Se trabajará los pool request y avances de codigo respecto a las guias que se mencionen en el MAIN
+--
 ## Descripción del Proyecto
 
 **Casino Midnight Ingenium** es una página web estructurada como una plataforma integral de casino online. El proyecto simula un ecosistema digital completo que incluye gestión de usuarios, juegos de casino, apuestas deportivas, promociones, tienda virtual, soporte técnico y configuración avanzada.
