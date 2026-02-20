@@ -10,7 +10,7 @@ Se manejará toda la parte documental y textual
 
 ## MASTER
 
-Se trabajará los pool request y avances de codigo respecto a las guias que se mencionen en el MAIN
+Se trabajará los pull request y avances de codigo respecto a las guias que se mencionen en el MAIN
 
 ## Descripción del Proyecto
 
