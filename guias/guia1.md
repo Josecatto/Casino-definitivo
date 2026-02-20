@@ -2,21 +2,36 @@
 
 ---
 
-## 1. Propósito y ventajas de la estructura usada en el ejercicio grupal  
+## 1. Componentes esenciales de una aplicación web moderna  
 
-En el ejercicio grupal se utilizó una arquitectura basada en el modelo cliente-servidor, lo que permitió dividir claramente las responsabilidades del sistema.
+### Cliente (Frontend)
+- HTML5  
+- CSS3  
+- JavaScript  
 
-### Propósito
-- Organizar el proyecto de manera modular.
-- Separar la interfaz de usuario de la lógica de negocio.
-- Facilitar el mantenimiento y la escalabilidad.
-- Permitir el trabajo colaborativo sin interferencias entre equipos.
+Puede utilizar frameworks como React, Angular o Vue.js.
 
-### Ventajas
-- Mantenibilidad: Es posible realizar cambios en una parte del sistema sin afectar completamente las demás.
-- Escalabilidad: Se puede ampliar el servidor o el cliente según las necesidades del sistema.
-- Seguridad: La base de datos y la lógica del negocio permanecen protegidas en el servidor.
-- Reutilización: El backend puede ser utilizado por diferentes tipos de clientes (web, móvil, etc.).
+Función:
+- Renderizar la interfaz.
+- Capturar eventos del usuario.
+- Enviar solicitudes al servidor.
+
+---
+
+## 1.5. ¿Cómo se comunican los componentes?
+
+La comunicación se realiza generalmente mediante:
+
+- HTTP o HTTPS.
+- APIs REST.
+- Formato de intercambio de datos como JSON.
+
+Flujo básico:
+1. El cliente envía una solicitud HTTP al servidor.
+2. El servidor procesa la solicitud.
+3. Consulta o actualiza la base de datos.
+4. Devuelve una respuesta en formato JSON.
+5. El cliente actualiza la interfaz con los datos recibidos.
 
 ---
 
@@ -34,22 +49,6 @@ En una aplicación web moderna existen dos componentes principales:
 - Facilita el mantenimiento y la actualización del sistema.
 - Permite que distintos equipos trabajen de manera independiente.
 - Favorece la escalabilidad de la aplicación.
-
----
-
-## 3. Componentes esenciales de una aplicación web moderna  
-
-### Cliente (Frontend)
-- HTML5  
-- CSS3  
-- JavaScript  
-
-Puede utilizar frameworks como React, Angular o Vue.js.
-
-Función:
-- Renderizar la interfaz.
-- Capturar eventos del usuario.
-- Enviar solicitudes al servidor.
 
 ---
 
@@ -74,25 +73,7 @@ Función:
 - Almacenar y gestionar la información del sistema.
 
 ---
-
-## 4. ¿Cómo se comunican los componentes?
-
-La comunicación se realiza generalmente mediante:
-
-- HTTP o HTTPS.
-- APIs REST.
-- Formato de intercambio de datos como JSON.
-
-Flujo básico:
-1. El cliente envía una solicitud HTTP al servidor.
-2. El servidor procesa la solicitud.
-3. Consulta o actualiza la base de datos.
-4. Devuelve una respuesta en formato JSON.
-5. El cliente actualiza la interfaz con los datos recibidos.
-
----
-
-## 5. ¿Cómo facilita HTML5 la creación de contenido web estructurado y accesible?
+## 3. ¿Cómo facilita HTML5 la creación de contenido web estructurado y accesible?
 
 HTML5 introduce mejoras significativas que permiten crear contenido más organizado y accesible.
 
@@ -110,7 +91,7 @@ Beneficios:
 
 ---
 
-## 6. Ventajas de las etiquetas semánticas frente a etiquetas tradicionales como `<div>`
+## 4. Ventajas de las etiquetas semánticas frente a etiquetas tradicionales como `<div>`
 
 En versiones anteriores de HTML se utilizaban múltiples etiquetas `<div>` sin significado estructural.
 
@@ -136,6 +117,24 @@ Ventajas:
 - Mejor interpretación por parte de buscadores.
 - Mayor claridad para desarrolladores.
 - Mejor experiencia para usuarios con tecnologías asistivas.
+
+---
+
+## 5. Propósito y ventajas de la estructura usada en el ejercicio grupal  
+
+En el ejercicio grupal se utilizó una arquitectura basada en el modelo cliente-servidor, lo que permitió dividir claramente las responsabilidades del sistema.
+
+### Propósito
+- Organizar el proyecto de manera modular.
+- Separar la interfaz de usuario de la lógica de negocio.
+- Facilitar el mantenimiento y la escalabilidad.
+- Permitir el trabajo colaborativo sin interferencias entre equipos.
+
+### Ventajas
+- Mantenibilidad: Es posible realizar cambios en una parte del sistema sin afectar completamente las demás.
+- Escalabilidad: Se puede ampliar el servidor o el cliente según las necesidades del sistema.
+- Seguridad: La base de datos y la lógica del negocio permanecen protegidas en el servidor.
+- Reutilización: El backend puede ser utilizado por diferentes tipos de clientes (web, móvil, etc.).
 
 ---
 
