@@ -269,3 +269,1073 @@ footer {
     text-align: center;
     width: 400px;
 }
+.torneos-container {
+    display: flex;
+    gap: 20px;
+    padding: 40px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.torneo-card {
+    background: #1e1e2f;
+    padding: 25px;
+    border-radius: 12px;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    transition: 0.3s;
+}
+
+.torneo-card:hover {
+    transform: translateY(-5px);
+}
+
+.torneo-card h2 {
+    color: gold;
+}
+
+.torneo-card button {
+    margin-top: 15px;
+    padding: 10px;
+    border: none;
+    background: crimson;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.ranking-container {
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+table {
+    width: 80%;
+    border-collapse: collapse;
+    background: #1e1e2f;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 15px;
+    text-align: center;
+}
+
+th {
+    background: gold;
+    color: black;
+}
+
+tr:nth-child(even) {
+    background: #2a2a40;
+}
+
+tr:hover {
+    background: #333355;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f0f1a;
+    color: white;
+}
+
+header {
+    background: #141428;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav a {
+    color: gold;
+    margin-left: 15px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: white;
+}
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #0f0f1f, #1a1a3a);
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+/* HEADER */
+.main-header {
+    background: #141428;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main-header h1 {
+    font-size: 24px;
+}
+
+nav a {
+    color: gold;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: white;
+}
+
+/* TORNEOS */
+.torneos-container {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    padding: 50px;
+    flex-wrap: wrap;
+}
+
+.torneo-card {
+    background: #1e1e2f;
+    padding: 25px;
+    border-radius: 12px;
+    width: 260px;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    transition: 0.3s ease;
+}
+
+.torneo-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 0 25px rgba(255,215,0,0.3);
+}
+
+.torneo-card h2 {
+    color: gold;
+    margin-bottom: 15px;
+}
+
+.torneo-card button {
+    margin-top: 15px;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    background: crimson;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.torneo-card button:hover {
+    background: darkred;
+}
+
+/* VIP */
+.torneo-card.vip {
+    border: 2px solid gold;
+}
+
+/* RANKING */
+.ranking-container {
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+table {
+    width: 80%;
+    border-collapse: collapse;
+    background: #1e1e2f;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th {
+    background: gold;
+    color: black;
+    padding: 15px;
+}
+
+td {
+    padding: 15px;
+    text-align: center;
+}
+
+tr:nth-child(even) {
+    background: #2a2a40;
+}
+
+tr:hover {
+    background: #333355;
+}
+
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    padding: 40px;
+}
+
+.game-card {
+    background: #111;
+    border-radius: 15px;
+    overflow: hidden;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.game-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.game-card h2 {
+    margin: 15px 0 10px;
+}
+
+.game-card p {
+    padding: 0 15px 20px;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.game-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+}
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #0f0f1a;
+    color: white;
+}
+
+/* TOPBAR */
+.topbar {
+    background: #14142b;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    border-bottom: 1px solid #222;
+}
+
+.saldo {
+    color: #00ffae;
+    font-weight: bold;
+}
+
+/* HERO HEADER */
+.hero {
+    background: linear-gradient(90deg, #111132, #1a1a40);
+    padding: 30px 20px;
+    text-align: center;
+    border-bottom: 1px solid #222;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.logo {
+    width: 70px;
+    height: auto;
+}
+
+.hero h1 {
+    font-size: 28px;
+}
+
+.hero p {
+    font-size: 14px;
+    color: #aaa;
+}
+
+/* NAVBAR */
+.navbar {
+    background: #16162d;
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu li {
+    position: relative;
+}
+
+.menu a {
+    display: block;
+    padding: 15px 18px;
+    text-decoration: none;
+    color: white;
+    transition: 0.3s;
+}
+
+.menu a:hover {
+    background: #00ffae;
+    color: black;
+}
+
+/* DROPDOWN */
+.submenu {
+    display: none;
+    position: absolute;
+    background: #1e1e3f;
+    list-style: none;
+    min-width: 180px;
+    top: 50px;
+    left: 0;
+    z-index: 1000;
+}
+
+.submenu li a {
+    padding: 12px;
+}
+
+.dropdown:hover .submenu {
+    display: block;
+}
+
+/* LOGIN BUTTON */
+.btn-login {
+    background: #00ffae;
+    color: black !important;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+/* CARDS */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 40px;
+}
+
+.card {
+    background: #1a1a35;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.card h2 {
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 14px;
+    color: #bbb;
+    margin-bottom: 15px;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0, 255, 174, 0.3);
+}
+
+/* BOTONES */
+.btn {
+    display: inline-block;
+    padding: 10px 18px;
+    background: #00ffae;
+    color: black;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #00cc8a;
+}
+
+/* FOOTER */
+footer {
+    background: #14142b;
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+    font-size: 14px;
+    color: #aaa;
+}
+
+/* ========================= */
+/* ===== AFILIADOS ========= */
+/* ========================= */
+
+/* CONTENEDOR GENERAL */
+.afiliados-container {
+    padding: 40px;
+    max-width: 1100px;
+    margin: auto;
+}
+
+/* TÍTULOS */
+.afiliados-container h2 {
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+/* BOTONES */
+.btn-secundario {
+    display: inline-block;
+    padding: 10px 18px;
+    background: transparent;
+    border: 2px solid #00ffae;
+    color: #00ffae;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-secundario:hover {
+    background: #00ffae;
+    color: black;
+}
+
+/* FORMULARIO */
+form input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    background: #1a1a35;
+    color: white;
+    margin-bottom: 15px;
+}
+
+form input:focus {
+    border: 2px solid #00ffae;
+}
+
+/* PANEL ESTADÍSTICAS */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.stat-card {
+    background: #1a1a35;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.stat-card h3 {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.stat-card p {
+    font-size: 22px;
+    font-weight: bold;
+    color: #00ffae;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 255, 174, 0.3);
+}
+
+/* ENLACE DE REFERIDO */
+.referido-box {
+    background: #1a1a35;
+    padding: 15px;
+    border-radius: 8px;
+    word-break: break-all;
+    margin-top: 15px;
+    border: 1px solid #00ffae;
+}
+
+/* EVENTOS DEPORTIVOS */
+.evento {
+    background: #1a1a35;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    transition: 0.3s;
+}
+
+.evento:hover {
+    box-shadow: 0 10px 25px rgba(0, 255, 174, 0.3);
+}
+
+.cuotas {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.cuota {
+    background: #00ffae;
+    color: black;
+    padding: 8px 14px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.cuota:hover {
+    background: #00cc8a;
+}
+/* ============================= */
+/* CONFIGURACION */
+/* ============================= */
+
+.config-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 40px;
+}
+
+.config-card {
+    background: #1a1a35;
+    padding: 25px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: white;
+    transition: 0.3s;
+    display: block;
+}
+
+.config-card h3 {
+    margin-bottom: 10px;
+}
+
+.config-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 255, 174, 0.3);
+}
+
+/* HERO */
+.hero {
+    text-align: center;
+    padding: 40px 20px;
+    background: #111;
+    color: #00ffae;
+}
+
+/* BOTONES */
+.btn {
+    background: #00ffae;
+    color: black;
+    padding: 10px 18px;
+    border-radius: 6px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #00cc8a;
+}
+/* LEGAL */
+
+.legal-container {
+    padding: 40px;
+    max-width: 900px;
+    margin: auto;
+    line-height: 1.6;
+}
+.btn {
+    background: #00ffae;
+    color: black;
+    padding: 10px 18px;
+    border-radius: 6px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #00cc8a;
+}
+/* ===================== */
+/* PROMOCIONES */
+/* ===================== */
+
+.promo-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 40px;
+}
+
+.promo-card {
+    background: #1a1a35;
+    padding: 25px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: white;
+    transition: 0.3s;
+}
+
+.promo-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0, 255, 174, 0.3);
+}
+
+.promo-detalle {
+    padding: 40px;
+}
+
+.promo-detalle ul {
+    margin: 20px 0;
+}
+
+.btn {
+    background: #00ffae;
+    color: black;
+    padding: 10px 18px;
+    border-radius: 6px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #00cc8a;
+}
+/* ===================== */
+/* QUIENES SOMOS */
+/* ===================== */
+
+.info-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 40px;
+}
+
+.info-card {
+    background: #1a1a35;
+    padding: 25px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: white;
+    transition: 0.3s;
+}
+
+.info-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0, 255, 174, 0.3);
+}
+
+.info-detalle {
+    padding: 40px;
+}
+
+.info-detalle h2 {
+    margin-top: 20px;
+}
+/* ===================================== */
+/* ======== SOPORTE ==================== */
+/* ===================================== */
+
+/* Contenedor principal */
+.info-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 40px;
+}
+
+/* Tarjetas */
+.info-card {
+    background: #1a1a35;
+    padding: 25px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: white;
+    transition: 0.3s;
+    display: block;
+}
+
+.info-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0, 255, 174, 0.3);
+}
+
+/* Contenido interno (FAQ, Chat, etc) */
+.info-detalle {
+    padding: 40px;
+    max-width: 800px;
+    margin: auto;
+}
+
+.info-detalle h3 {
+    margin-top: 20px;
+}
+
+/* Formulario de contacto */
+.form-container {
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+}
+
+.form-box {
+    background: #1a1a35;
+    padding: 30px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 350px;
+}
+
+.form-box input,
+.form-box textarea {
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+}
+
+.form-box textarea {
+    resize: none;
+    height: 100px;
+}
+
+
+
+/* ===================================== */
+/* ======== TIENDA ===================== */
+/* ===================================== */
+
+/* Cards tipo tienda */
+.promo-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 40px;
+}
+
+.promo-card {
+    background: #1a1a35;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.promo-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0, 255, 174, 0.3);
+}
+
+/* Botón general */
+.btn {
+    background: #00ffae;
+    color: black;
+    padding: 10px 18px;
+    border-radius: 6px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #00cc8a;
+}
+
+
+
+/* ===================================== */
+/* ======== RESPONSIVE ================= */
+/* ===================================== */
+
+@media (max-width: 768px) {
+    .info-container,
+    .promo-container {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+
+    .form-box {
+        width: 100%;
+    }
+}
+/* ========================= */
+/* CARDS PREMIUM */
+/* ========================= */
+
+.cards {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 60px 20px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background: rgba(26, 26, 53, 0.8);
+    backdrop-filter: blur(8px);
+    padding: 30px;
+    border-radius: 16px;
+    width: 300px;
+    text-align: center;
+    transition: 0.4s ease;
+    box-shadow: 0 0 20px rgba(0, 255, 174, 0.1);
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 255, 174, 0.4);
+}
+
+.card-img img {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+/* ========================= */
+/* BOTONES PREMIUM */
+/* ========================= */
+
+.btn-glow {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 12px 22px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #000;
+    background: linear-gradient(90deg, #00ffae, #00d4ff);
+    transition: 0.3s;
+    box-shadow: 0 0 10px rgba(0, 255, 174, 0.6);
+}
+
+.btn-glow:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(0, 255, 174, 1);
+}
+
+/* ========================= */
+/* HERO MÁS ELEGANTE */
+/* ========================= */
+
+.hero {
+    background: linear-gradient(135deg, #0f0f1f, #1c1c3a);
+    padding: 50px;
+    text-align: center;
+}
+
+.logo {
+    width: 70px;
+}
+/* ============================= */
+/* NAVBAR PREMIUM */
+/* ============================= */
+
+.navbar {
+    background: #141428;
+    padding: 0 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin: 0;
+    padding: 15px 0;
+}
+
+.menu li {
+    position: relative;
+}
+
+.menu a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: 0.3s ease;
+}
+
+/* Hover general */
+.menu a:hover {
+    background: rgba(0, 255, 174, 0.15);
+    color: #00ffae;
+}
+
+/* ============================= */
+/* SUBMENU MEJORADO */
+/* ============================= */
+
+.submenu {
+    position: absolute;
+    top: 45px;
+    left: 0;
+    background: rgba(20, 20, 40, 0.95);
+    backdrop-filter: blur(8px);
+    list-style: none;
+    padding: 15px 0;
+    border-radius: 10px;
+    min-width: 180px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+}
+
+.submenu li {
+    padding: 0;
+}
+
+.submenu a {
+    display: block;
+    padding: 10px 20px;
+    color: #ccc;
+    font-size: 14px;
+}
+
+.submenu a:hover {
+    background: rgba(0, 255, 174, 0.2);
+    color: #00ffae;
+}
+
+/* Mostrar submenu */
+.dropdown:hover .submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* ============================= */
+/* BOTÓN LOGIN PREMIUM */
+/* ============================= */
+
+.btn-login {
+    background: linear-gradient(90deg, #00ffae, #00d4ff);
+    color: #000 !important;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.btn-login:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 255, 174, 0.8);
+}
+.card img {
+    transition: transform 0.4s ease;
+}
+
+.card:hover img {
+    transform: scale(1.05);
+}
+
+/* ========================= */
+/* PROMOCIONES */
+/* ========================= */
+
+.promo-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 40px;
+}
+
+.promo-card {
+    background: #1a1a35;
+    border-radius: 15px;
+    overflow: hidden;
+    text-decoration: none;
+    color: #fff;
+    transition: 0.4s ease;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
+
+.promo-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.promo-content {
+    padding: 20px;
+}
+
+.promo-card h3 {
+    margin-bottom: 10px;
+}
+
+.promo-card p {
+    color: #ccc;
+    font-size: 14px;
+}
+
+/* Hover premium */
+.promo-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 255, 174, 0.3);
+}
+
+.promo-card:hover img {
+    transform: scale(1.05);
+    transition: 0.4s ease;
+}

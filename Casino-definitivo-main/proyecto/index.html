@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- FAVICON -->
-    <link rel="icon" href="assets/images/LOGO CASINO.png " type="image/png">
+    <link rel="icon" type="image/png" sizes="32x32" href="logo-casino.png">
+    <link rel="shortcut icon" href="logo-casino.png" type="image/png">
+
+    <!-- CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
@@ -15,13 +18,18 @@
 <!-- BARRA SUPERIOR -->
 <div class="topbar">
     <div class="saldo">💰 Saldo: $1,250</div>
-    <div class="notificaciones"> 3 Notificaciones</div>
+    <div class="notificaciones">🔔 3 Notificaciones</div>
 </div>
 
 <!-- HEADER -->
 <header class="hero">
-    <h1> Midnight Ingenium</h1>
-    <p>Donde la suerte y la estrategia se encuentran</p>
+    <div class="logo-container">
+        <img src="logo-casino.png" alt="Logo Midnight Ingenium" class="logo">
+        <div>
+            <h1>Midnight Ingenium</h1>
+            <p>Donde la suerte y la estrategia se encuentran</p>
+        </div>
+    </div>
 </header>
 
 <!-- NAVBAR -->
@@ -82,21 +90,30 @@
 <section class="cards">
 
     <article class="card">
+        <div class="card-img">
+            <img src="assets/images/ruleta.png" alt="Ruleta">
+        </div>
         <h2>🎲 Ruleta Midnight</h2>
         <p>Vive la emoción del azar con diseño premium.</p>
-        <a href="juegos/ruleta.html" class="btn">Jugar</a>
+        <a href="juegos/ruleta.html" class="btn-glow">Jugar Ahora</a>
     </article>
 
     <article class="card">
+        <div class="card-img">
+            <img src="assets/images/poker.png" alt="Poker">
+        </div>
         <h2>🃏 Poker Ingenium</h2>
         <p>Estrategia y competencia en tiempo real.</p>
-        <a href="juegos/poker.html" class="btn">Jugar</a>
+        <a href="juegos/poker.html" class="btn-glow">Entrar a la Mesa</a>
     </article>
 
     <article class="card">
+        <div class="card-img">
+            <img src="assets/images/apuestas-deportivas.png" alt="Apuestas Deportivas">
+        </div>
         <h2>⚽ Apuestas Deportivas</h2>
         <p>Las mejores cuotas del mercado.</p>
-        <a href="apuestas-deportivas/index.html" class="btn">Apostar</a>
+        <a href="apuestas-deportivas/index.html" class="btn-glow">Apostar Ahora</a>
     </article>
 
 </section>
