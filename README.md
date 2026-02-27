@@ -8,9 +8,6 @@ Para este trabajo se manejan dos ramas:
 
 Se manejará toda la parte documental y textual
 
-## MASTER
-
-Se trabajará los pull request y avances de codigo respecto a las guias que se mencionen en el MAIN
 
 ## Descripción del Proyecto
 
