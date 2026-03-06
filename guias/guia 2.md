@@ -1,205 +1,176 @@
-# Documentación – CSS y Diseño Responsivo en Aplicaciones Web
+# Documentación – Implementación de Layout, Selectores Avanzados y Diseño Adaptable
 
-## 1. ¿Cuál es el rol de la especificidad en la resolución de conflictos de estilos CSS?
+## 1. Estructura del Perfil utilizando CSS Grid y Flexbox
 
-En CSS es común que múltiples reglas intenten aplicar estilos a un mismo elemento. Para decidir cuál estilo debe aplicarse, el navegador utiliza un sistema llamado **especificidad**.
+Para la estructura del perfil del usuario se implementará una combinación de **CSS Grid y Flexbox**, ya que cada tecnología resuelve diferentes necesidades dentro del diseño de la interfaz.
 
-### ¿Qué es la especificidad?
+### Uso de CSS Grid en el contenedor principal
 
-La **especificidad** es un mecanismo que determina qué regla CSS tiene mayor prioridad cuando varias reglas afectan al mismo elemento.
+El contenedor principal del perfil utilizará **CSS Grid**, ya que permite organizar el contenido en **filas y columnas**, lo cual es ideal para estructurar la página completa.
 
-Cada selector tiene un **nivel de prioridad** dependiendo del tipo de selector utilizado.
+En la **vista de escritorio**, el layout estará dividido en **dos columnas principales**:
 
-### Orden de prioridad de selectores
+* **Columna izquierda:**
+  Contendrá la **foto de perfil** y el **nombre del usuario**.
 
-De menor a mayor prioridad:
+* **Columna derecha:**
+  Contendrá la **información adicional del perfil** y el **menú de navegación**.
 
-1. Selectores de elemento
-   Ejemplo: `p`, `h1`, `div`
+Esta distribución permite separar claramente la información principal del usuario de las opciones de navegación del perfil, facilitando la organización visual y mejorando la experiencia del usuario.
 
-2. Selectores de clase, atributos o pseudo-clases
-   Ejemplo: `.menu`, `[type="text"]`, `:hover`
+### Uso de Flexbox dentro de la columna derecha
 
-3. Selectores de ID
-   Ejemplo: `#header`
+Dentro de la columna derecha se utilizará **Flexbox** para organizar el menú de navegación del perfil.
 
-4. Estilos en línea
-   Ejemplo: `style="color:red"`
+El menú incluirá opciones como:
 
-### Función de la especificidad
+* Publicaciones
+* Amigos
+* Fotos
 
-La especificidad permite:
+Flexbox permitirá:
 
-* Resolver conflictos entre diferentes reglas CSS.
-* Determinar cuál estilo debe aplicarse cuando hay múltiples definiciones.
-* Mantener una jerarquía clara en los estilos.
+* Colocar los elementos **en una fila horizontal**.
+* Mantener **espaciado uniforme entre las opciones**.
+* Ajustar fácilmente la alineación de los elementos.
 
-### Beneficios
-
-* Evita resultados inesperados en el diseño.
-* Permite controlar con precisión cómo se aplican los estilos.
-* Facilita la organización del código CSS.
+Esta combinación de **Grid para la estructura general** y **Flexbox para los componentes internos** permite un diseño flexible, claro y fácil de mantener.
 
 ---
 
-# 2. ¿Qué tipo de layout es más apropiado para Flexbox y cuál para CSS Grid?
+# 2. Estilización utilizando Selectores Avanzados (sin clases ni IDs)
 
-Flexbox y CSS Grid son sistemas de diseño modernos que permiten crear estructuras flexibles y adaptables, pero cada uno está pensado para resolver diferentes tipos de layout.
+En este ejercicio no se permitirá añadir **clases ni IDs adicionales al HTML**, por lo que se deberán utilizar **selectores avanzados de CSS** para aplicar estilos a los elementos.
 
-## Flexbox
+Este enfoque permite trabajar con **HTML más limpio y semántico**, aprovechando la estructura del documento para aplicar los estilos.
 
-**Flexbox** está diseñado para trabajar con **distribuciones en una sola dimensión**.
+### Uso de selectores descendientes
 
-Esto significa que organiza elementos **en una fila o en una columna**, pero no en ambas al mismo tiempo.
+Los selectores descendientes permiten aplicar estilos a elementos que se encuentran dentro de otros.
 
-### Casos donde Flexbox es más apropiado
+Por ejemplo, para estilizar los enlaces del menú de navegación se utilizará un selector que apunte a los enlaces dentro de una lista:
 
-* Menús de navegación.
-* Barras de herramientas.
-* Alineación de botones.
-* Distribución de elementos en una fila o columna.
+* Seleccionar los enlaces dentro de los elementos de lista del menú.
 
-### Características principales
-
-* Control del espacio entre elementos.
-* Alineación horizontal y vertical sencilla.
-* Distribución flexible del contenido.
+Esto permite modificar el estilo de los enlaces del menú sin necesidad de agregar clases adicionales.
 
 ---
 
-## CSS Grid
+### Uso de pseudo-clases
 
-**CSS Grid** está diseñado para layouts **bidimensionales**, es decir, permite organizar elementos **en filas y columnas al mismo tiempo**.
+Las pseudo-clases permiten aplicar estilos dependiendo del **estado del elemento**.
 
-### Casos donde CSS Grid es más apropiado
+En el menú de navegación se utilizará la pseudo-clase:
 
-* Diseño completo de una página web.
-* Galerías de imágenes.
-* Dashboards o paneles de control.
-* Sistemas de tarjetas o componentes complejos.
+* **hover**
 
-### Características principales
+Cuando el usuario pase el cursor sobre un enlace del menú, el color del enlace cambiará para indicar que el elemento es interactivo.
 
-* Control total sobre filas y columnas.
-* Permite crear estructuras complejas de manera clara.
-* Facilita el diseño de interfaces completas.
+Esto mejora la **experiencia de usuario** y proporciona retroalimentación visual durante la navegación.
 
 ---
 
-## Diferencia principal
+### Uso de pseudo-elementos
 
-| Flexbox                         | CSS Grid                        |
-| ------------------------------- | ------------------------------- |
-| Sistema de una dimensión        | Sistema de dos dimensiones      |
-| Trabaja en filas **o** columnas | Trabaja en filas **y** columnas |
-| Ideal para componentes          | Ideal para layouts completos    |
+Los pseudo-elementos permiten agregar elementos visuales sin modificar el HTML.
 
----
+En este proyecto se utilizarán pseudo-elementos como:
 
-# 3. ¿Por qué es ventajoso empezar el desarrollo de un sitio web con el diseño para móviles?
+* **before**
+* **after**
 
-El enfoque **Mobile First** consiste en diseñar primero la versión del sitio para dispositivos móviles y luego adaptarlo a pantallas más grandes.
+Estos se utilizarán para agregar elementos decorativos, por ejemplo:
 
-Este enfoque se ha vuelto muy importante debido al crecimiento del uso de **smartphones para navegar en internet**.
+* Un pequeño punto antes de cada opción del menú.
+* Un ícono decorativo antes de ciertos elementos del perfil.
 
-### Ventajas del enfoque Mobile First
-
-**1. Mejor experiencia para la mayoría de usuarios**
-
-Actualmente una gran parte del tráfico web proviene de dispositivos móviles, por lo que diseñar primero para móviles asegura una mejor experiencia.
-
-**2. Diseño más simple y eficiente**
-
-Al empezar con pantallas pequeñas se prioriza el contenido más importante, evitando elementos innecesarios.
-
-**3. Mejor rendimiento**
-
-Los sitios diseñados primero para móviles suelen ser más ligeros y rápidos.
-
-**4. Mejor posicionamiento en buscadores**
-
-Motores de búsqueda como Google utilizan el enfoque **Mobile-First Indexing**, lo que significa que evalúan primero la versión móvil de un sitio.
-
-**5. Escalabilidad del diseño**
-
-Es más fácil **agregar elementos al ampliar la pantalla** que tratar de reducir un diseño grande a uno pequeño.
+De esta manera se puede enriquecer el diseño visual **sin añadir más elementos al documento HTML**.
 
 ---
 
-# 4. ¿Cómo se pueden seleccionar y estilizar elementos de forma precisa sin usar clases o IDs en el HTML?
+# 3. Diseño Adaptable utilizando el enfoque Mobile-First
 
-En CSS es posible seleccionar elementos de forma muy específica sin necesidad de usar clases o IDs, utilizando diferentes tipos de selectores avanzados.
+El diseño del perfil seguirá el enfoque **Mobile-First**, lo que significa que primero se desarrollará la versión para dispositivos móviles y posteriormente se adaptará para pantallas más grandes.
 
-### Selectores de elemento
+### Diseño base para móviles
 
-Permiten aplicar estilos a todos los elementos de un mismo tipo.
+En la versión móvil el diseño será **vertical**, donde los elementos del perfil se mostrarán uno debajo del otro.
 
-Ejemplo:
+La estructura será:
 
-* `p`
-* `h1`
-* `button`
+1. Foto de perfil
+2. Nombre del usuario
+3. Menú de navegación
+4. Información adicional
 
----
-
-### Selectores descendentes
-
-Permiten seleccionar elementos que están dentro de otros.
-
-Ejemplo conceptual:
-
-* Seleccionar los `p` dentro de un `section`.
-
-Esto permite aplicar estilos solo en ciertos contextos del documento.
+Este enfoque permite que la interfaz sea **clara y fácil de utilizar en pantallas pequeñas**.
 
 ---
 
-### Selectores de atributo
+### Adaptación a escritorio mediante Media Queries
 
-Permiten seleccionar elementos que contienen ciertos atributos.
+Para adaptar el diseño a pantallas más grandes se utilizará una **media query** con el punto de quiebre:
 
-Ejemplo:
+**768px**
 
-* Inputs con tipo `"text"`
-* Enlaces que contienen un atributo específico
+Cuando la pantalla alcance o supere este ancho, se aplicará la estructura basada en **CSS Grid con dos columnas**.
 
-Esto permite aplicar estilos sin necesidad de añadir clases adicionales.
+Esto permitirá que el diseño pase de una estructura vertical a una estructura horizontal, donde:
 
----
+* La foto y el nombre se colocarán en la columna izquierda.
+* El menú y la información adicional estarán en la columna derecha.
 
-### Pseudo-clases
-
-Permiten aplicar estilos dependiendo del estado del elemento.
-
-Ejemplos:
-
-* `:hover` (cuando el usuario pasa el cursor)
-* `:focus` (cuando el elemento está seleccionado)
-* `:first-child` (primer elemento de un contenedor)
+Este método permite que el diseño sea **flexible y adaptable a diferentes dispositivos**.
 
 ---
 
-### Pseudo-elementos
+# 4. ¿Cómo se implementará esta estructura en el proyecto?
 
-Permiten estilizar partes específicas de un elemento.
+En el proyecto del perfil de usuario, estas técnicas se aplicarán de la siguiente manera.
 
-Ejemplos:
+### Estructura HTML del perfil
 
-* `::before`
-* `::after`
-* `::first-letter`
+El HTML contendrá únicamente los elementos estructurales necesarios como:
+
+* header
+* section
+* nav
+* ul
+* li
+* article
+
+Esto permitirá que el documento sea **semántico y fácil de interpretar** tanto por navegadores como por motores de búsqueda.
 
 ---
 
-### Ventajas de usar selectores avanzados
+### Implementación del layout
 
-* Reduce la necesidad de añadir clases innecesarias al HTML.
-* Mantiene el código más limpio y semántico.
-* Permite aplicar estilos de manera más precisa y contextual.
+1. El **contenedor principal del perfil** se convertirá en un **Grid** cuando la pantalla alcance el tamaño de escritorio.
+
+2. El **menú de navegación del perfil** se organizará mediante **Flexbox**, permitiendo alinear los elementos horizontalmente con espacios uniformes.
+
+3. Los estilos se aplicarán mediante **selectores descendientes**, pseudo-clases y pseudo-elementos, sin añadir clases ni IDs adicionales.
+
+---
+
+### Beneficios de esta implementación en el proyecto
+
+La aplicación de estas técnicas aportará varias ventajas al proyecto:
+
+**Estructura clara del diseño**
+El uso de Grid permite dividir el perfil de forma organizada.
+
+**Componentes flexibles**
+Flexbox facilita la alineación y distribución de elementos dentro del menú.
+
+**Código más limpio**
+Al utilizar selectores avanzados se evita añadir clases innecesarias.
+
+**Diseño adaptable**
+El enfoque Mobile-First garantiza una buena experiencia en dispositivos móviles y de escritorio.
 
 ---
 
 # Conclusión
 
-El uso adecuado de **CSS moderno** permite crear interfaces web organizadas, eficientes y adaptables. Conceptos como la **especificidad**, el uso correcto de **Flexbox y CSS Grid**, el enfoque **Mobile First** y los **selectores avanzados** ayudan a desarrollar sitios web más estructurados, mantenibles y optimizados para diferentes dispositivos, mejorando tanto la experiencia del usuario como la calidad del desarrollo.
-
+La combinación de **CSS Grid, Flexbox, selectores avanzados y el enfoque Mobile-First** permite construir interfaces modernas, flexibles y fáciles de mantener. En este proyecto, estas tecnologías se utilizarán para estructurar el perfil de usuario de forma clara, optimizar la organización del código y garantizar que la interfaz se adapte correctamente a diferentes tamaños de pantalla, mejorando tanto el desarrollo técnico como la experiencia del usuario.
