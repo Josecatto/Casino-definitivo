@@ -170,7 +170,7 @@ Al utilizar selectores avanzados se evita añadir clases innecesarias.
 El enfoque Mobile-First garantiza una buena experiencia en dispositivos móviles y de escritorio.
 ## **Link del video usado para el header usando iframe**
 ---
-https://youtu.be/BFIeduBQZsQ
+[video promo - Guia 2](https://youtu.be/BFIeduBQZsQ) 
 ---
 
 # Conclusión
