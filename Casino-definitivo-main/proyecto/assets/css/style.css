@@ -1339,3 +1339,544 @@ form input:focus {
     transform: scale(1.05);
     transition: 0.4s ease;
 }
+/* RESET GENERAL */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+/* FONDO GENERAL */
+
+body{
+    background:#0b0b0f;
+    color:white;
+}
+
+/* =========================
+   TOPBAR
+========================= */
+
+.topbar{
+    background:#111;
+    padding:10px 40px;
+    overflow:hidden; /* FLOAT */
+}
+
+.saldo{
+    float:left;
+}
+
+.notificaciones{
+    float:right;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    text-align:center; /* CENTRAR CONTENIDO */
+    padding:40px;
+    background:linear-gradient(180deg,#121212,#000);
+}
+
+.logo{
+    width:90px;
+    margin-bottom:10px;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar{
+    background:#161616;
+}
+
+.menu{
+    display:flex; /* FLEXBOX */
+    justify-content:center;
+    list-style:none;
+}
+
+.menu li{
+    position:relative; /* POSITION */
+}
+
+.menu a{
+    display:block;
+    padding:15px 25px;
+    color:white;
+    text-decoration:none;
+    transition:0.3s; /* TRANSICION */
+}
+
+.menu a:hover{
+    background:#ffcc00;
+    color:black;
+}
+
+/* =========================
+   SUBMENU
+========================= */
+
+.submenu{
+    position:absolute; /* POSITION */
+    background:#222;
+    display:none;
+    list-style:none;
+    min-width:180px;
+}
+
+.submenu li a{
+    padding:12px;
+}
+
+.dropdown:hover .submenu{
+    display:block;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.cards{
+    display:flex; /* FLEX */
+    justify-content:center;
+    gap:40px;
+    padding:60px;
+}
+
+.card{
+    background:#161616;
+    padding:25px;
+    width:300px;
+    text-align:center;
+    border-radius:10px;
+
+    transition:0.3s; /* TRANSICION */
+}
+
+.card:hover{
+    transform:scale(1.05); /* TRANSFORM */
+}
+
+.card-img img{
+    width:100%;
+    border-radius:8px;
+}
+
+/* BOTON */
+
+.btn-glow{
+    display:inline-block;
+    margin-top:15px;
+    padding:10px 20px;
+    background:#ffcc00;
+    color:black;
+    text-decoration:none;
+    border-radius:5px;
+
+    transition:0.3s;
+}
+
+.btn-glow:hover{
+    transform:translateY(-3px);
+    background:#ffd633;
+}
+
+/* =========================
+   LOGIN BOTON
+========================= */
+
+.btn-login{
+    background:#ffcc00;
+    color:black;
+    border-radius:6px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    text-align:center;
+    padding:25px;
+    background:#111;
+    margin-top:50px;
+}
+
+/* =========================
+   FORMULARIOS
+========================= */
+
+form{
+    width:400px;
+    margin:auto;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+input,select,textarea{
+    padding:10px;
+    border:none;
+    border-radius:5px;
+}
+
+/* =========================
+   COLUMNAS DE TEXTO
+========================= */
+
+.columnas{
+    column-count:3;
+    column-gap:30px;
+    padding:40px;
+}
+
+/* =========================
+   VIDEO
+========================= */
+
+.video-container{
+    text-align:center;
+    padding:40px;
+}
+
+video{
+    width:600px;
+    border-radius:10px;
+}
+
+/* =========================
+   AUDIO
+========================= */
+
+.audio-container{
+    text-align:center;
+    padding:20px;
+}
+
+/* =========================
+   IFRAME
+========================= */
+
+.iframe-container{
+    text-align:center;
+    padding:40px;
+}
+
+iframe{
+    width:700px;
+    height:400px;
+    border:none;
+}
+/* HERO */
+
+.hero{
+    position: relative;
+    width: 100%;
+    height: 500px; /* altura del encabezado */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* VIDEO DE FONDO */
+
+.video-bg{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    min-width: 100%;
+    min-height: 100%;
+
+    width: auto;
+    height: auto;
+
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+
+    z-index: -1;
+}
+
+/* CONTENIDO ENCIMA */
+
+.hero-content{
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+}
+/* TOPBAR */
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 40px;
+    background:#0F1A2B;
+    color:#E6E6E6;
+}
+
+/* LADO IZQUIERDO */
+
+.topbar-left{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+/* LOGO PEQUEÑO */
+
+.logo-small{
+    height:40px;
+}
+/* HERO SOLO PARA INDEX */
+
+.hero{
+    position: relative;
+    height: 420px;
+    overflow: hidden;
+}
+
+/* VIDEO DE FONDO */
+
+.hero .video-bg{
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:100%;
+    height:100%;
+    transform:translate(-50%,-50%);
+    object-fit:cover;
+}
+.hero{
+    position: relative;
+    height: 420px;
+    overflow: hidden;
+}
+
+.video-bg{
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:100%;
+    height:100%;
+    transform:translate(-50%,-50%);
+    object-fit:cover;
+}
+.hero{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.video-bg{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+/* TOPBAR */
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#111;
+color:white;
+padding:10px 30px;
+}
+
+.topbar-left{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.logo-small{
+height:40px;
+}
+
+.saldo{
+background:#1e1e1e;
+padding:6px 12px;
+border-radius:6px;
+}
+
+.notificaciones{
+background:#1e1e1e;
+padding:6px 12px;
+border-radius:6px;
+}
+
+/* HERO VIDEO */
+
+.hero{
+position:relative;
+height:70vh;
+overflow:hidden;
+}
+
+.video-container{
+position:absolute;
+top:50%;
+left:50%;
+width:177.77vh;
+height:100vh;
+transform:translate(-50%,-50%);
+}
+
+.video-bg{
+width:100%;
+height:100%;
+pointer-events:none;
+}
+
+/* NAVBAR */
+
+.navbar{
+background:#000;
+padding:12px 0;
+}
+
+.menu{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:30px;
+list-style:none;
+flex-wrap:wrap;
+}
+
+.menu li{
+position:relative;
+}
+
+.menu a{
+color:white;
+text-decoration:none;
+font-size:16px;
+padding:8px 12px;
+display:block;
+}
+
+.menu a:hover{
+color:#f5c518;
+}
+
+/* SUBMENU */
+
+.submenu{
+display:none;
+position:absolute;
+top:35px;
+background:#111;
+list-style:none;
+min-width:180px;
+}
+
+.submenu li{
+border-bottom:1px solid #333;
+}
+
+.submenu a{
+padding:10px;
+}
+
+.dropdown:hover .submenu{
+display:block;
+}
+
+/* LOGIN BUTTON */
+
+.btn-login{
+background:#f5c518;
+color:black;
+border-radius:6px;
+padding:8px 15px;
+}
+
+/* CARDS */
+
+.cards{
+display:flex;
+justify-content:center;
+gap:40px;
+padding:60px;
+flex-wrap:wrap;
+background:#0c0c0c;
+}
+
+.card{
+background:#161616;
+color:white;
+width:280px;
+padding:20px;
+text-align:center;
+border-radius:10px;
+transition:transform 0.3s;
+}
+
+.card:hover{
+transform:scale(1.05);
+}
+
+.card img{
+width:100%;
+border-radius:8px;
+margin-bottom:10px;
+}
+
+/* BUTTON */
+
+.btn-glow{
+display:inline-block;
+margin-top:10px;
+padding:10px 20px;
+background:#f5c518;
+color:black;
+text-decoration:none;
+border-radius:6px;
+}
+
+/* FOOTER */
+
+footer{
+text-align:center;
+padding:20px;
+background:#000;
+color:white;
+}
+.casino-name{
+font-size:18px;
+font-weight:bold;
+color:#f5c518;
+letter-spacing:1px;
+}
+.page-header{
+background:#0b0f2a;
+color:white;
+text-align:center;
+padding:40px 20px;
+font-size:28px;
+font-weight:bold;
+}
