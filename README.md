@@ -3,14 +3,11 @@ Un casino Sencillo a modo de exploración de desarrollo de Paginas Web
 
 # Casino Midnight Ingenium
 
-Para este trabajo se manejan dos ramas:
+Para este trabajo se maneja:
 ## MAIN
 
 Se manejará toda la parte documental y textual
 
-## MASTER
-
-Se trabajará los pull request y avances de codigo respecto a las guias que se mencionen en el MAIN
 
 ## Descripción del Proyecto
 
