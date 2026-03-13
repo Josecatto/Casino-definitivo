@@ -64,7 +64,7 @@ Todos los cambios relevantes del proyecto se documentan en este archivo.
 ---
 ---
 
-## [1.2.0] - 18-03-2026
+## [1.2.0] - 13-03-2026
 
 ### Nuevas Funcionalidades
 
