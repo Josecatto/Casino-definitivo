@@ -99,5 +99,10 @@ Todos los cambios relevantes del proyecto se documentan en este archivo.
 - Mejora en la organización de contenido multimedia dentro del proyecto.
 
 ---
+## [1.2.0] - 13-03-2026
+### Actualización de github
+-Arreglo de el tamaño del archivo de musica usado en el indext
+-Carga actualización de archivos en repositorio de Github
 
+---
 © 2026 Midnight Ingenium Casino
