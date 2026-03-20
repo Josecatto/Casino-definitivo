@@ -2,31 +2,37 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Verificación</title>
+    <title>Verificación - Midnight Ingenium</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" type="image/png" href="../logo-casino.png">
+
+    <link rel="icon" type="image/png" href="../logo-casino.png">
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
 
 <header class="hero small-hero">
-    <h1>Verificación de Cuenta</h1>
-    <img src="../casino-header.png" class="hero-logo">
-
+    <div class="hero-content">
+        <img src="../casino-header.png" class="hero-logo" alt="Midnight Ingenium Logo">
+        <h1>Verificación de Cuenta</h1>
+    </div>
 </header>
 
 <main class="form-container">
 
 <form class="casino-form">
 
-    <label>Código de verificación</label>
-    <input type="text" required>
+    <label for="codigo">Código de verificación</label>
+    <input type="text" id="codigo" placeholder="Ingresa el código enviado" required>
 
-    <button class="btn">Verificar</button>
+    <button type="submit" class="btn">Verificar</button>
 
 </form>
 
 </main>
+
+<footer>
+    <p>© 2026 Midnight Ingenium Casino</p>
+</footer>
 
 </body>
 </html>

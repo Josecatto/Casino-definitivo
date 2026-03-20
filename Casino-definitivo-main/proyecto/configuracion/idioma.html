@@ -4,28 +4,50 @@
     <meta charset="UTF-8">
     <title>Idioma - Midnight Ingenium</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="icon" type="image/png" href="../logo-casino.png">
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
 
 <header class="hero">
-    <img src="../casino-header.png" class="hero-logo">
-    <h1>🌎 Idioma</h1>
+    <div class="hero-content">
+        <img src="../casino-header.png" class="hero-logo" alt="Midnight Ingenium Logo">
+        <h1>🌎 Idioma</h1>
+    </div>
 </header>
 
 <main class="afiliados-container">
+
     <div class="evento">
+
         <h3>Seleccionar idioma</h3>
-        <select>
-            <option>Español</option>
-            <option>English</option>
-            <option>Português</option>
-        </select>
-        <br><br>
-        <button class="btn">Guardar cambios</button>
+
+        <form class="form-idioma">
+
+            <label for="idioma">Elige tu idioma</label>
+
+            <br><br>
+
+            <select id="idioma" name="idioma">
+                <option value="es">Español</option>
+                <option value="en">English</option>
+                <option value="pt">Português</option>
+            </select>
+
+            <br><br>
+
+            <button type="submit" class="btn">Guardar cambios</button>
+
+        </form>
+
     </div>
+
 </main>
+
+<footer>
+    <p>© 2026 Midnight Ingenium Casino</p>
+</footer>
 
 </body>
 </html>

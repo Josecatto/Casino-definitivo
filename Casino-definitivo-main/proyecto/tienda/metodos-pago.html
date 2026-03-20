@@ -2,26 +2,87 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Métodos de Pago</title>
+<title>Métodos de Pago - Midnight Ingenium</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="../logo-casino.png">
 <link rel="stylesheet" href="../assets/css/style.css">
+<style>
+/* Contenedor centrado */
+.info-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Estilo de cada método de pago */
+.payment-card {
+    background: #1e1e1e;
+    color: #fff;
+    text-align: center;
+    padding: 25px 20px;
+    width: 180px;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+.payment-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 20px rgba(0,0,0,0.5);
+}
+
+/* Iconos de pago */
+.payment-card span {
+    display: block;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+/* Header centrado */
+.hero {
+    text-align: center;
+    padding: 30px 10px;
+}
+
+.hero-logo {
+    width: 150px;
+    margin-bottom: 15px;
+}
+</style>
 </head>
 <body>
 
 <header class="hero">
-<h1>💳 Métodos de Pago</h1>
-<img src="../casino-header.png" class="hero-logo">
-
+    <img src="../casino-header.png" class="hero-logo" alt="Midnight Ingenium Logo">
+    <h1>💳 Métodos de Pago</h1>
 </header>
 
-<main class="info-detalle">
-<ul>
-<li>✔ Tarjeta Visa / Mastercard</li>
-<li>✔ Transferencia Bancaria</li>
-<li>✔ Criptomonedas</li>
-<li>✔ PayPal</li>
-</ul>
+<main class="info-container">
+
+<div class="payment-card">
+    <span>💳</span>
+    Tarjeta Visa / Mastercard
+</div>
+
+<div class="payment-card">
+    <span>🏦</span>
+    Transferencia Bancaria
+</div>
+
+<div class="payment-card">
+    <span>₿</span>
+    Criptomonedas
+</div>
+
+<div class="payment-card">
+    <span>🅿️</span>
+    PayPal
+</div>
+
 </main>
 
 </body>

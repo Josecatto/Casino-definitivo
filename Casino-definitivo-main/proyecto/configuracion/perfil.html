@@ -4,25 +4,50 @@
     <meta charset="UTF-8">
     <title>Perfil - Midnight Ingenium</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="icon" type="image/png" href="../logo-casino.png">
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
 
 <header class="hero">
-    <h1>👤 Perfil</h1>
-    <img src="../casino-header.png" class="hero-logo">
-
+    <div class="hero-content">
+        <img src="../casino-header.png" class="hero-logo" alt="Midnight Ingenium Logo">
+        <h1>👤 Perfil</h1>
+    </div>
 </header>
 
 <main class="afiliados-container">
+
     <div class="evento">
         <h3>Información Personal</h3>
-        <input type="text" placeholder="Nombre completo"><br><br>
-        <input type="email" placeholder="Correo electrónico"><br><br>
-        <button class="btn">Actualizar Perfil</button>
+
+        <form>
+
+            <label for="nombre">Nombre completo:</label>
+            <br><br>
+
+            <input type="text" id="nombre" placeholder="Nombre completo">
+
+            <br><br>
+
+            <label for="correo">Correo electrónico:</label>
+            <br><br>
+
+            <input type="email" id="correo" placeholder="Correo electrónico">
+
+            <br><br>
+
+            <button type="submit" class="btn">Actualizar Perfil</button>
+
+        </form>
     </div>
+
 </main>
+
+<footer>
+    <p>© 2026 Midnight Ingenium Casino</p>
+</footer>
 
 </body>
 </html>

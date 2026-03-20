@@ -6,27 +6,72 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="../logo-casino.png">
 <link rel="stylesheet" href="../assets/css/style.css">
+<style>
+/* Contenedor de cards */
+.info-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Estilo de cada card */
+.info-card {
+    background: #1e1e1e;
+    color: #fff;
+    text-align: center;
+    padding: 30px 20px;
+    width: 200px;
+    border-radius: 15px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+.info-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 20px rgba(0,0,0,0.5);
+}
+
+/* Icono de cada card (emoji) */
+.info-card h3 {
+    margin: 0;
+}
+
+/* Hero centrado */
+.hero {
+    text-align: center;
+    padding: 30px 10px;
+}
+
+.hero-logo {
+    width: 150px;
+    margin-bottom: 15px;
+}
+</style>
 </head>
 <body>
 
 <header class="hero">
-<h1>🛒 Tienda</h1>
-<img src="../casino-header.png" class="hero-logo">
-
+    <img src="../casino-header.png" class="hero-logo" alt="Midnight Ingenium Logo">
+    <h1>🛒 Tienda</h1>
 </header>
 
 <main class="info-container">
 
 <a href="comprar-fichas.html" class="info-card">
-<h3>💰 Comprar Fichas</h3>
+    <h3>💰 Comprar Fichas</h3>
 </a>
 
 <a href="metodos-pago.html" class="info-card">
-<h3>💳 Métodos de Pago</h3>
+    <h3>💳 Métodos de Pago</h3>
 </a>
 
 <a href="retiros.html" class="info-card">
-<h3>🏦 Retiros</h3>
+    <h3>🏦 Retiros</h3>
 </a>
 
 </main>

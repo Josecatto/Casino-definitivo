@@ -1,14 +1,97 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Torneos | Midnight Ingenium</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+<meta charset="UTF-8">
+<title>Torneos | Midnight Ingenium</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../assets/css/style.css">
+<style>
+/* HEADER */
+.main-header {
+    text-align: center;
+    padding: 25px 10px;
+    background: #1a1a1a;
+    color: #fff;
+}
+
+.main-header .hero-logo {
+    width: 120px;
+    margin-bottom: 15px;
+}
+
+.main-header nav a {
+    color: #ff9900;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.main-header nav a:hover {
+    color: #ff6a00;
+}
+
+/* TORNEOS CONTAINER */
+.torneos-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 30px;
+}
+
+/* TORNEO CARD */
+.torneo-card {
+    background: #1e1e1e;
+    color: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.torneo-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 25px rgba(255,153,0,0.5);
+}
+
+.torneo-card h2 {
+    margin-bottom: 10px;
+    color: #ff9900;
+}
+
+.torneo-card p {
+    margin: 8px 0;
+}
+
+/* BOTÓN */
+.torneo-card button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #fff;
+    background: linear-gradient(90deg, #ff6a00, #ff9900);
+    transition: all 0.3s ease;
+}
+
+.torneo-card button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(255,153,0,0.5);
+}
+
+/* VIP CARD */
+.torneo-card.vip {
+    border: 2px solid #ffd700;
+}
+</style>
 </head>
 <body>
 
 <header class="main-header">
-    <img src="../casino-header.png" class="hero-logo">
+    <img src="../casino-header.png" class="hero-logo" alt="Midnight Ingenium Logo">
     <h1>🏆 Midnight Ingenium - Torneos</h1>
     <nav>
         <a href="../index.html">Inicio</a>

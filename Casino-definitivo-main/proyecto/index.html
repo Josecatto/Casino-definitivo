@@ -40,7 +40,6 @@ class="video-bg">
 
 </div>
 
-
 </header>
 
 <!-- NAVBAR -->
@@ -153,6 +152,32 @@ class="video-bg">
 <p>© 2026 Midnight Ingenium Casino - Juego Responsable</p>
 
 </footer>
+
+<!-- AUDIO DE FONDO -->
+<audio id="bg-music" loop>
+<source src="assets/musica/musica-casino.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const audio = document.getElementById("bg-music");
+
+// crear botón para activar música
+const botonMusica = document.createElement("button");
+botonMusica.innerText = "🎵 Activar música";
+botonMusica.className = "btn-glow";
+
+botonMusica.style.position = "fixed";
+botonMusica.style.bottom = "20px";
+botonMusica.style.right = "20px";
+botonMusica.style.zIndex = "9999";
+
+document.body.appendChild(botonMusica);
+
+botonMusica.addEventListener("click", function(){
+    audio.play();
+    botonMusica.style.display = "none";
+});
+</script>
 
 </body>
 </html>

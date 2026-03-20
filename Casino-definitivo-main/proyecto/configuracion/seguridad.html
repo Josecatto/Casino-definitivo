@@ -4,28 +4,46 @@
     <meta charset="UTF-8">
     <title>Seguridad - Midnight Ingenium</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="icon" type="image/png" href="../logo-casino.png">
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
 
 <header class="hero">
-    <h1>🔐 Seguridad</h1>
-    <img src="../casino-header.png" class="hero-logo">
+    <div class="hero-content">
+        <img src="../casino-header.png" class="hero-logo" alt="Midnight Ingenium Logo">
+        <h1>🔐 Seguridad</h1>
+    </div>
 </header>
 
 <main class="afiliados-container">
+
     <div class="evento">
         <h3>Cambiar contraseña</h3>
-        <input type="password" placeholder="Nueva contraseña"><br><br>
-        <button class="btn">Actualizar</button>
+
+        <form>
+            <label for="password">Nueva contraseña:</label>
+            <br><br>
+
+            <input type="password" id="password" placeholder="Nueva contraseña">
+
+            <br><br>
+
+            <button type="submit" class="btn">Actualizar</button>
+        </form>
     </div>
 
     <div class="evento">
         <h3>Verificación en dos pasos</h3>
         <button class="btn">Activar</button>
     </div>
+
 </main>
+
+<footer>
+    <p>© 2026 Midnight Ingenium Casino</p>
+</footer>
 
 </body>
 </html>

@@ -2,23 +2,65 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Retiros</title>
+<title>Retiros - Midnight Ingenium</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="../logo-casino.png">
 <link rel="stylesheet" href="../assets/css/style.css">
+<style>
+/* Hero centrado */
+.hero {
+    text-align: center;
+    padding: 30px 10px;
+}
+
+.hero-logo {
+    width: 150px;
+    margin-bottom: 15px;
+}
+
+/* Contenedor principal */
+.info-container {
+    max-width: 500px;
+    margin: 30px auto;
+    text-align: center;
+    background: #1e1e1e;
+    padding: 30px 20px;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+    color: #fff;
+}
+
+/* Botón estilizado con hover */
+.btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(90deg, #ff6a00, #ff9900);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(255,153,0,0.5);
+}
+</style>
 </head>
 <body>
 
 <header class="hero">
-<h1>🏦 Retiros</h1>
-
-<img src="../casino-header.png" class="hero-logo">
-
+    <h1>🏦 Retiros</h1>
+    <img src="../casino-header.png" class="hero-logo" alt="Midnight Ingenium Logo">
 </header>
 
-<main class="info-detalle">
-<p>Los retiros se procesan en 24-48 horas.</p>
-<button class="btn">Solicitar Retiro</button>
+<main class="info-container">
+    <p>Los retiros se procesan en <strong>24-48 horas</strong> de manera segura y confiable.</p>
+    <button class="btn">Solicitar Retiro</button>
 </main>
 
 </body>

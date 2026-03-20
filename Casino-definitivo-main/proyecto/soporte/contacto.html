@@ -2,29 +2,158 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Contacto</title>
+<title>Contacto | Midnight Ingenium</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="../logo-casino.png">
 <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
 
-<header class="hero">
-    <img src="../casino-header.png" class="hero-logo">
-
-<h1>📩 Contacto</h1>
+<header class="hero small-hero">
+    <div class="hero-content">
+        <img src="../casino-header.png" class="hero-logo" alt="Midnight Ingenium Logo">
+        <h1>💬 Contacto/ Caracterización del Jugador</h1>
+    </div>
 </header>
 
 <main class="form-container">
 
+<!-- FORMULARIO DE CONTACTO -->
 <form class="form-box">
-<input type="text" placeholder="Nombre" required>
-<input type="email" placeholder="Correo electrónico" required>
-<textarea placeholder="Tu mensaje"></textarea>
-<button class="btn">Enviar</button>
+    <input type="text" placeholder="Nombre" required>
+    <input type="email" placeholder="Correo electrónico" required>
+    <textarea placeholder="Tu mensaje"></textarea>
+    <button class="btn">Enviar</button>
 </form>
 
 </main>
+
+<!-- FORMULARIO DE CARACTERIZACIÓN DEL JUGADOR -->
+<section class="caracterizacion">
+
+
+
+<form class="form-caracterizacion">
+
+<!-- DATOS GENERALES -->
+<h3>Información general</h3>
+
+<label>Edad</label>
+<input type="number" name="edad" min="18" required>
+
+<label>Ocupación</label>
+<input type="text" name="ocupacion">
+
+<label>Nivel educativo</label>
+<select name="educacion">
+<option>Secundaria</option>
+<option>Técnico</option>
+<option>Tecnólogo</option>
+<option>Universitario</option>
+<option>Posgrado</option>
+</select>
+
+<label>País</label>
+<input type="text" name="pais">
+
+<label>Ciudad</label>
+<input type="text" name="ciudad">
+
+<!-- EXPERIENCIA EN CASINOS -->
+<h3>Experiencia en casinos</h3>
+
+<label>¿Has jugado antes en casinos?</label>
+<select name="experiencia">
+<option>Sí</option>
+<option>No</option>
+</select>
+
+<label>¿Con qué frecuencia juegas?</label>
+<select name="frecuencia">
+<option>Diario</option>
+<option>Varias veces por semana</option>
+<option>Una vez por semana</option>
+<option>Ocasionalmente</option>
+</select>
+
+<label>¿Cuánto tiempo sueles jugar?</label>
+<select name="tiempo_juego">
+<option>Menos de 30 minutos</option>
+<option>30 minutos - 1 hora</option>
+<option>1 - 2 horas</option>
+<option>Más de 2 horas</option>
+</select>
+
+<!-- PREFERENCIAS DE JUEGO -->
+<h3>Preferencias de juego</h3>
+
+<label>¿Qué juegos prefieres?</label><br>
+<input type="checkbox" name="juegos[]" value="slots"> Slots<br>
+<input type="checkbox" name="juegos[]" value="ruleta"> Ruleta<br>
+<input type="checkbox" name="juegos[]" value="poker"> Poker<br>
+<input type="checkbox" name="juegos[]" value="blackjack"> Blackjack<br>
+<input type="checkbox" name="juegos[]" value="baccarat"> Baccarat<br>
+<input type="checkbox" name="juegos[]" value="dados"> Dados<br>
+<input type="checkbox" name="juegos[]" value="apuestas"> Apuestas deportivas<br>
+
+<label>¿Prefieres juegos?</label>
+<input type="radio" name="tipo_juego" value="suerte"> De suerte  
+<input type="radio" name="tipo_juego" value="estrategia"> De estrategia  
+<input type="radio" name="tipo_juego" value="ambos"> Ambos  
+
+<!-- APUESTAS -->
+<h3>Preferencias de apuestas</h3>
+
+<label>Monto promedio que apostarías por ronda</label>
+<select name="apuesta_promedio">
+<option>$1 - $10</option>
+<option>$10 - $50</option>
+<option>$50 - $100</option>
+<option>$100 - $500</option>
+<option>Más de $500</option>
+</select>
+
+<label>¿Qué te motiva más a jugar?</label>
+<select name="motivacion">
+<option>Entretenimiento</option>
+<option>Ganar dinero</option>
+<option>Competencia</option>
+<option>Socializar</option>
+</select>
+
+<!-- EXPERIENCIA DEL SITIO -->
+<h3>Experiencia en la plataforma</h3>
+
+<label>¿Qué tan importante es el diseño del casino?</label>
+<select name="diseno">
+<option>Muy importante</option>
+<option>Importante</option>
+<option>Poco importante</option>
+</select>
+
+<label>¿Qué prefieres en un casino online?</label>
+<input type="checkbox" name="preferencias[]" value="bonos"> Bonos y promociones<br>
+<input type="checkbox" name="preferencias[]" value="rapidez"> Pagos rápidos<br>
+<input type="checkbox" name="preferencias[]" value="variedad"> Gran variedad de juegos<br>
+<input type="checkbox" name="preferencias[]" value="torneos"> Torneos<br>
+<input type="checkbox" name="preferencias[]" value="vip"> Programa VIP<br>
+
+<!-- OPINIÓN -->
+<h3>Opinión del usuario</h3>
+
+<label>¿Qué mejorarías en este casino?</label>
+<textarea name="mejoras" rows="4"></textarea>
+
+<label>¿Recomendarías este casino?</label>
+<input type="radio" name="recomendacion" value="si"> Sí  
+<input type="radio" name="recomendacion" value="no"> No  
+
+<br><br>
+<button type="submit" class="btn-glow">Enviar respuestas</button>
+
+</form>
+
+</section>
 
 </body>
 </html>

@@ -4,24 +4,41 @@
     <meta charset="UTF-8">
     <title>Límites de Apuesta - Midnight Ingenium</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="icon" type="image/png" href="../logo-casino.png">
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
 
 <header class="hero">
-    <h1>💰 Límites de Apuesta</h1>
-    <img src="../casino-header.png" class="hero-logo">
-
+    <div class="hero-content">
+        <img src="../casino-header.png" class="hero-logo" alt="Midnight Ingenium Logo">
+        <h1>💰 Límites de Apuesta</h1>
+    </div>
 </header>
 
 <main class="afiliados-container">
+
     <div class="evento">
         <h3>Establecer límite diario</h3>
-        <input type="number" placeholder="Monto máximo"><br><br>
-        <button class="btn">Guardar</button>
+
+        <form>
+            <label for="limite">Monto máximo:</label>
+            <br><br>
+
+            <input type="number" id="limite" placeholder="Monto máximo">
+
+            <br><br>
+
+            <button type="submit" class="btn">Guardar</button>
+        </form>
     </div>
+
 </main>
+
+<footer>
+    <p>© 2026 Midnight Ingenium Casino</p>
+</footer>
 
 </body>
 </html>
