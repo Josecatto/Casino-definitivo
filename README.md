@@ -1,128 +1,271 @@
-# Casino-definitivo
-Un casino Sencillo a modo de exploración de desarrollo de Paginas Web
+# 🎰 Casino Midnight Ingenium
 
-# Casino Midnight Ingenium
+> Proyecto académico de desarrollo web — Exploración de tecnologías frontend modernas
 
-Para este trabajo se maneja:
-## MAIN
-
-Se manejará toda la parte documental y textual
-
-
-## Descripción del Proyecto
-
-**Casino Midnight Ingenium** es una página web estructurada como una plataforma integral de casino online. El proyecto simula un ecosistema digital completo que incluye gestión de usuarios, juegos de casino, apuestas deportivas, promociones, tienda virtual, soporte técnico y configuración avanzada.
-
-Este desarrollo tiene fines académicos y demostrativos, enfocado en aplicar principios de arquitectura web modular, organización jerárquica y buenas prácticas de estructuración de proyectos.
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
 
 ---
 
-# Arquitectura del Proyecto
+## 📋 Descripción del Proyecto
 
-## Estructura General
+**Casino Midnight Ingenium** es una aplicación web estructurada como una plataforma integral de casino online. Simula un ecosistema digital completo que incluye gestión de usuarios, juegos de casino interactivos, apuestas deportivas, promociones, tienda virtual, soporte técnico y configuración avanzada.
 
-/ (raíz)
-│── index.html
+Este desarrollo tiene **fines estrictamente académicos y demostrativos**, enfocado en aplicar los 28 temas del curso [html6.es](https://www.html6.es/index.html#punto1Links), principios de arquitectura web modular, organización jerárquica y buenas prácticas de estructuración de proyectos frontend.
+
+> ⚠️ **Aviso:** Este proyecto no opera con dinero real. Todos los juegos, saldos y transacciones son simulados con fines educativos.
+
+---
+
+## 🗂️ Arquitectura del Proyecto
+```
+Casino-Midnight-Ingenium/
 │
-├── cuenta/
-├── juegos/
-├── apuestas-deportivas/
-├── torneos/
-├── promociones/
-├── tienda/
-├── soporte/
-├── quienes-somos/
-├── configuracion/
-├── legal/
-├── afiliados/
-├── notificaciones/
+├── index.html                  ← Página principal
+├── README.md
 │
 ├── assets/
-│ ├── css/
-│ ├── js/
-│ ├── images/
-│ ├── icons/
-│ └── fonts/
+│   ├── css/
+│   │   └── style.css           ← Estilos globales
+│   ├── js/
+│   │   └── main.js             ← JavaScript principal
+│   ├── images/                 ← Imágenes del proyecto
+│   ├── icons/                  ← Íconos
+│   ├── fonts/                  ← Fuentes locales
+│   └── musica/                 ← Audio de ambiente
 │
-└── README.md
+├── cuenta/
+│   ├── login.html
+│   ├── registro.html
+│   ├── historial.html
+│   └── recuperar-password.html
+│
+├── juegos/
+│   ├── index.html              ← Catálogo de juegos
+│   ├── ruleta.html             ← Ruleta (Canvas)
+│   ├── blackjack.html          ← Blackjack (SVG)
+│   ├── slots.html              ← Slots (Animaciones)
+│   ├── crash.html              ← Crash Game (Canvas)
+│   ├── poker.html
+│   ├── baccarat.html
+│   ├── dados.html
+│   └── en-vivo.html            ← Casino en vivo (iframe)
+│
+├── apuestas-deportivas/
+│   ├── index.html
+│   ├── futbol.html
+│   ├── baloncesto.html
+│   ├── tenis.html
+│   ├── esports.html
+│   └── apuestas-en-vivo.html
+│
+├── torneos/
+│   └── index.html
+│
+├── promociones/
+│   ├── index.html
+│   ├── bono-bienvenida.html
+│   ├── cashback.html
+│   └── programa-vip.html
+│
+├── tienda/
+│   └── index.html
+│
+├── soporte/
+│   └── index.html
+│
+├── quienes-somos/
+│   └── index.html
+│
+├── configuracion/
+│   └── tema.html
+│
+├── legal/
+│   ├── terminos.html
+│   └── privacidad.html
+│
+├── afiliados/
+│   ├── index.html
+│   ├── panel.html
+│   └── registro-afiliado.html
+│
+└── notificaciones/
+    └── index.html
+```
 
 ---
 
-# Justificación Estructural
+## 🎯 Justificación Estructural
 
-La estructura fue diseñada bajo principios de:
+La arquitectura fue diseñada bajo los siguientes principios:
 
-- **Modularidad:** Cada carpeta representa un módulo independiente.
-- **Escalabilidad:** Permite integrar backend y base de datos en el futuro.
-- **Separación de responsabilidades:**  
-  - HTML → Estructura  
-  - CSS → Diseño  
-  - JS → Interactividad  
-  - Assets → Recursos compartidos  
-- **Organización profesional:** Facilita mantenimiento y trabajo colaborativo.
-
----
-# Guía para Clonar y Ejecutar el Proyecto Localmente
-
-Sigue estos pasos para descargar y visualizar el proyecto **Casino Midnight Ingenium** en tu computadora.
+| Principio | Descripción |
+|---|---|
+| **Modularidad** | Cada carpeta es un módulo independiente con su propia responsabilidad |
+| **Escalabilidad** | Permite integrar backend, base de datos o frameworks en el futuro |
+| **Separación de responsabilidades** | HTML → Estructura · CSS → Diseño · JS → Interactividad |
+| **Organización profesional** | Facilita mantenimiento, trabajo colaborativo y control de versiones |
+| **Reutilización** | `style.css` y `main.js` compartidos por todos los módulos |
 
 ---
 
-## Requisitos Previos
+## 📚 Temas del Curso Aplicados (html6.es)
 
-Antes de comenzar, asegúrate de tener instalado:
-
-- Git → https://git-scm.com/
-- Visual Studio Code (opcional pero recomendado) → https://code.visualstudio.com/
-- Un navegador web (Google Chrome recomendado)
+| # | Tema | Dónde se aplica |
+|---|---|---|
+| T1 | Estructura semántica HTML5 | `index.html` — `header`, `nav`, `main`, `section`, `article`, `footer` |
+| T2 | Etiquetas básicas | Todos los archivos — `h1`-`h3`, `p`, `a`, `ul`, `li`, `strong` |
+| T3 | Imágenes, listas y enlaces | `index.html`, `juegos/index.html`, navegación general |
+| T4 | Introducción a CSS | `style.css` — variables CSS, selectores, reset |
+| T5 | Propiedades CSS más usadas | `style.css` — `color`, `padding`, `margin`, `font-size` |
+| T6 | Favicon | Todos los `<head>` — `logo-casino.png` |
+| T7 | Bordes redondeados | `style.css` — `.rounded`, `.card`, `.btn-glow` |
+| T8 | Sombras | `style.css` — `text-shadow`, `box-shadow` en cards y botones |
+| T9 | Imágenes de fondo | `style.css` — `.bg-pattern`, hero overlay |
+| T10 | Tipografías | Google Fonts — `Cinzel` (títulos) + `Rajdhani` (texto) |
+| T11 | Float | `style.css` — `.topbar` con `float: left/right` |
+| T12 | Centrar contenido | `style.css` — `.center-wrap`, `margin: auto` |
+| T13 | Flexbox | `style.css` — navbar, cards, controles de juegos |
+| T14 | Posición de elementos | Hero video, navbar sticky, submenús con `position: absolute` |
+| T15 | Transform | Hover en cards, botones — `translateY`, `scale` |
+| T16 | Formularios | `cuenta/registro.html`, `afiliados/registro-afiliado.html` — todos los tipos de input |
+| T17 | iframe | Hero YouTube en `index.html`, videos en `baloncesto.html`, `esports.html`, `juegos/en-vivo.html` |
+| T18 | Transiciones | `style.css` — `transition` en todos los elementos interactivos |
+| T19 | Columnas de texto | `index.html` — sección "Sobre Midnight Ingenium" con `column-count` |
+| T20 | Vídeo HTML5 | `index.html` — elemento `<video>` con `controls` |
+| T21 | Audio HTML5 | `index.html` — elemento `<audio>` + botón flotante de música |
+| T22 | Transparencias y degradados | `style.css` — `rgba`, `linear-gradient` en CTAs y secciones |
+| T23 | Animaciones CSS | `style.css` + `juegos/slots.html` — `@keyframes`, rodillos animados |
+| T24 | SVG | `juegos/blackjack.html` — cartas SVG · `juegos/index.html` — badges decorativos |
+| T25 | Canvas | `juegos/ruleta.html` — ruleta dibujada · `juegos/crash.html` — gráfica animada |
+| T26 | Media Queries | `style.css` — breakpoints 480px, 768px, 1024px |
+| T27 | Contenido editable | `configuracion/tema.html` — campos con `contenteditable="true"` |
+| T28 | localStorage (Storage) | `assets/js/main.js` + `configuracion/tema.html` — saldo, perfil, preferencias |
 
 ---
 
-## Paso 1: Copiar la URL del Repositorio
+## 🎮 Módulos y Funcionalidades
 
-1. Ve al repositorio en GitHub.
-2. Haz clic en el botón verde **"Code"**.
-3. Copia la URL HTTPS del repositorio.
+### 🏠 Página Principal (`index.html`)
+- Hero con video de fondo via iframe YouTube
+- Navbar con submenús desplegables
+- Sección de juegos destacados con cards animadas
+- Texto en columnas (T19)
+- Reproductor de video HTML5 (T20)
+- Audio de ambiente con botón flotante (T21)
+- CTA con degradado y transparencias (T22)
 
-Ejemplo:
+### 🎰 Juegos (`juegos/`)
+| Archivo | Descripción | Tecnología destacada |
+|---|---|---|
+| `ruleta.html` | Ruleta europea completa con apuestas múltiples | Canvas (T25) |
+| `blackjack.html` | Blackjack 21 con cartas dibujadas | SVG (T24) |
+| `slots.html` | Slots con 5 rodillos y jackpot progresivo | Animaciones CSS (T23) |
+| `crash.html` | Crash game con gráfica en tiempo real | Canvas animado (T25) |
+| `poker.html` | Poker Texas Hold'em | JavaScript |
+| `baccarat.html` | Baccarat Punto Banco | JavaScript |
+| `dados.html` | Sic Bo / Dados | JavaScript |
+| `en-vivo.html` | Casino en vivo con dealers simulados | iframe (T17) |
+
+### ⚽ Apuestas Deportivas (`apuestas-deportivas/`)
+- **Fútbol, Baloncesto, Tenis, eSports:** eventos con cuotas reales
+- **En Vivo:** cuotas con fluctuación automática cada 4 segundos
+- **Betslip flotante** en todos los módulos — calcula ganancia potencial en tiempo real
+- **Videos embed** de partidos simulados via YouTube iframe
+- **Marcador animado** en baloncesto que actualiza puntos automáticamente
+
+### 👤 Cuenta (`cuenta/`)
+- **Login:** formulario con validación JS
+- **Registro:** formulario externo via Formspree — todos los tipos de input HTML5 (T16)
+- **Historial:** tabla de partidas con resultados
+- **Recuperar contraseña:** flujo de recuperación
+
+### 🤝 Afiliados (`afiliados/`)
+- **index.html:** presentación del programa con estadísticas y tabla de niveles
+- **panel.html:** dashboard con métricas, barra de progreso de nivel, tabla de referidos y retiro
+- **registro-afiliado.html:** formulario externo Formspree con plataforma y método de pago
+
+### ⚙️ Configuración (`configuracion/`)
+- Toggles de preferencias guardados en `localStorage` (T28)
+- Campos de perfil editables directamente con `contenteditable` (T27)
+- Visualizador del storage en tiempo real
+- Opción de borrar todos los datos
+
+### 📄 Legal (`legal/`)
+- Términos y Condiciones
+- Política de Privacidad
 
 ---
 
-## Paso 2: Abrir la Terminal
+## 🛠️ Tecnologías Utilizadas
 
-En tu computadora:
-
-- Windows → Abre **Git Bash** o **CMD**
-- Mac/Linux → Abre **Terminal**
+| Tecnología | Uso |
+|---|---|
+| **HTML5** | Estructura semántica de todas las páginas |
+| **CSS3** | Estilos, animaciones, variables, grid y flexbox |
+| **JavaScript (ES6+)** | Interactividad, juegos, localStorage, DOM |
+| **Canvas API** | Ruleta y gráfica del Crash Game |
+| **SVG** | Cartas del Blackjack y elementos decorativos |
+| **Google Fonts** | Tipografías Cinzel y Rajdhani |
+| **Formspree** | Alojamiento externo de formularios |
+| **YouTube iframe API** | Videos de fondo y partidos deportivos |
+| **localStorage** | Persistencia de saldo, perfil y configuración |
 
 ---
 
-## Paso 3: Clonar el Repositorio
+## 🚀 Guía para Clonar y Ejecutar
 
-En la terminal, escribe:
+### Requisitos Previos
+- [Git](https://git-scm.com/)
+- [Visual Studio Code](https://code.visualstudio.com/) *(recomendado)*
+- Navegador web *(Google Chrome recomendado)*
 
+### Paso 1 — Clonar el repositorio
 ```bash
----
-
 git clone https://github.com/tu-usuario/Casino-Midnight-Ingenium.git
 ```
-Presiona **Enter** y espera a que termine la descarga.
 
----
-
-## Paso 4: Ingresar a la Carpeta del Proyecto
-
-Una vez descargado, escribe:
-
+### Paso 2 — Entrar a la carpeta
 ```bash
 cd Casino-Midnight-Ingenium
 ```
-## Paso 5: Abrir el Proyecto
 
-Entra a la carpeta del proyecto.
+### Paso 3 — Abrir el proyecto
 
-Haz doble clic en el archivo:
+**Opción A — Doble clic:**
+Abre directamente el archivo `index.html` en tu navegador.
+
+**Opción B — VS Code con Live Server:**
 ```bash
-index.html
+code .
 ```
-Se abrirá automáticamente en tu navegador.
+Instala la extensión **Live Server**, clic derecho en `index.html` → *Open with Live Server*.
+
+> 💡 Se recomienda Live Server para evitar restricciones CORS con audio y storage.
+
+---
+
+## 👥 Equipo de Desarrollo
+
+| Rol | Responsabilidad |
+|---|---|
+| Desarrollador Frontend | HTML, CSS, JavaScript |
+| Diseñador UI | Estética, paleta de colores, tipografía |
+| QA / Tester | Pruebas en distintos navegadores y dispositivos |
+
+---
+
+## 📌 Notas Importantes
+
+- El formulario de registro usa **Formspree** — reemplaza `YOUR_FORM_ID` con tu ID real en [formspree.io](https://formspree.io)
+- Los saldos y juegos son **completamente simulados** — no hay transacciones reales
+- El proyecto está optimizado para **Chrome, Firefox y Edge** modernos
+- Para mejor experiencia de audio, interactúa con la página antes de activar la música *(política de autoplay del navegador)*
+
+---
+
+## 📄 Licencia
+
+Proyecto académico — Uso educativo y demostrativo.  
+© 2026 Midnight Ingenium Casino · Todos los derechos reservados.
