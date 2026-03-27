@@ -1,183 +1,266 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Midnight Ingenium Casino</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- TEMA 1: Estructura semántica HTML5 -->
+    <meta charset="UTF-8">
+    <title>Midnight Ingenium Casino | Elite Gaming</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Casino online premium - Ruleta, Blackjack, Slots, Poker y más">
+    <meta name="author" content="Midnight Ingenium">
 
-<!-- FAVICON -->
-<link rel="icon" type="image/png" sizes="32x32" href="logo-casino.png">
+    <!-- TEMA 6: Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="logo-casino.png">
 
-<!-- CSS -->
-<link rel="stylesheet" href="assets/css/style.css">
+    <!-- TEMA 10: Tipografía Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
 
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <style>
+        /* Ajuste rápido para el contenedor del video del tour */
+        .tour-video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            max-width: 1000px;
+            margin: 0 auto 40px;
+            border-radius: 20px;
+            border: 2px solid var(--color-oro);
+            box-shadow: 0 0 30px rgba(245, 197, 24, 0.2);
+        }
+        .tour-video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </head>
 
-<body>git add .gitattributes
+<body class="bg-pattern">
 
-<!-- TOPBAR -->
-<div class="topbar-left">
-
-<img src="logo-casino.png" class="logo-small">
-
-<span class="casino-name">Midnight Ingenium</span>
-
-<div class="saldo">💰 Saldo: $1,250</div>
-
+<!-- TEMA 11: Float en topbar -->
+<div class="topbar">
+    <div class="topbar-left">
+        <!-- TEMA 3: Imagen con atributo alt -->
+        <img src="logo-casino.png" class="logo-small" alt="Logo Midnight Ingenium">
+        <span class="casino-name">Midnight Ingenium</span>
+    </div>
+    <div class="topbar-right">
+        <span class="saldo" id="saldo-display">💰 Saldo: $1,250</span>
+        <span class="notificaciones">🔔 3</span>
+        <span style="font-size:0.85rem; color:#aaa;">🕐 <span id="hora-actual"></span></span>
+    </div>
 </div>
 
-<!-- HERO VIDEO -->
+<!-- TEMA 17: IFRAME - Hero con video YouTube -->
 <header class="hero">
-
-<div class="video-container">
-
-<iframe
-src="https://www.youtube.com/embed/BFIeduBQZsQ?autoplay=1&mute=1&controls=0&loop=1&playlist=BFIeduBQZsQ"
-frameborder="0"
-allow="autoplay; fullscreen"
-class="video-bg">
-</iframe>
-
-</div>
-
+    <div class="video-container">
+        <iframe
+            class="video-bg"
+            src="https://www.youtube.com/embed/BFIeduBQZsQ?autoplay=1&mute=1&controls=0&loop=1&playlist=BFIeduBQZsQ&playsinline=1"
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            allowfullscreen>
+        </iframe>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <img src="logo-casino.png" class="logo" style="width:90px;margin-bottom:15px;" alt="Logo">
+        <h1 class="anim-flicker">🎰 MIDNIGHT INGENIUM</h1>
+        <p>El casino online más exclusivo de Latinoamérica</p>
+        <div style="margin-top: 25px;">
+            <a href="cuenta/login.html" class="btn-glow">Jugar Ahora →</a>
+            &nbsp;
+            <a href="juegos/index.html" class="btn-oro">Ver Juegos</a>
+        </div>
+    </div>
 </header>
 
-<!-- NAVBAR -->
-<nav class="navbar">
+<!-- TEMA 13: NAVBAR con Flexbox -->
+<nav class="navbar" role="navigation" aria-label="Menú principal">
+    <ul class="menu">
+        <li><a href="index.html">🏠 Inicio</a></li>
 
-<ul class="menu">
+        <li class="dropdown">
+            <a href="juegos/index.html">🎮 Juegos ▾</a>
+            <ul class="submenu">
+                <li><a href="juegos/slots.html">🎰 Slots</a></li>
+                <li><a href="juegos/ruleta.html">🎡 Ruleta</a></li>
+                <li><a href="juegos/blackjack.html">🃏 Blackjack</a></li>
+                <li><a href="juegos/poker.html">♠️ Poker</a></li>
+                <li><a href="juegos/baccarat.html">🎴 Baccarat</a></li>
+                <li><a href="juegos/crash.html">🚀 Crash</a></li>
+                <li><a href="juegos/dados.html">🎲 Dados</a></li>
+                <li><a href="juegos/en-vivo.html">📺 En Vivo</a></li>
+            </ul>
+        </li>
 
-<li><a href="index.html">Inicio</a></li>
+        <li class="dropdown">
+            <a href="apuestas-deportivas/index.html">⚽ Apuestas ▾</a>
+            <ul class="submenu">
+                <li><a href="apuestas-deportivas/futbol.html">⚽ Fútbol</a></li>
+                <li><a href="apuestas-deportivas/baloncesto.html">🏀 Baloncesto</a></li>
+                <li><a href="apuestas-deportivas/tenis.html">🎾 Tenis</a></li>
+                <li><a href="apuestas-deportivas/esports.html">🎮 eSports</a></li>
+                <li><a href="apuestas-deportivas/apuestas-en-vivo.html">🔴 En Vivo</a></li>
+            </ul>
+        </li>
 
-<li class="dropdown">
-<a href="juegos/index.html">Juegos ▾</a>
+        <li><a href="torneos/index.html">🏆 Torneos</a></li>
 
-<ul class="submenu">
-<li><a href="juegos/slots.html">Slots</a></li>
-<li><a href="juegos/ruleta.html">Ruleta</a></li>
-<li><a href="juegos/blackjack.html">Blackjack</a></li>
-<li><a href="juegos/poker.html">Poker</a></li>
-<li><a href="juegos/baccarat.html">Baccarat</a></li>
-<li><a href="juegos/crash.html">Crash</a></li>
-<li><a href="juegos/dados.html">Dados</a></li>
-<li><a href="juegos/en-vivo.html">En Vivo</a></li>
-</ul>
+        <li class="dropdown">
+            <a href="promociones/index.html">🎁 Promos ▾</a>
+            <ul class="submenu">
+                <li><a href="promociones/bono-bienvenida.html">🎁 Bono</a></li>
+                <li><a href="promociones/cashback.html">💸 Cashback</a></li>
+                <li><a href="promociones/programa-vip.html">👑 VIP</a></li>
+            </ul>
+        </li>
 
-</li>
-
-<li class="dropdown">
-<a href="apuestas-deportivas/index.html">Apuestas ▾</a>
-
-<ul class="submenu">
-<li><a href="apuestas-deportivas/futbol.html">Fútbol</a></li>
-<li><a href="apuestas-deportivas/baloncesto.html">Baloncesto</a></li>
-<li><a href="apuestas-deportivas/tenis.html">Tenis</a></li>
-<li><a href="apuestas-deportivas/esports.html">eSports</a></li>
-<li><a href="apuestas-deportivas/apuestas-en-vivo.html">En Vivo</a></li>
-</ul>
-
-</li>
-
-<li><a href="torneos/index.html">Torneos</a></li>
-
-<li class="dropdown">
-<a href="promociones/index.html">Promociones ▾</a>
-
-<ul class="submenu">
-<li><a href="promociones/bono-bienvenida.html">Bono</a></li>
-<li><a href="promociones/cashback.html">Cashback</a></li>
-<li><a href="promociones/programa-vip.html">VIP</a></li>
-</ul>
-
-</li>
-
-<li><a href="tienda/index.html">Tienda</a></li>
-<li><a href="afiliados/index.html">Afiliados</a></li>
-<li><a href="soporte/index.html">Soporte</a></li>
-<li><a href="quienes-somos/index.html">Nosotros</a></li>
-
-<li><a href="cuenta/login.html" class="btn-login">Iniciar Sesión</a></li>
-
-</ul>
-
+        <li><a href="tienda/index.html">🛒 Tienda</a></li>
+        <li><a href="afiliados/index.html">🤝 Afiliados</a></li>
+        <li><a href="soporte/index.html">💬 Soporte</a></li>
+        <li><a href="quienes-somos/index.html">ℹ️ Nosotros</a></li>
+        <li><a href="cuenta/login.html" class="btn-login">Iniciar Sesión</a></li>
+    </ul>
 </nav>
 
-<!-- MAIN -->
+<!-- MAIN SEMÁNTICO -->
 <main>
 
-<section class="cards">
+    <h2 class="section-title">🎮 Juegos Destacados</h2>
+    <p class="section-subtitle">Los mejores títulos con gráficos de última generación</p>
 
-<article class="card">
+    <section class="cards" aria-label="Juegos destacados">
+        <article class="card">
+            <img src="assets/images/ruleta.png" alt="Ruleta Midnight">
+            <div class="card-body">
+                <h2>🎡 Ruleta Midnight</h2>
+                <p>Vive la emoción del azar con diseño premium y gráficos 3D.</p>
+                <a href="juegos/ruleta.html" class="btn-glow">Jugar Ahora</a>
+            </div>
+        </article>
 
-<img src="assets/images/ruleta.png">
+        <article class="card">
+            <img src="assets/images/blackjack.png" alt="Blackjack Ingenium">
+            <div class="card-body">
+                <h2>🃏 Blackjack 21</h2>
+                <p>Alcanza 21 y vence al dealer en tiempo real.</p>
+                <a href="juegos/blackjack.html" class="btn-glow">Jugar Ahora</a>
+            </div>
+        </article>
 
-<h2>🎲 Ruleta Midnight</h2>
+        <article class="card">
+            <img src="assets/images/slots.png" alt="Slots Mágicos">
+            <div class="card-body">
+                <h2>🎰 Slots Épicos</h2>
+                <p>Gira y gana con más de 200 máquinas temáticas.</p>
+                <a href="juegos/slots.html" class="btn-glow">Jugar Ahora</a>
+            </div>
+        </article>
 
-<p>Vive la emoción del azar con diseño premium.</p>
+        <article class="card">
+            <img src="assets/images/poker.png" alt="Poker Texas">
+            <div class="card-body">
+                <h2>♠️ Poker Texas</h2>
+                <p>Estrategia y bluff en la mesa más emocionante.</p>
+                <a href="juegos/poker.html" class="btn-glow">Jugar Ahora</a>
+            </div>
+        </article>
 
-<a href="juegos/ruleta.html" class="btn-glow">Jugar Ahora</a>
+        <article class="card">
+            <img src="assets/images/crash.jpeg" alt="Crash Game">
+            <div class="card-body">
+                <h2>🚀 Crash Game</h2>
+                <p>¿Hasta cuándo aguantas? Retira antes que explote.</p>
+                <a href="juegos/crash.html" class="btn-glow">Jugar Ahora</a>
+            </div>
+        </article>
 
-</article>
+        <article class="card">
+            <img src="assets/images/apuestas-deportivas.png" alt="Apuestas Deportivas">
+            <div class="card-body">
+                <h2>⚽ Deportivas</h2>
+                <p>Las mejores cuotas del mercado en tiempo real.</p>
+                <a href="apuestas-deportivas/index.html" class="btn-glow">Apostar</a>
+            </div>
+        </article>
+    </section>
 
-<article class="card">
+    <!-- TEMA 19: Columnas de texto -->
+    <section style="padding: 40px 20px; background: rgba(22,22,58,0.4); margin: 20px 40px; border-radius: 16px;">
+        <h2 class="section-title" style="padding-top:10px;">📜 Sobre Midnight Ingenium</h2>
+        <div class="columnas-texto">
+            <p>Midnight Ingenium Casino es la plataforma de entretenimiento en línea más prestigiosa de Latinoamérica. Fundada en 2024, hemos construido un ecosistema digital donde la emoción, la seguridad y la tecnología de vanguardia se fusionan para ofrecer la experiencia definitiva del juego responsable.</p>
+            <p>Nuestro catálogo incluye más de 500 juegos de casino, desde los clásicos como ruleta, blackjack y baccarat hasta los más modernos como el Crash Game y las slots temáticas. Cada juego ha sido desarrollado con algoritmos de justicia certificados por laboratorios internacionales.</p>
+            <p>La seguridad de nuestros jugadores es nuestra prioridad número uno. Utilizamos encriptación SSL de 256 bits para todas las transacciones, y nuestros sistemas de verificación de identidad garantizan un ambiente libre de fraudes.</p>
+            <p>Nuestro programa VIP Midnight ofrece beneficios exclusivos: bonos personalizados, atención 24/7 con agentes dedicados, acceso prioritario a torneos privados y cashback semanal.</p>
+            <p>Aceptamos tarjetas Visa y Mastercard, transferencias bancarias, criptomonedas como Bitcoin, Ethereum y USDT, y múltiples billeteras electrónicas disponibles en toda la región latinoamericana.</p>
+        </div>
+    </section>
 
-<img src="assets/images/poker.png">
+    <!-- TEMA 20: Video YouTube Gameplay (TOUR ACTUALIZADO) -->
+    <section>
+        <h2 class="section-title">🎬 Tour de Slots en Vivo</h2>
+        <p class="section-subtitle">Explora nuestras máquinas más populares (Autoplay Activo)</p>
+        <div class="tour-video-wrapper">
+            <iframe 
+                src="https://www.youtube.com/embed/ZktUgnBPIwQ?autoplay=1&mute=1&controls=0&loop=1&playlist=ZktUgnBPIwQ&rel=0&showinfo=0" 
+                title="Midnight Ingenium Gameplay Tour"
+                frameborder="0"
+                allow="autoplay; encrypted-media" 
+                allowfullscreen>
+            </iframe>
+        </div>
+    </section>
 
-<h2>🃏 Poker Ingenium</h2>
+    <!-- TEMA 21: Audio HTML5 -->
+    <section style="padding: 20px 40px; background: rgba(11,11,20,0.5);">
+        <h2 class="section-title" style="padding-top:10px;">🎵 Ambiente del Casino</h2>
+        <div class="audio-container">
+            <p style="margin-bottom:15px; color:#aaa; text-align:center;">Activa la música de ambiente para una experiencia inmersiva:</p>
+            <div style="display:flex; justify-content:center;">
+                <audio id="audio-casino" controls loop>
+                    <source src="assets/musica/musica-casino (2).mp3" type="audio/mpeg">
+                    Tu navegador no soporta audio HTML5.
+                </audio>
+            </div>
+        </div>
+    </section>
 
-<p>Estrategia y competencia en tiempo real.</p>
-
-<a href="juegos/poker.html" class="btn-glow">Entrar a la Mesa</a>
-
-</article>
-
-<article class="card">
-
-<img src="assets/images/apuestas-deportivas.png">
-
-<h2>⚽ Apuestas Deportivas</h2>
-
-<p>Las mejores cuotas del mercado.</p>
-
-<a href="apuestas-deportivas/index.html" class="btn-glow">Apostar Ahora</a>
-
-</article>
-
-</section>
+    <!-- TEMA 22: Degradados y transparencias -->
+    <section style="margin: 40px; border-radius: 20px; overflow: hidden;">
+        <div style="background: linear-gradient(135deg, rgba(245,197,24,0.15), rgba(0,255,174,0.1), rgba(0,212,255,0.15)); padding: 50px; text-align: center; border: 1px solid rgba(245,197,24,0.2);">
+            <h2 style="font-size:2rem; color: var(--color-oro); margin-bottom:15px;">🏆 ¿Listo para ganar?</h2>
+            <p style="color:#ccc; margin-bottom:25px; font-size:1.1rem;">Regístrate ahora y recibe hasta <strong style="color:var(--color-verde);">$500 USD</strong> en bono de bienvenida</p>
+            <a href="cuenta/registro.html" class="btn-glow" style="margin-right:15px;">Crear Cuenta Gratis</a>
+            <a href="cuenta/login.html" class="btn-oro">Iniciar Sesión</a>
+        </div>
+    </section>
 
 </main>
 
+<!-- FOOTER -->
 <footer>
-
-<p>© 2026 Midnight Ingenium Casino - Juego Responsable</p>
-
+    <div style="display:flex; justify-content:center; gap:30px; flex-wrap:wrap; margin-bottom:20px;">
+        <a href="juegos/index.html">🎮 Juegos</a>
+        <a href="apuestas-deportivas/index.html">⚽ Apuestas</a>
+        <a href="cuenta/registro.html">📝 Registro</a>
+        <a href="soporte/index.html">💬 Soporte</a>
+        <a href="legal/terminos.html">📄 Términos</a>
+        <a href="quienes-somos/index.html">ℹ️ Nosotros</a>
+    </div>
+    <p>© 2026 Midnight Ingenium Casino · Juego Responsable · 18+ · Licencia #MIC-2026</p>
+    <p style="margin-top:8px; font-size:0.8rem;">El juego puede ser adictivo. Juega responsablemente.</p>
 </footer>
 
-<!-- AUDIO DE FONDO -->
-<audio id="bg-music" loop>
-    <source src="assets/musica/musica-casino (2).mp3" type="audio/mpeg">
-</audio>
-
-<script>
-const audio = document.getElementById("bg-music");
-
-// crear botón para activar música
-const botonMusica = document.createElement("button");
-botonMusica.innerText = "🎵 Activar música";
-botonMusica.className = "btn-glow";
-
-botonMusica.style.position = "fixed";
-botonMusica.style.bottom = "20px";
-botonMusica.style.right = "20px";
-botonMusica.style.zIndex = "9999";
-
-document.body.appendChild(botonMusica);
-
-botonMusica.addEventListener("click", function(){
-    audio.play();
-    botonMusica.style.display = "none";
-});
-</script>
-
+<!-- JS -->
+<script src="assets/js/main.js"></script>
 </body>
 </html>

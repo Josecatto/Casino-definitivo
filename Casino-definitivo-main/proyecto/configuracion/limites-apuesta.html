@@ -6,32 +6,202 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="icon" type="image/png" href="../logo-casino.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
-</head>
-<body>
 
-<header class="hero">
-    <div class="hero-content">
-        <img src="../casino-header.png" class="hero-logo" alt="Midnight Ingenium Logo">
-        <h1>💰 Límites de Apuesta</h1>
+    <style>
+        .limits-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px 80px;
+        }
+
+        /* Alerta de Juego Responsable */
+        .warning-box {
+            background: rgba(245, 197, 24, 0.05);
+            border: 1px solid var(--color-oro);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .warning-icon { font-size: 1.5rem; }
+        .warning-text {
+            font-family: 'Rajdhani', sans-serif;
+            color: #ddd;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        /* Tarjetas de Límites */
+        .limits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .limit-card {
+            background: var(--color-card);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 25px;
+            transition: 0.3s;
+        }
+
+        .limit-card:hover {
+            border-color: var(--color-verde);
+            transform: translateY(-5px);
+        }
+
+        .limit-card h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--color-oro);
+            font-size: 1rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Estilo del Input de Dinero */
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .currency-symbol {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-verde);
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+        }
+
+        .limit-input {
+            width: 100%;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 12px 12px 12px 35px;
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.2rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .limit-input:focus {
+            border-color: var(--color-verde);
+            box-shadow: 0 0 10px rgba(0, 255, 174, 0.2);
+        }
+
+        .btn-save-limit {
+            width: 100%;
+            background: rgba(0, 255, 174, 0.1);
+            color: var(--color-verde);
+            border: 1px solid var(--color-verde);
+            padding: 10px;
+            border-radius: 8px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-save-limit:hover {
+            background: var(--color-verde);
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 255, 174, 0.4);
+        }
+
+        .history-note {
+            text-align: center;
+            margin-top: 40px;
+            font-family: 'Rajdhani', sans-serif;
+            color: #666;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+
+<body class="bg-pattern">
+
+<div class="topbar">
+    <div class="topbar-left">
+        <img src="../logo-custom.png" class="logo-small" alt="Logo">
+        <span class="casino-name">Midnight Ingenium</span>
     </div>
+    <div class="topbar-right">
+        <span class="saldo">💰 $1,250.00</span>
+    </div>
+</div>
+
+<nav class="navbar">
+    <ul class="menu">
+        <li><a href="../index.html">🏠 Inicio</a></li>
+        <li><a href="index.html">⚙️ Ajustes</a></li>
+        <li><a href="limites-apuesta.html" style="color: var(--color-oro);">💰 Límites</a></li>
+    </ul>
+</nav>
+
+<header class="page-header">
+    <h1>💰 Gestión de Banca</h1>
+    <p>Establece tus límites para un juego seguro y controlado</p>
 </header>
 
-<main class="afiliados-container">
+<main class="limits-container">
 
-    <div class="evento">
-        <h3>Establecer límite diario</h3>
+    <!-- AVISO DE SEGURIDAD -->
+    <div class="warning-box">
+        <span class="warning-icon">🛡️</span>
+        <div class="warning-text">
+            <strong>Nota de Seguridad:</strong> Los aumentos de límites tardarán 24 horas en aplicarse por motivos de protección al jugador. Las reducciones son instantáneas.
+        </div>
+    </div>
 
-        <form>
-            <label for="limite">Monto máximo:</label>
-            <br><br>
+    <div class="limits-grid">
+        
+        <!-- Límite Diario -->
+        <div class="limit-card">
+            <h3>Límite Diario</h3>
+            <div class="input-group">
+                <span class="currency-symbol">$</span>
+                <input type="number" class="limit-input" placeholder="0.00" value="500">
+            </div>
+            <button class="btn-save-limit">Actualizar</button>
+        </div>
 
-            <input type="number" id="limite" placeholder="Monto máximo">
+        <!-- Límite Semanal -->
+        <div class="limit-card">
+            <h3>Límite Semanal</h3>
+            <div class="input-group">
+                <span class="currency-symbol">$</span>
+                <input type="number" class="limit-input" placeholder="0.00" value="2500">
+            </div>
+            <button class="btn-save-limit">Actualizar</button>
+        </div>
 
-            <br><br>
+        <!-- Límite Mensual -->
+        <div class="limit-card">
+            <h3>Límite Mensual</h3>
+            <div class="input-group">
+                <span class="currency-symbol">$</span>
+                <input type="number" class="limit-input" placeholder="0.00" value="10000">
+            </div>
+            <button class="btn-save-limit">Actualizar</button>
+        </div>
 
-            <button type="submit" class="btn">Guardar</button>
-        </form>
+    </div>
+
+    <div class="history-note">
+        <p>Última modificación: 14 de Marzo, 2026</p>
+        <p>Midnight Ingenium cumple con los estándares de Juego Responsable v3.1</p>
     </div>
 
 </main>

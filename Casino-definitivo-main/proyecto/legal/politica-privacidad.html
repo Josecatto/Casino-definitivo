@@ -2,70 +2,217 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Política de Privacidad - Midnight Ingenium</title>
+    <title>Privacidad - Midnight Ingenium</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="../logo-casino.png">
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- Fuentes oficiales del Casino -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --gold: #f5c518;
+            --dark-bg: #050510;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(245, 197, 24, 0.2);
+        }
+
+        body { 
+            background: var(--dark-bg); 
+            color: #e0e0e0; 
+            margin: 0; 
+            font-family: 'Rajdhani', sans-serif; 
+        }
+
+        /* --- NAVEGACIÓN (Consistencia con el resto del sitio) --- */
+        .topbar { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 15px 30px; background: #0a0a1a; border-bottom: 1px solid #1a1a3a; 
+        }
+        .topbar-left { display: flex; align-items: center; gap: 10px; }
+        .logo-small { width: 30px; height: 30px; }
+        .casino-name { font-family: 'Cinzel', serif; color: var(--gold); font-weight: 900; font-size: 1.2rem; }
+        
+        .navbar { 
+            background: #11112a; padding: 12px 0; border-bottom: 1px solid var(--gold); 
+            position: sticky; top: 0; z-index: 100;
+        }
+        .menu { list-style: none; display: flex; justify-content: center; gap: 30px; margin: 0; padding: 0; }
+        .menu a { color: white; text-decoration: none; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; }
+        .menu a:hover { color: var(--gold); }
+
+        /* --- TITULO ESTILIZADO (SIN IMAGEN) --- */
+        .legal-header {
+            text-align: center;
+            padding: 70px 20px 40px;
+            background: radial-gradient(circle at center, #1a1a3a 0%, var(--dark-bg) 80%);
+        }
+        .legal-header h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            color: var(--gold);
+            margin: 0;
+            text-shadow: 0 0 20px rgba(245, 197, 24, 0.4);
+        }
+        .legal-header .sub {
+            font-size: 1.1rem;
+            color: #888;
+            margin-top: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        /* --- CONTENIDO EN COLUMNAS --- */
+        .legal-container {
+            max-width: 1200px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+        }
+
+        .privacy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .privacy-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            padding: 35px;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            transition: 0.3s ease;
+        }
+
+        .privacy-card:hover {
+            border-color: var(--gold);
+            background: rgba(245, 197, 24, 0.06);
+            transform: translateY(-5px);
+        }
+
+        .privacy-card h2 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            font-size: 1.3rem;
+            margin-top: 0;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .privacy-card p, .privacy-card li {
+            color: #ccc;
+            line-height: 1.6;
+            font-size: 1.05rem;
+        }
+
+        .privacy-card ul {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+
+        .privacy-card li {
+            margin-bottom: 8px;
+            list-style-type: square;
+            color: var(--gold);
+        }
+
+        .privacy-card li span {
+            color: #ccc;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid #1a1a3a;
+            color: #555;
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
 <body>
 
-<header class="hero small-hero">
-    <div class="hero-content">
-        <img src="../casino-header.png" class="hero-logo" alt="Midnight Ingenium Logo">
-        <h1>🛡 Política de Privacidad</h1>
+<!-- TOPBAR -->
+<div class="topbar">
+    <div class="topbar-left">
+        <img src="../logo-casino.png" class="logo-small">
+        <span class="casino-name">Midnight Ingenium</span>
     </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <ul class="menu">
+        <li><a href="../index.html">🏠 Inicio</a></li>
+        <li><a href="../juegos/index.html">🎮 Juegos</a></li>
+        <li><a href="../juegos/ruleta.html">🎡 Ruleta</a></li>
+        <li><a href="../juegos/slots.html">🎰 Slots</a></li>
+    </ul>
+</nav>
+
+<!-- HEADER SIN IMAGEN -->
+<header class="legal-header">
+    <div class="sub">Protocolo de Confidencialidad</div>
+    <h1>🛡️ Privacidad</h1>
 </header>
 
 <main class="legal-container">
+    <div class="privacy-grid">
+        
+        <!-- Sección 1 -->
+        <div class="privacy-card">
+            <h2>1. Recopilación</h2>
+            <p>Para garantizar la seguridad en tus jugadas, guardamos:</p>
+            <ul>
+                <li><span>Identidad verificada.</span></li>
+                <li><span>Contacto (E-mail).</span></li>
+                <li><span>Historial de transacciones.</span></li>
+                <li><span>Actividad en mesas y slots.</span></li>
+            </ul>
+        </div>
 
-<h2>1. Información que Recopilamos</h2>
-<p>
-En Midnight Ingenium recopilamos cierta información personal para poder ofrecer
-nuestros servicios de forma segura y eficiente. Esta información puede incluir:
-</p>
+        <!-- Sección 2 -->
+        <div class="privacy-card">
+            <h2>2. Uso de Datos</h2>
+            <p>Tus datos son el motor que permite:</p>
+            <ul>
+                <li><span>Gestionar tus créditos y premios.</span></li>
+                <li><span>Prevenir accesos no autorizados.</span></li>
+                <li><span>Cumplir con leyes internacionales.</span></li>
+                <li><span>Personalizar tus ofertas VIP.</span></li>
+            </ul>
+        </div>
 
-<ul>
-<li>Nombre completo</li>
-<li>Dirección de correo electrónico</li>
-<li>Datos de verificación de identidad</li>
-<li>Historial de actividad dentro de la plataforma</li>
-</ul>
+        <!-- Sección 3 -->
+        <div class="privacy-card">
+            <h2>3. Protección</h2>
+            <p>
+                Utilizamos encriptación de grado militar y servidores blindados para que tu información personal nunca salga del entorno de <strong>Midnight Ingenium</strong>.
+            </p>
+        </div>
 
-<h2>2. Uso de la Información</h2>
-<p>
-Los datos recopilados se utilizan para:
-</p>
+        <!-- Sección 4 -->
+        <div class="privacy-card">
+            <h2>4. Compartición</h2>
+            <p>
+                <strong>Nunca vendemos tus datos.</strong> Solo se comparten con entidades reguladoras bajo requerimiento legal o procesadores de pago para tus retiros.
+            </p>
+        </div>
 
-<ul>
-<li>Gestionar cuentas de usuario</li>
-<li>Procesar transacciones</li>
-<li>Mejorar la experiencia del usuario</li>
-<li>Cumplir obligaciones legales y regulatorias</li>
-</ul>
+        <!-- Sección 5 -->
+        <div class="privacy-card">
+            <h2>5. Tus Derechos</h2>
+            <p>
+                Eres el dueño de tu información. Puedes solicitar el acceso, la rectificación o el borrado definitivo de tu cuenta contactando a nuestro soporte 24/7.
+            </p>
+        </div>
 
-<h2>3. Protección de Datos</h2>
-<p>
-Aplicamos medidas de seguridad técnicas y organizativas para proteger la
-información personal de nuestros usuarios contra accesos no autorizados,
-pérdida o uso indebido.
-</p>
-
-<h2>4. Compartición de Información</h2>
-<p>
-No vendemos ni compartimos información personal con terceros, excepto cuando
-sea necesario para prestar nuestros servicios o cumplir con obligaciones legales.
-</p>
-
-<h2>5. Derechos del Usuario</h2>
-<p>
-Los usuarios pueden solicitar acceso, modificación o eliminación de sus datos
-personales contactando con nuestro equipo de soporte.
-</p>
-
+    </div>
 </main>
 
 <footer>
-<p>© 2026 Midnight Ingenium Casino</p>
+    <p>© 2026 Midnight Ingenium Casino · Tu seguridad es nuestra mejor apuesta.</p>
 </footer>
 
 </body>

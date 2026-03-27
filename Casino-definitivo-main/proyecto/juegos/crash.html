@@ -4,31 +4,328 @@
     <meta charset="UTF-8">
     <title>Crash - Midnight Ingenium</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="icon" type="image/png" href="../logo-casino.png">
+    <link rel="icon" href="../logo-casino.png">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        :root {
+            --neon-green: #00ffae;
+            --neon-red: #ff4444;
+            --neon-gold: #f5c518;
+            --bg-dark: #050510;
+        }
+
+        body {
+            background: var(--bg-dark);
+            background-image: radial-gradient(circle at 50% 50%, #1a1a3a 0%, #050510 100%);
+            color: white;
+            margin: 0;
+            overflow-x: hidden;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        /* CABINA DE VUELO */
+        .crash-viewport {
+            max-width: 900px;
+            margin: 20px auto;
+            position: relative;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 24px;
+            padding: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            text-align: center;
+        }
+
+        #multiplicador-display {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 6rem;
+            font-weight: 900;
+            font-family: 'Cinzel', serif;
+            z-index: 10;
+            pointer-events: none;
+            text-shadow: 0 0 40px rgba(0,255,174,0.5);
+            transition: color 0.2s;
+        }
+
+        #crash-canvas {
+            width: 100%;
+            height: 450px;
+            background: #020208;
+            border-radius: 16px;
+            display: block;
+        }
+
+        /* PANEL DE MANDOS */
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+            background: rgba(255,255,255,0.03);
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.1);
+            justify-content: center;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .input-group label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #888;
+            letter-spacing: 1px;
+        }
+
+        .crash-input {
+            background: #0a0a1f;
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: white;
+            padding: 12px;
+            font-size: 1.1rem;
+            font-family: 'Rajdhani';
+            font-weight: bold;
+            outline: none;
+            text-align: center;
+            width: 120px;
+        }
+
+        .crash-input:focus { border-color: var(--neon-green); }
+
+        .btn-action {
+            height: 100%;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.3rem;
+            font-family: 'Rajdhani';
+            font-weight: 900;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            padding: 15px 40px;
+        }
+
+        .btn-bet { background: linear-gradient(90deg, #00ffae, #00d4ff); color: #000; }
+        .btn-cash { background: linear-gradient(90deg, #f5c518, #ff9a00); color: #000; }
+        .btn-action:disabled { filter: grayscale(1); opacity: 0.2; }
+        .btn-action:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 5px 20px rgba(0,255,174,0.4); }
+
+        /* HISTORIAL */
+        .historial-bar {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .h-badge {
+            padding: 5px 15px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.05);
+            font-weight: bold;
+            font-family: 'Rajdhani';
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+    </style>
 </head>
 <body>
 
-<header class="hero small-hero">
-    <div class="hero-content">
-        <img src="../casino-header.png" class="hero-logo" alt="Midnight Ingenium Logo">
-        <h1>🚀 Crash Game</h1>
+<div class="topbar">
+    <div class="topbar-left">
+        <span class="casino-name">🚀 Midnight Crash</span>
     </div>
-</header>
+    <div class="topbar-right">
+        <span class="saldo" id="saldo-display">💰 $1,250.00</span>
+    </div>
+</div>
 
-<main class="game-page">
+<div class="crash-viewport">
+    <div id="multiplicador-display">1.00x</div>
+    <canvas id="crash-canvas" width="800" height="450"></canvas>
 
-    <section class="game-box">
-        <p>Retira tu apuesta antes de que el multiplicador explote.</p>
-        <button class="btn">Jugar ahora</button>
-    </section>
+    <div class="controls-grid">
+        <div class="input-group">
+            <label>Monto a Apostar</label>
+            <input type="number" id="bet-amount" class="crash-input" value="10" min="1">
+        </div>
+        <div class="input-group">
+            <label>Auto-Retiro (x)</label>
+            <input type="number" id="auto-cashout" class="crash-input" value="2.00" step="0.1">
+        </div>
+        <div class="input-group" style="grid-column: span 1;">
+            <button id="btn-bet" class="btn-action btn-bet" onclick="placeBet()">🚀 Apostar</button>
+            <button id="btn-cash" class="btn-action btn-cash" onclick="cashOut()" style="display:none;">💰 Retirar</button>
+        </div>
+        <div class="input-group">
+            <label>Estado de Vuelo</label>
+            <div id="flight-status" style="font-weight: bold; color: var(--neon-gold);">ESPERANDO...</div>
+            <div id="profit-preview" style="color: var(--neon-green); font-size: 1.2rem; min-height: 24px;"></div>
+        </div>
+    </div>
+</div>
 
-</main>
+<div class="historial-bar" id="history-container"></div>
 
-<footer>
-    <p>© 2026 Midnight Ingenium Casino</p>
-</footer>
+<script>
+    let saldo = parseFloat(localStorage.getItem('saldo')) || 1250;
+    let playing = false;
+    let betted = false;
+    let multiplier = 1.0;
+    let crashPoint = 0;
+    let betAmount = 0;
+    let points = [];
+    const canvas = document.getElementById('crash-canvas');
+    const ctx = canvas.getContext('2d');
+
+    function updateUI() {
+        document.getElementById('saldo-display').textContent = `💰 $${saldo.toFixed(2)}`;
+        localStorage.setItem('saldo', saldo);
+    }
+
+    function generateCrash() {
+        const r = Math.random();
+        if (r < 0.05) return 1.00; // Crash instantáneo 5%
+        return Math.max(1.0, (1 / (1 - Math.random()) * 0.98)).toFixed(2);
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Dibujar Grid decorativo
+        ctx.strokeStyle = 'rgba(255,255,255,0.03)';
+        for(let i=0; i<canvas.width; i+=50) {
+            ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, canvas.height); ctx.stroke();
+        }
+        for(let i=0; i<canvas.height; i+=50) {
+            ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(canvas.width, i); ctx.stroke();
+        }
+
+        if (points.length < 2) return;
+
+        // Dibujar Curva neón
+        ctx.beginPath();
+        ctx.lineWidth = 4;
+        ctx.strokeStyle = playing ? '#00ffae' : '#ff4444';
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = ctx.strokeStyle;
+
+        const margin = 50;
+        const maxTime = Math.max(100, points.length);
+        const maxMult = Math.max(2, multiplier * 1.1);
+
+        points.forEach((p, i) => {
+            const x = margin + (i / maxTime) * (canvas.width - margin * 2);
+            const y = (canvas.height - margin) - ((p - 1) / (maxMult - 1)) * (canvas.height - margin * 2);
+            if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        });
+        ctx.stroke();
+        ctx.shadowBlur = 0;
+
+        // DIBUJAR LA NAVE (COHETE)
+        const lastX = margin + ((points.length - 1) / maxTime) * (canvas.width - margin * 2);
+        const lastY = (canvas.height - margin) - ((multiplier - 1) / (maxMult - 1)) * (canvas.height - margin * 2);
+        
+        ctx.font = '30px Arial';
+        ctx.fillText(playing ? '🚀' : '💥', lastX - 15, lastY + 10);
+    }
+
+    function startFlight() {
+        multiplier = 1.0;
+        points = [1.0];
+        crashPoint = generateCrash();
+        playing = true;
+        
+        document.getElementById('flight-status').textContent = "🚀 EN VUELO";
+        document.getElementById('flight-status').style.color = "var(--neon-green)";
+        document.getElementById('profit-preview').textContent = "";
+
+        const loop = setInterval(() => {
+            if (!playing) { clearInterval(loop); return; }
+
+            multiplier += 0.005 * (multiplier ** 1.05);
+            points.push(multiplier);
+
+            const display = document.getElementById('multiplicador-display');
+            display.textContent = multiplier.toFixed(2) + 'x';
+            display.style.color = multiplier >= 2 ? (multiplier >= 10 ? '#ff4444' : '#f5c518') : '#00ffae';
+
+            if (betted) {
+                const profit = (betAmount * multiplier).toFixed(2);
+                document.getElementById('profit-preview').textContent = `+ $${profit}`;
+                if (multiplier >= parseFloat(document.getElementById('auto-cashout').value)) cashOut();
+            }
+
+            draw();
+
+            if (multiplier >= crashPoint) {
+                clearInterval(loop);
+                endFlight();
+            }
+        }, 50);
+    }
+
+    function endFlight() {
+        playing = false;
+        document.getElementById('flight-status').textContent = "💥 CRASH!";
+        document.getElementById('flight-status').style.color = "var(--neon-red)";
+        document.getElementById('multiplicador-display').textContent = crashPoint + 'x';
+        
+        if (betted) {
+            document.getElementById('profit-preview').textContent = "PERDISTE";
+            document.getElementById('profit-preview').style.color = "red";
+        }
+
+        const badge = document.createElement('div');
+        badge.className = 'h-badge';
+        badge.textContent = crashPoint + 'x';
+        badge.style.color = crashPoint > 2 ? '#f5c518' : '#00ffae';
+        const container = document.getElementById('history-container');
+        container.prepend(badge);
+
+        betted = false;
+        document.getElementById('btn-bet').style.display = "block";
+        document.getElementById('btn-cash').style.display = "none";
+        
+        setTimeout(startFlight, 4000);
+    }
+
+    function placeBet() {
+        betAmount = parseFloat(document.getElementById('bet-amount').value);
+        if (betAmount > saldo || betAmount <= 0) return alert("Saldo insuficiente");
+        
+        saldo -= betAmount;
+        betted = true;
+        updateUI();
+        document.getElementById('btn-bet').style.display = "none";
+        document.getElementById('btn-cash').style.display = "block";
+    }
+
+    function cashOut() {
+        if (!betted || !playing) return;
+        const win = betAmount * multiplier;
+        saldo += win;
+        betted = false;
+        updateUI();
+        document.getElementById('btn-cash').style.display = "none";
+        document.getElementById('flight-status').textContent = "✅ RETIRADO";
+        document.getElementById('profit-preview').textContent = `GANASTE $${win.toFixed(2)}`;
+    }
+
+    updateUI();
+    startFlight();
+</script>
 
 </body>
 </html>

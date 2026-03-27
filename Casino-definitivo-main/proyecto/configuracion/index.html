@@ -5,62 +5,261 @@
     <title>Configuración - Midnight Ingenium</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Favicon -->
     <link rel="icon" type="image/png" href="../logo-casino.png">
-
-    <!-- CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
-</head>
-<body>
 
-<header class="hero">
-    <div class="hero-content">
-        <img src="../casino-header.png" class="hero-logo" alt="Midnight Ingenium Logo">
-        <h1>⚙ Configuración</h1>
+    <style>
+        /* --- ESTILOS PANEL DE CONFIGURACIÓN --- */
+        .config-main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px 80px;
+        }
+
+        /* Barra de Estado de Perfil */
+        .profile-status {
+            background: var(--color-card);
+            border: 1px solid rgba(245, 197, 24, 0.2);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .status-info { flex-grow: 1; }
+        .status-info h2 { 
+            font-family: 'Cinzel', serif; 
+            color: #fff; 
+            font-size: 1.2rem; 
+            margin-bottom: 8px;
+        }
+
+        .progress-bar-bg {
+            background: rgba(255,255,255,0.05);
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, var(--color-oro), var(--color-verde));
+            width: 65%; /* Dinámico */
+            height: 100%;
+            box-shadow: 0 0 15px rgba(0, 255, 174, 0.4);
+        }
+
+        /* Rejilla de Opciones */
+        .config-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .config-card {
+            background: var(--color-card);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 18px;
+            padding: 25px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .config-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--color-oro);
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .config-card:hover {
+            transform: translateX(10px);
+            border-color: rgba(245, 197, 24, 0.4);
+            background: rgba(245, 197, 24, 0.02);
+        }
+
+        .config-card:hover::before { opacity: 1; }
+
+        .icon-box {
+            font-size: 2rem;
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        .config-card:hover .icon-box {
+            background: rgba(245, 197, 24, 0.1);
+            transform: rotate(-10deg);
+        }
+
+        .text-box h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--color-oro);
+            font-size: 1.1rem;
+            margin-bottom: 3px;
+        }
+
+        .text-box p {
+            font-family: 'Rajdhani', sans-serif;
+            color: var(--color-texto2);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Flecha indicadora */
+        .arrow-box {
+            margin-left: auto;
+            color: rgba(255,255,255,0.2);
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 600px) {
+            .profile-status { flex-direction: column; text-align: center; }
+            .status-info { width: 100%; }
+        }
+    </style>
+</head>
+
+<body class="bg-pattern">
+
+<div class="topbar">
+    <div class="topbar-left">
+        <img src="../logo-casino.png" class="logo-small" alt="Logo">
+        <span class="casino-name">Midnight Ingenium</span>
     </div>
+    <div class="topbar-right">
+        <span class="saldo">👑 VIP Gold</span>
+    </div>
+</div>
+
+<nav class="navbar">
+    <ul class="menu">
+        <li><a href="../index.html">🏠 Inicio</a></li>
+        <li><a href="../apuestas/index.html">📊 Apuestas</a></li>
+        <li><a href="index.html" style="color: var(--color-oro);">⚙️ Ajustes</a></li>
+    </ul>
+</nav>
+
+<header class="page-header">
+    <h1>⚙️ Centro de Control</h1>
+    <p>Gestiona tu cuenta y personaliza tu seguridad</p>
 </header>
 
-<main class="config-container">
+<main class="config-main">
 
-    <a href="perfil.html" class="config-card">
-        <h3>👤 Perfil</h3>
-        <p>Editar información personal</p>
-    </a>
+    <!-- BARRA DE PROGRESO DE PERFIL -->
+    <div class="profile-status">
+        <div class="icon-box" style="background: rgba(0, 255, 174, 0.1); color: var(--color-verde);">👤</div>
+        <div class="status-info">
+            <h2>Seguridad de la Cuenta: 65%</h2>
+            <div class="progress-bar-bg">
+                <div class="progress-fill"></div>
+            </div>
+            <p style="font-size: 0.8rem; margin-top: 8px; color: #888; font-family: 'Rajdhani';">
+                ⚠️ Completa el <strong>2FA</strong> para llegar al 100%
+            </p>
+        </div>
+    </div>
 
-    <a href="seguridad.html" class="config-card">
-        <h3>🔐 Seguridad</h3>
-        <p>Cambiar contraseña y 2FA</p>
-    </a>
+    <!-- REJILLA DE CONFIGURACIÓN -->
+    <div class="config-grid">
 
-    <a href="idioma.html" class="config-card">
-        <h3>🌎 Idioma</h3>
-        <p>Seleccionar idioma del sitio</p>
-    </a>
+        <a href="perfil.html" class="config-card">
+            <div class="icon-box">👤</div>
+            <div class="text-box">
+                <h3>Perfil</h3>
+                <p>Información personal y avatar</p>
+            </div>
+            <div class="arrow-box">→</div>
+        </a>
 
-    <a href="tema.html" class="config-card">
-        <h3>🎨 Tema</h3>
-        <p>Modo oscuro / claro</p>
-    </a>
+        <a href="seguridad.html" class="config-card">
+            <div class="icon-box">🔐</div>
+            <div class="text-box">
+                <h3>Seguridad</h3>
+                <p>Contraseña y Verificación 2FA</p>
+            </div>
+            <div class="arrow-box">→</div>
+        </a>
 
-    <a href="limites-apuesta.html" class="config-card">
-        <h3>💰 Límites de apuesta</h3>
-        <p>Control de juego responsable</p>
-    </a>
+        <a href="idioma.html" class="config-card">
+            <div class="icon-box">🌎</div>
+            <div class="text-box">
+                <h3>Idioma</h3>
+                <p>Español, English, Português</p>
+            </div>
+            <div class="arrow-box">→</div>
+        </a>
 
-    <a href="notificaciones.html" class="config-card">
-        <h3>🔔 Notificaciones</h3>
-        <p>Gestionar alertas</p>
-    </a>
+        <a href="tema.html" class="config-card">
+            <div class="icon-box">🎨</div>
+            <div class="text-box">
+                <h3>Interfaz</h3>
+                <p>Modo visual y colores</p>
+            </div>
+            <div class="arrow-box">→</div>
+        </a>
 
-    <a href="privacidad.html" class="config-card">
-        <h3>🛡 Privacidad</h3>
-        <p>Control de datos personales</p>
-    </a>
+        <a href="limites-apuesta.html" class="config-card">
+            <div class="icon-box">💰</div>
+            <div class="text-box">
+                <h3>Límites</h3>
+                <p>Control de depósitos y gastos</p>
+            </div>
+            <div class="arrow-box">→</div>
+        </a>
+
+        <a href="notificaciones.html" class="config-card">
+            <div class="icon-box">🔔</div>
+            <div class="text-box">
+                <h3>Notificaciones</h3>
+                <p>Alertas de eventos y premios</p>
+            </div>
+            <div class="arrow-box">→</div>
+        </a>
+
+        <a href="privacidad.html" class="config-card">
+            <div class="icon-box">🛡️</div>
+            <div class="text-box">
+                <h3>Privacidad</h3>
+                <p>Gestión de datos y cookies</p>
+            </div>
+            <div class="arrow-box">→</div>
+        </a>
+
+        <!-- Opción Extra de Soporte -->
+        <a href="../soporte/index.html" class="config-card" style="border-color: rgba(0, 255, 174, 0.2);">
+            <div class="icon-box" style="color: var(--color-verde);">🎧</div>
+            <div class="text-box">
+                <h3>Ayuda</h3>
+                <p>Soporte técnico 24/7</p>
+            </div>
+            <div class="arrow-box">→</div>
+        </a>
+
+    </div>
 
 </main>
 
 <footer>
-    <p>© 2026 Midnight Ingenium Casino</p>
+    <p>© 2026 Midnight Ingenium Casino · Panel de Usuario v2.0</p>
 </footer>
 
 </body>

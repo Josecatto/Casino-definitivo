@@ -4,49 +4,204 @@
     <meta charset="UTF-8">
     <title>Promociones - Midnight Ingenium</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="icon" type="image/png" href="../logo-casino.png">
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --gold: #f5c518;
+            --dark-bg: #050510;
+            --border: rgba(245, 197, 24, 0.2);
+        }
+
+        body { 
+            background: var(--dark-bg); 
+            color: #e0e0e0; 
+            margin: 0; 
+            font-family: 'Rajdhani', sans-serif; 
+            overflow-x: hidden;
+        }
+
+        /* --- NAVEGACIÓN ESTILO JUEGOS --- */
+        .topbar { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 15px 30px; background: #0a0a1a; border-bottom: 1px solid #1a1a3a; 
+        }
+        .topbar-left { display: flex; align-items: center; gap: 10px; }
+        .logo-small { width: 30px; height: 30px; }
+        .casino-name { font-family: 'Cinzel', serif; color: var(--gold); font-weight: 900; font-size: 1.2rem; }
+        
+        .navbar { 
+            background: #11112a; padding: 12px 0; border-bottom: 1px solid var(--gold); 
+            position: sticky; top: 0; z-index: 100;
+        }
+        .menu { list-style: none; display: flex; justify-content: center; gap: 30px; margin: 0; padding: 0; }
+        .menu a { 
+            color: white; text-decoration: none; font-weight: 700; font-size: 0.85rem; 
+            text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;
+        }
+        .menu a:hover { color: var(--gold); text-shadow: 0 0 10px var(--gold); }
+
+        /* --- HEADER MEJORADO (SIN IMAGEN) --- */
+        .promo-header {
+            text-align: center;
+            padding: 80px 20px 50px;
+            background: radial-gradient(circle at center, #1a1a3a 0%, var(--dark-bg) 80%);
+        }
+        .promo-header h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3.5rem;
+            color: var(--gold);
+            margin: 0;
+            text-shadow: 0 0 25px rgba(245, 197, 24, 0.4);
+            text-transform: uppercase;
+        }
+        .promo-header .sub {
+            font-size: 1.1rem;
+            color: #888;
+            margin-top: 10px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+
+        /* --- GRID DE PROMOCIONES --- */
+        .promo-container {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 0 25px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .promo-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .promo-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+            background: rgba(245, 197, 24, 0.08);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
+
+        /* --- IMÁGENES EN LAS TARJETAS (xd) --- */
+        .promo-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 2px solid var(--border);
+            transition: 0.3s;
+        }
+
+        .promo-card:hover img {
+            border-color: var(--gold);
+            filter: brightness(1.1);
+        }
+
+        /* --- CONTENIDO DE TARJETA --- */
+        .promo-content {
+            padding: 30px;
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .promo-content h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            font-size: 1.5rem;
+            margin: 0 0 10px 0;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(245,197,24,0.3);
+        }
+
+        .promo-content p {
+            color: #ccc;
+            font-size: 1.1rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 50px;
+            border-top: 1px solid #1a1a3a;
+            color: #444;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .promo-header h1 { font-size: 2.2rem; }
+            .promo-container { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
 
-<header class="hero small-hero">
-    <div class="hero-content">
-        <img src="../casino-header.png" class="hero-logo" alt="Midnight Ingenium Logo">
-        <h1>🦓 Promociones</h1>
+<div class="topbar">
+    <div class="topbar-left">
+        <img src="../logo-casino.png" class="logo-small">
+        <span class="casino-name">Midnight Ingenium</span>
     </div>
+</div>
+
+<nav class="navbar">
+    <ul class="menu">
+        <li><a href="../index.html">🏠 Inicio</a></li>
+        <li><a href="../juegos/index.html">🎮 Juegos</a></li>
+        <li><a href="../juegos/ruleta.html">🎡 Ruleta</a></li>
+        <li><a href="../juegos/slots.html">🎰 Slots</a></li>
+    </ul>
+</nav>
+
+<header class="promo-header">
+    <div class="sub">Eleva tu experiencia VIP</div>
+    <h1>🎁 Promociones</h1>
 </header>
 
 <main class="promo-container">
 
-<a href="bono-bienvenida.html" class="promo-card">
-    <img src="../assets/images/bonos.jpeg" alt="Bono de Bienvenida">
-    <div class="promo-content">
-        <h3>💰 Bono de Bienvenida</h3>
-        <p>Duplica tu primer depósito hasta $500.</p>
-    </div>
-</a>
+    <a href="bono-bienvenida.html" class="promo-card">
+        <img src="../assets/images/bonos.jpeg" alt="Bono de Bienvenida">
+        <div class="promo-content">
+            <h3>Bono de Bienvenida</h3>
+            <p>Duplica tu primer depósito hasta $500 y juega sin límites.</p>
+        </div>
+    </a>
 
-<a href="cashback.html" class="promo-card">
-    <img src="../assets/images/cashback.jpeg" alt="Cashback Semanal">
-    <div class="promo-content">
-        <h3>🔄 Cashback Semanal</h3>
-        <p>Recibe devolución en tus pérdidas.</p>
-    </div>
-</a>
+    <a href="cashback.html" class="promo-card">
+        <img src="../assets/images/cashback.jpeg" alt="Cashback Semanal">
+        <div class="promo-content">
+            <h3>Cashback Semanal</h3>
+            <p>Recupera el 15% de tus jugadas cada lunes automáticamente.</p>
+        </div>
+    </a>
 
-<a href="programa-vip.html" class="promo-card">
-    <img src="../assets/images/vip.jpeg" alt="Programa VIP">
-    <div class="promo-content">
-        <h3>🏆 Programa VIP</h3>
-        <p>Beneficios exclusivos para jugadores frecuentes.</p>
-    </div>
-</a>
+    <a href="programa-vip.html" class="promo-card">
+        <img src="../assets/images/vip.jpeg" alt="Programa VIP">
+        <div class="promo-content">
+            <h3>Programa VIP</h3>
+            <p>Beneficios exclusivos y atención personalizada para la élite.</p>
+        </div>
+    </a>
 
 </main>
 
 <footer>
-<p>© 2026 Midnight Ingenium Casino</p>
+    <p>© 2026 Midnight Ingenium Casino · El prestigio se juega cada noche.</p>
 </footer>
 
 </body>

@@ -2,52 +2,217 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Idioma - Midnight Ingenium</title>
+    <title>Configuración de Idioma - Midnight Ingenium</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="icon" type="image/png" href="../logo-casino.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
-</head>
-<body>
 
-<header class="hero">
-    <div class="hero-content">
-        <img src="../casino-header.png" class="hero-logo" alt="Midnight Ingenium Logo">
-        <h1>🌎 Idioma</h1>
+    <style>
+        .config-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* Contenedor tipo Tarjeta de Afiliados */
+        .settings-card {
+            background: var(--color-card);
+            border: 1px solid rgba(245, 197, 24, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            text-align: center;
+        }
+
+        .settings-card h2 {
+            font-family: 'Cinzel', serif;
+            color: var(--color-oro);
+            margin-bottom: 25px;
+            font-size: 1.6rem;
+            letter-spacing: 2px;
+        }
+
+        /* Grid de Idiomas Estilizado */
+        .language-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .lang-option {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .lang-option:hover {
+            border-color: var(--color-oro);
+            background: rgba(245, 197, 24, 0.05);
+        }
+
+        /* Estilo para opción seleccionada */
+        .lang-option.active {
+            border-color: var(--color-verde);
+            background: rgba(0, 255, 174, 0.05);
+            box-shadow: 0 0 15px rgba(0, 255, 174, 0.1);
+        }
+
+        .lang-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .lang-flag {
+            font-size: 1.5rem;
+        }
+
+        .lang-name {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            color: #fff;
+            font-size: 1.1rem;
+        }
+
+        /* Checkmark invisible que aparece al seleccionar */
+        .lang-check {
+            color: var(--color-verde);
+            font-weight: 900;
+            display: none;
+        }
+
+        .lang-option.active .lang-check {
+            display: block;
+        }
+
+        /* Botón de Guardar Estilo Brillo */
+        .btn-save {
+            width: 100%;
+            background: var(--color-oro);
+            color: #000;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 800;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 0 20px rgba(245, 197, 24, 0.3);
+        }
+
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(245, 197, 24, 0.5);
+            background: #fff;
+        }
+
+        /* Esconder el radio button real */
+        input[type="radio"] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="bg-pattern">
+
+<div class="topbar">
+    <div class="topbar-left">
+        <img src="../logo-casino.png" class="logo-small" alt="Logo">
+        <span class="casino-name">Midnight Ingenium</span>
     </div>
+    <div class="topbar-right">
+        <span class="saldo">👤 Mi Cuenta</span>
+    </div>
+</div>
+
+<nav class="navbar">
+    <ul class="menu">
+        <li><a href="../index.html">🏠 Inicio</a></li>
+        <li><a href="index.html">⚙️ Configuración</a></li>
+        <li><a href="idioma.html" style="color: var(--color-oro);">🌎 Idioma</a></li>
+    </ul>
+</nav>
+
+<header class="page-header">
+    <h1>🌎 Preferencias</h1>
+    <p>Personaliza tu experiencia en la plataforma</p>
 </header>
 
-<main class="afiliados-container">
+<main class="config-container">
 
-    <div class="evento">
+    <div class="settings-card">
+        <h2>Seleccionar Idioma</h2>
+        
+        <form id="form-idioma">
+            <div class="language-grid">
+                
+                <!-- Español -->
+                <label class="lang-option active">
+                    <input type="radio" name="idioma" value="es" checked>
+                    <div class="lang-info">
+                        <span class="lang-flag">🇪🇸</span>
+                        <span class="lang-name">Español (Latinoamérica)</span>
+                    </div>
+                    <span class="lang-check">✓</span>
+                </label>
 
-        <h3>Seleccionar idioma</h3>
+                <!-- English -->
+                <label class="lang-option">
+                    <input type="radio" name="idioma" value="en">
+                    <div class="lang-info">
+                        <span class="lang-flag">🇺🇸</span>
+                        <span class="lang-name">English (Global)</span>
+                    </div>
+                    <span class="lang-check">✓</span>
+                </label>
 
-        <form class="form-idioma">
+                <!-- Português -->
+                <label class="lang-option">
+                    <input type="radio" name="idioma" value="pt">
+                    <div class="lang-info">
+                        <span class="lang-flag">🇧🇷</span>
+                        <span class="lang-name">Português (Brasil)</span>
+                    </div>
+                    <span class="lang-check">✓</span>
+                </label>
 
-            <label for="idioma">Elige tu idioma</label>
+            </div>
 
-            <br><br>
-
-            <select id="idioma" name="idioma">
-                <option value="es">Español</option>
-                <option value="en">English</option>
-                <option value="pt">Português</option>
-            </select>
-
-            <br><br>
-
-            <button type="submit" class="btn">Guardar cambios</button>
-
+            <button type="submit" class="btn-save">Guardar Cambios</button>
         </form>
-
     </div>
 
 </main>
 
 <footer>
-    <p>© 2026 Midnight Ingenium Casino</p>
+    <p>© 2026 Midnight Ingenium Casino · v2.4.0</p>
 </footer>
+
+<script>
+    // Script sencillo para manejar la selección visual
+    const options = document.querySelectorAll('.lang-option');
+    options.forEach(option => {
+        option.addEventListener('click', () => {
+            options.forEach(opt => opt.classList.remove('active'));
+            option.classList.add('active');
+        });
+    });
+</script>
 
 </body>
 </html>

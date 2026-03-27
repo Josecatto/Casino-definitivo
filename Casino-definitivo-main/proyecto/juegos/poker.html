@@ -2,33 +2,362 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Poker - Midnight Ingenium</title>
+    <title>Poker Ingenium - Midnight Ingenium</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="icon" type="image/png" href="../logo-casino.png">
+    <link rel="icon" href="../logo-casino.png">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        /* ESTÉTICA MESA POKER */
+        .pk-mesa {
+            background: radial-gradient(ellipse at center, #1a5e1a 0%, #0d3d0d 60%, #07280a 100%);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 20px auto;
+            max-width: 850px;
+            border: 8px solid #5d2e0a;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8), inset 0 0 30px rgba(0,0,0,0.4);
+            text-align: center;
+        }
+
+        .pk-cartas-display {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 30px 0;
+            min-height: 160px;
+        }
+
+        /* Cartas con efecto de selección */
+        .carta-poker {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .carta-poker.held {
+            transform: translateY(-15px);
+        }
+        .carta-poker.held::after {
+            content: "HELD";
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #f5c518;
+            color: #000;
+            font-family: 'Rajdhani';
+            font-weight: 900;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+        }
+
+        .pk-tabla-pagos {
+            background: rgba(0,0,0,0.5);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            font-size: 0.8rem;
+            color: #aaa;
+            border: 1px solid rgba(245,197,24,0.3);
+        }
+        .pago-item.active { color: #f5c518; font-weight: bold; text-shadow: 0 0 5px #f5c518; }
+
+        .controles-poker {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .btn-pk {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 800;
+            font-family: 'Rajdhani';
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+        .btn-deal { background: linear-gradient(90deg, #f5c518, #ff9a00); color: #000; }
+        .btn-draw { background: linear-gradient(90deg, #00ffae, #00d4ff); color: #000; }
+        .btn-pk:disabled { opacity: 0.3; cursor: not-allowed; }
+
+        #msg-poker {
+            font-family: 'Cinzel';
+            font-size: 1.8rem;
+            height: 40px;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
 
-<header class="hero small-hero">
-    <div class="hero-content">
-        <img src="../casino-header.png" class="hero-logo" alt="Midnight Ingenium Logo">
-        <h1>♠ Poker Ingenium</h1>
+<div class="topbar">
+    <div class="topbar-left">
+        <img src="../logo-casino.png" class="logo-small" alt="Logo">
+        <span class="casino-name">Midnight Ingenium</span>
     </div>
-</header>
+    <div class="topbar-right">
+        <span class="saldo" id="saldo-display">💰 $1,250</span>
+    </div>
+</div>
 
-<main class="game-page">
+<nav class="navbar">
+    <ul class="menu">
+        <li><a href="../index.html">🏠 Inicio</a></li>
+        <li><a href="index.html">🎮 Juegos</a></li>
+        <li><a href="ruleta.html">🎡 Ruleta</a></li>
+        <li><a href="slots.html">🎰 Slots</a></li>
+        <li><a href="crash.html">🚀 Crash</a></li>
+    </ul>
+</nav>
 
-    <section class="game-box">
-        <p>Estrategia, faroles y grandes premios te esperan en la mesa.</p>
-        <button type="button" class="btn">Jugar ahora</button>
-    </section>
+<div class="page-header">
+    <h1>♠ Poker Ingenium</h1>
+    <p>Consigue la mejor mano — ¡Haz click en las cartas para mantenerlas!</p>
+</div>
 
-</main>
+<!-- Selector de Apuesta -->
+<style>
+    /* TABLA DE PAGOS RECARGADA CON COLORES */
+    .pk-paytable {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        background: rgba(0,0,0,0.6);
+        padding: 20px;
+        border-radius: 15px;
+        margin-bottom: 25px;
+        border: 2px solid rgba(245,197,24,0.4);
+        box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    .pay-item {
+        font-size: 0.8rem;
+        padding: 8px;
+        border-radius: 6px;
+        background: rgba(255,255,255,0.03);
+        font-family: 'Rajdhani', sans-serif;
+        text-align: center;
+        border: 1px solid rgba(255,255,255,0.05);
+        transition: 0.3s;
+    }
+
+    /* COLORES POR CATEGORÍA */
+    .p-royal { border-color: #f5c518; color: #fff; text-shadow: 0 0 10px #f5c518; background: rgba(245,197,24,0.1); }
+    .p-poker { border-color: #00d4ff; color: #fff; text-shadow: 0 0 10px #00d4ff; background: rgba(0,212,255,0.1); }
+    .p-full  { border-color: #e040fb; color: #fff; background: rgba(224,64,251,0.1); }
+    .p-color { border-color: #ff5252; color: #fff; background: rgba(255,82,82,0.1); }
+    .p-high  { border-color: #00ffae; color: #fff; background: rgba(0,255,174,0.1); }
+
+    .pay-item b { 
+        display: block; 
+        font-size: 1.1rem; 
+        margin-top: 2px;
+    }
+
+    /* Animación cuando ganas */
+    .pay-item.winner-blink {
+        animation: blink 0.5s infinite alternate;
+        transform: scale(1.1);
+        z-index: 10;
+    }
+
+    @keyframes blink {
+        from { box-shadow: 0 0 5px #fff; }
+        to { box-shadow: 0 0 20px #f5c518; }
+    }
+</style>
+
+<!-- SUSTITUYE LA TABLA ANTERIOR POR ESTA -->
+<div class="pk-paytable" id="paytable">
+    <div class="pay-item p-royal" id="row-Escalera Real">Esc. Real <b>x250</b></div>
+    <div class="pay-item p-poker" id="row-Poker">Poker <b>x25</b></div>
+    <div class="pay-item p-full" id="row-Full House">Full House <b>x9</b></div>
+    <div class="pay-item p-color" id="row-Color">Color <b>x6</b></div>
+    <div class="pay-item p-high" id="row-Escalera">Escalera <b>x4</b></div>
+    <div class="pay-item p-high" id="row-Trío">Trío <b>x3</b></div>
+    <div class="pay-item p-high" id="row-Doble Pareja">Doble Par <b>x2</b></div>
+    <div class="pay-item p-high" id="row-Pareja J+">Pareja J+ <b>x1</b></div>
+</div>
+
+<script>
+    // MODIFICA LA FUNCIÓN checkResult PARA QUE ILUMINE LA TABLA
+    function checkResult() {
+        // ... (todo el código de lógica anterior igual) ...
+
+        // Al final, añade esto para limpiar y marcar la tabla:
+        document.querySelectorAll('.pay-item').forEach(el => el.classList.remove('winner-blink'));
+        
+        const msg = document.getElementById('pk-msg');
+        if (mult > 0) {
+            const win = apuestaActual * mult;
+            saldo += win;
+            msg.textContent = `${resultTxt} +$${win}`;
+            msg.style.color = "#00ffae";
+            
+            // Iluminar la fila ganadora (limpiamos el texto para que coincida con el ID)
+            const rowId = "row-" + resultTxt.replace('¡', '').replace('!', '').trim();
+            const targetRow = document.getElementById(rowId);
+            if(targetRow) targetRow.classList.add('winner-blink');
+
+        } else {
+            msg.textContent = resultTxt;
+            msg.style.color = "#ff4444";
+        }
+        updateUI();
+    }
+</script>
+
+<div class="pk-mesa">
+    <div class="pk-tabla-pagos" id="paytable">
+        <div class="pago-item" data-hand="Escalera Real">Esc. Real x250</div>
+        <div class="pago-item" data-hand="Poker">Poker x25</div>
+        <div class="pago-item" data-hand="Full">Full x9</div>
+        <div class="pago-item" data-hand="Color">Color x6</div>
+        <div class="pago-item" data-hand="Escalera">Escalera x4</div>
+        <div class="pago-item" data-hand="Trio">Trio x3</div>
+        <div class="pago-item" data-hand="Doble Pareja">Doble Par x2</div>
+        <div class="pago-item" data-hand="Pareja J+">Pareja J+ x1</div>
+    </div>
+
+    <div id="msg-poker">¿LISTO?</div>
+
+    <div class="pk-cartas-display" id="hand-display">
+        <!-- Espacio para 5 cartas -->
+    </div>
+
+    <div class="controles-poker">
+        <button class="btn-pk btn-deal" id="btn-deal" onclick="firstDeal()">REPARTIR</button>
+        <button class="btn-pk btn-draw" id="btn-draw" onclick="secondDeal()" disabled>CAMBIAR</button>
+    </div>
+</div>
 
 <footer>
-    <p>© 2026 Midnight Ingenium Casino</p>
+    <p>© 2026 Midnight Ingenium Casino · Tu suerte, tu estrategia</p>
 </footer>
+
+<script>
+    let saldo = 1250;
+    let apuesta = 10;
+    let mano = [];
+    let deck = [];
+    let held = [false, false, false, false, false];
+
+    const PALOS = ['♠','♥','♦','♣'];
+    const VALORES = ['2','3','4','5','6','7','8','9','10','J','Q','K','A'];
+
+    function setBet(v) { 
+        apuesta = v; 
+        document.getElementById('bet-val').textContent = v; 
+    }
+
+    function createDeck() {
+        let d = [];
+        PALOS.forEach(p => VALORES.forEach(v => d.push({v, p})));
+        return d.sort(() => Math.random() - 0.5);
+    }
+
+    function drawSVG(card) {
+        const color = (card.p === '♥' || card.p === '♦') ? '#cc0000' : '#111';
+        return `
+        <svg class="carta-svg" width="100" height="140" viewBox="0 0 80 115">
+            <rect width="80" height="115" rx="8" fill="white" stroke="#ccc" stroke-width="1"/>
+            <text x="8" y="20" font-family="Georgia" font-size="14" font-weight="bold" fill="${color}">${card.v}</text>
+            <text x="8" y="34" font-family="Georgia" font-size="14" fill="${color}">${card.p}</text>
+            <text x="40" y="75" text-anchor="middle" font-size="30" fill="${color}">${card.p}</text>
+        </svg>`;
+    }
+
+    function renderHand() {
+        const container = document.getElementById('hand-display');
+        container.innerHTML = '';
+        mano.forEach((card, i) => {
+            const div = document.createElement('div');
+            div.className = `carta-poker ${held[i] ? 'held' : ''}`;
+            div.innerHTML = drawSVG(card);
+            div.onclick = () => toggleHeld(i);
+            container.appendChild(div);
+        });
+    }
+
+    function toggleHeld(i) {
+        if (document.getElementById('btn-draw').disabled === false) {
+            held[i] = !held[i];
+            renderHand();
+        }
+    }
+
+    function firstDeal() {
+        if (apuesta > saldo) return alert("Saldo insuficiente");
+        saldo -= apuesta;
+        updateUI();
+        
+        deck = createDeck();
+        mano = [deck.pop(), deck.pop(), deck.pop(), deck.pop(), deck.pop()];
+        held = [false, false, false, false, false];
+        
+        document.getElementById('msg-poker').textContent = "ELIGE TUS CARTAS";
+        document.getElementById('btn-deal').disabled = true;
+        document.getElementById('btn-draw').disabled = false;
+        renderHand();
+    }
+
+    function secondDeal() {
+        mano = mano.map((card, i) => held[i] ? card : deck.pop());
+        renderHand();
+        checkWinner();
+        
+        document.getElementById('btn-deal').disabled = false;
+        document.getElementById('btn-draw').disabled = true;
+    }
+
+    function checkWinner() {
+        const counts = {};
+        mano.forEach(c => counts[c.v] = (counts[c.v] || 0) + 1);
+        const vCounts = Object.values(counts);
+        
+        const isFlush = mano.every(c => c.p === mano[0].p);
+        const indices = mano.map(c => VALORES.indexOf(c.v)).sort((a,b) => a-b);
+        const isStraight = indices.every((v, i) => i === 0 || v === indices[i-1] + 1);
+
+        let prize = 0;
+        let resultName = "NADA";
+
+        if (isStraight && isFlush && indices[0] === 8) { prize = 250; resultName = "Escalera Real"; }
+        else if (vCounts.includes(4)) { prize = 25; resultName = "Poker"; }
+        else if (vCounts.includes(3) && vCounts.includes(2)) { prize = 9; resultName = "Full"; }
+        else if (isFlush) { prize = 6; resultName = "Color"; }
+        else if (isStraight) { prize = 4; resultName = "Escalera"; }
+        else if (vCounts.includes(3)) { prize = 3; resultName = "Trio"; }
+        else if (vCounts.filter(x => x === 2).length === 2) { prize = 2; resultName = "Doble Pareja"; }
+        else if (vCounts.includes(2)) {
+            const pairVal = Object.keys(counts).find(key => counts[key] === 2);
+            if (['J','Q','K','A'].includes(pairVal)) { prize = 1; resultName = "Pareja J+"; }
+        }
+
+        const msg = document.getElementById('msg-poker');
+        if (prize > 0) {
+            const win = apuesta * prize;
+            saldo += win;
+            msg.textContent = `¡${resultName.toUpperCase()}! +$${win}`;
+            msg.style.color = "#00ffae";
+        } else {
+            msg.textContent = "SIN SUERTE";
+            msg.style.color = "#ff4444";
+        }
+        updateUI();
+    }
+
+    function updateUI() {
+        document.getElementById('saldo-display').textContent = `💰 $${saldo.toLocaleString()}`;
+    }
+</script>
 
 </body>
 </html>

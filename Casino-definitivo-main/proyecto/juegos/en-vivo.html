@@ -1,34 +1,161 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Casino en Vivo - Midnight Ingenium</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="icon" type="image/png" href="../logo-casino.png">
-    <link rel="stylesheet" href="../assets/css/style.css">
+<meta charset="UTF-8">
+<title>Casino en Vivo - Midnight Ingenium</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="../logo-casino.png">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<style>
+    .vivo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 25px;
+        padding: 30px 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .vivo-card {
+        background: var(--color-card, #16163a);
+        border: 1px solid rgba(245,197,24,0.15);
+        border-radius: 16px;
+        overflow: hidden;
+        transition: all 0.35s ease;
+    }
+    .vivo-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 50px rgba(245,197,24,0.25);
+        border-color: rgba(245,197,24,0.4);
+    }
+    .vivo-card iframe {
+        width: 100%;
+        height: 220px;
+        border: none;
+        display: block;
+    }
+    .vivo-card-info { padding: 18px; }
+    .vivo-card-info h3 { color: #f5c518; margin-bottom: 8px; }
+    .vivo-card-info p { color: #aaa; font-size: 0.9rem; margin-bottom: 12px; }
+    .badge-vivo {
+        display: inline-block;
+        background: rgba(255,50,50,0.2);
+        border: 1px solid rgba(255,50,50,0.4);
+        color: #ff6666;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+    .badge-vivo::before { content: '● '; color: #ff4444; }
+    .jugadores-en-linea { color: #00ffae; font-size: 0.85rem; margin-bottom: 10px; }
+</style>
 </head>
 <body>
 
-<header class="hero small-hero">
-    <div class="hero-content">
-        <img src="../casino-header.png" class="hero-logo" alt="Midnight Ingenium Logo">
-        <h1>📡 Casino en Vivo</h1>
+<div class="topbar">
+    <div class="topbar-left">
+        <img src="../logo-casino.png" class="logo-small" alt="Logo">
+        <span class="casino-name">Midnight Ingenium</span>
     </div>
-</header>
+    <div class="topbar-right">
+        <span class="saldo" id="saldo-display">💰 $1,250</span>
+    </div>
+</div>
 
-<main class="game-page">
+<nav class="navbar">
+    <ul class="menu">
+        <li><a href="../index.html">🏠 Inicio</a></li>
+        <li><a href="index.html">🎮 Juegos</a></li>
+        <li><a href="ruleta.html">🎡 Ruleta</a></li>
+        <li><a href="blackjack.html">🃏 Blackjack</a></li>
+    </ul>
+</nav>
 
-    <section class="game-box">
-        <p>Crupieres reales transmitiendo mesas en directo.</p>
-        <button class="btn">Entrar a la mesa</button>
-    </section>
+<div class="page-header">
+    <h1>📺 Casino en Vivo</h1>
+    <p>Dealers reales, apuestas reales, emoción en tiempo real</p>
+</div>
 
-</main>
+<!-- TEMA 17: IFRAMEs de juegos en vivo -->
+<div class="vivo-grid">
+
+    <div class="vivo-card">
+        <iframe src="https://www.youtube.com/embed/BFIeduBQZsQ?mute=1&controls=1&loop=1&playlist=BFIeduBQZsQ"
+                allow="autoplay; encrypted-media" allowfullscreen
+                title="Ruleta en Vivo"></iframe>
+        <div class="vivo-card-info">
+            <span class="badge-vivo">EN VIVO</span>
+            <h3>🎡 Ruleta Europea en Vivo</h3>
+            <div class="jugadores-en-linea">👥 <span id="jug-ruleta">247</span> jugadores online</div>
+            <p>Dealer real en streaming. Apuestas desde $5. Mesa premium con estadísticas en tiempo real.</p>
+            <a href="ruleta.html" class="btn-glow">Entrar a la Mesa</a>
+        </div>
+    </div>
+
+    <div class="vivo-card">
+        <iframe src="https://www.youtube.com/embed/BFIeduBQZsQ?mute=1&controls=1&start=30"
+                allow="autoplay; encrypted-media" allowfullscreen
+                title="Blackjack en Vivo"></iframe>
+        <div class="vivo-card-info">
+            <span class="badge-vivo">EN VIVO</span>
+            <h3>🃏 Blackjack VIP en Vivo</h3>
+            <div class="jugadores-en-linea">👥 <span id="jug-bj">183</span> jugadores online</div>
+            <p>Mesa VIP con dealer profesional. Apuestas hasta $10,000. Reglas internacionales.</p>
+            <a href="blackjack.html" class="btn-glow">Entrar a la Mesa</a>
+        </div>
+    </div>
+
+    <div class="vivo-card">
+        <iframe src="https://www.youtube.com/embed/BFIeduBQZsQ?mute=1&controls=1&start=60"
+                allow="autoplay; encrypted-media" allowfullscreen
+                title="Poker en Vivo"></iframe>
+        <div class="vivo-card-info">
+            <span class="badge-vivo">EN VIVO</span>
+            <h3>♠️ Poker Texas Hold'em Vivo</h3>
+            <div class="jugadores-en-linea">👥 <span id="jug-poker">96</span> jugadores online</div>
+            <p>Texas Hold'em con dealer humano. Torneos cada hora con premios garantizados.</p>
+            <a href="poker.html" class="btn-glow">Entrar a la Mesa</a>
+        </div>
+    </div>
+
+    <div class="vivo-card">
+        <iframe src="https://www.youtube.com/embed/BFIeduBQZsQ?mute=1&controls=1&start=90"
+                allow="autoplay; encrypted-media" allowfullscreen
+                title="Baccarat en Vivo"></iframe>
+        <div class="vivo-card-info">
+            <span class="badge-vivo">EN VIVO</span>
+            <h3>🎴 Baccarat Punto Banco Vivo</h3>
+            <div class="jugadores-en-linea">👥 <span id="jug-bacc">134</span> jugadores online</div>
+            <p>El juego favorito de los VIPs. Apuestas desde $10 con múltiples variantes.</p>
+            <a href="baccarat.html" class="btn-glow">Entrar a la Mesa</a>
+        </div>
+    </div>
+
+</div>
 
 <footer>
-    <p>© 2026 Midnight Ingenium Casino</p>
+    <p>© 2026 Midnight Ingenium Casino · Juego Responsable · 18+</p>
 </footer>
 
+<script src="../assets/js/main.js"></script>
+<script>
+// Simular jugadores en línea cambiando dinámicamente
+function actualizarJugadores() {
+    const ids = ['jug-ruleta','jug-bj','jug-poker','jug-bacc'];
+    const base = [247, 183, 96, 134];
+    ids.forEach((id,i) => {
+        const el = document.getElementById(id);
+        if (el) {
+            const variacion = Math.floor(Math.random() * 21) - 10;
+            const nuevo     = Math.max(50, base[i] + variacion + Math.floor(Math.random() * 5));
+            el.textContent  = nuevo;
+            base[i]         = nuevo;
+        }
+    });
+}
+setInterval(actualizarJugadores, 5000);
+</script>
 </body>
 </html>

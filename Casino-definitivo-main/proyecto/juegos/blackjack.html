@@ -1,34 +1,327 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Blackjack - Midnight Ingenium</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="icon" type="image/png" href="../logo-casino.png">
-    <link rel="stylesheet" href="../assets/css/style.css">
+<meta charset="UTF-8">
+<title>Blackjack - Midnight Ingenium</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="../logo-casino.png">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<style>
+    .bj-mesa {
+        background: radial-gradient(ellipse at center, #1a5e1a 0%, #0d3d0d 60%, #07280a 100%);
+        border-radius: 50% 50% 0 0 / 30% 30% 0 0;
+        padding: 40px 30px;
+        margin: 30px auto;
+        max-width: 750px;
+        border: 6px solid #8B4513;
+        box-shadow: 0 0 50px rgba(0,0,0,0.8), inset 0 0 30px rgba(0,0,0,0.3);
+        position: relative;
+    }
+    .bj-zona { text-align: center; margin: 20px 0; }
+    .bj-zona h3 { color: rgba(255,255,255,0.7); font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 15px; }
+    .mano-cartas { display: flex; justify-content: center; gap: 8px; min-height: 120px; flex-wrap: wrap; }
+    .carta-svg { transition: all 0.3s ease; cursor: default; filter: drop-shadow(2px 4px 8px rgba(0,0,0,0.6)); }
+    .carta-svg:hover { transform: translateY(-8px) rotate(2deg); }
+    .carta-boca-abajo rect:last-child { display:none; }
+    .puntaje {
+        font-size: 1.6rem; font-weight: 900; font-family: 'Cinzel',serif;
+        color: #f5c518; text-shadow: 0 0 15px rgba(245,197,24,0.8);
+        margin: 10px 0;
+    }
+    .bj-controles {
+        display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;
+        padding: 25px; background: rgba(0,0,0,0.3); border-radius: 15px;
+        max-width: 600px; margin: 20px auto;
+    }
+    .bj-btn {
+        padding: 14px 28px; border: none; border-radius: 10px;
+        font-weight: 700; font-size: 1rem; cursor: pointer;
+        transition: all 0.25s; font-family: 'Rajdhani', sans-serif;
+    }
+    .bj-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .btn-pedir   { background: linear-gradient(90deg,#00ffae,#00d4ff); color:#000; }
+    .btn-plantar { background: linear-gradient(90deg,#f5c518,#ff9a00); color:#000; }
+    .btn-doblar  { background: linear-gradient(90deg,#aa00ff,#6600cc); color:#fff; }
+    .btn-nueva   { background: linear-gradient(90deg,#ff4444,#cc0000); color:#fff; }
+    .bj-btn:hover:not(:disabled) { transform:translateY(-3px) scale(1.05); box-shadow:0 8px 20px rgba(0,0,0,0.4); }
+    .apuesta-bj {
+        display: flex; align-items: center; gap: 12px;
+        justify-content: center; flex-wrap: wrap;
+        background: rgba(0,0,0,0.4); padding: 20px; border-radius: 15px;
+        max-width: 500px; margin: 0 auto 20px;
+    }
+    .chip-bj {
+        width: 60px; height: 60px; border-radius: 50%;
+        display:flex; align-items:center; justify-content:center;
+        font-weight:900; font-size:0.75rem; cursor:pointer;
+        border: 3px dashed rgba(255,255,255,0.4);
+        transition: all 0.2s;
+    }
+    .chip-bj:hover { transform:scale(1.2) rotate(10deg); }
+    #mensaje-bj {
+        font-size: 1.8rem; font-weight: 900; text-align: center;
+        padding: 20px; margin: 15px auto; max-width: 500px;
+        border-radius: 15px; min-height: 70px;
+        display: flex; align-items: center; justify-content: center;
+        font-family: 'Cinzel', serif;
+    }
+    .linea-divisora {
+        border: none; height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        margin: 20px 0;
+    }
+</style>
 </head>
 <body>
 
-<header class="hero small-hero">
-    <div class="hero-content">
-        <img src="../casino-header.png" class="hero-logo" alt="Midnight Ingenium Logo">
-        <h1>🃏 Blackjack 21</h1>
+<div class="topbar">
+    <div class="topbar-left">
+        <img src="../logo-casino.png" class="logo-small" alt="Logo">
+        <span class="casino-name">Midnight Ingenium</span>
     </div>
-</header>
+    <div class="topbar-right">
+        <span class="saldo" id="saldo-display">💰 $1,250</span>
+    </div>
+</div>
 
-<main class="game-page">
+<nav class="navbar">
+    <ul class="menu">
+        <li><a href="../index.html">🏠 Inicio</a></li>
+        <li><a href="index.html">🎮 Juegos</a></li>
+        <li><a href="ruleta.html">🎡 Ruleta</a></li>
+        <li><a href="slots.html">🎰 Slots</a></li>
+        <li><a href="crash.html">🚀 Crash</a></li>
+    </ul>
+</nav>
 
-    <section class="game-box">
-        <p>Supera al crupier sin pasarte de 21.</p>
-        <button class="btn">Jugar ahora</button>
-    </section>
+<div class="page-header">
+    <h1>🃏 Blackjack 21</h1>
+    <p>Alcanza 21 y vence al dealer — Apuesta mínima $5</p>
+</div>
 
-</main>
+<!-- Apuesta -->
+<div class="apuesta-bj">
+    <span style="color:#aaa; font-size:0.9rem;">Apuesta:</span>
+    <div class="chip-bj" style="background:linear-gradient(135deg,#e0e0e0,#888);color:#000;" onclick="cambiarApuesta(5)">$5</div>
+    <div class="chip-bj" style="background:linear-gradient(135deg,#ff4444,#cc0000);color:#fff;" onclick="cambiarApuesta(10)">$10</div>
+    <div class="chip-bj" style="background:linear-gradient(135deg,#4488ff,#0044cc);color:#fff;" onclick="cambiarApuesta(25)">$25</div>
+    <div class="chip-bj" style="background:linear-gradient(135deg,#f5c518,#cc8800);color:#000;" onclick="cambiarApuesta(50)">$50</div>
+    <div class="chip-bj" style="background:linear-gradient(135deg,#aa00ff,#6600cc);color:#fff;" onclick="cambiarApuesta(100)">$100</div>
+    <div style="background:rgba(245,197,24,0.1); border:1px solid rgba(245,197,24,0.3); border-radius:8px; padding:8px 16px; color:#f5c518; font-weight:700;">
+        Apostando: $<span id="apuesta-bj-monto">10</span>
+    </div>
+</div>
+
+<!-- Mesa SVG - TEMA 24 -->
+<div class="bj-mesa">
+    <!-- Dealer -->
+    <div class="bj-zona">
+        <h3>🤵 DEALER</h3>
+        <div class="mano-cartas" id="cartas-dealer"></div>
+        <div class="puntaje" id="puntaje-dealer">?</div>
+    </div>
+
+    <hr class="linea-divisora">
+
+    <!-- Jugador -->
+    <div class="bj-zona">
+        <h3>🧑 TÚ</h3>
+        <div class="mano-cartas" id="cartas-jugador"></div>
+        <div class="puntaje" id="puntaje-jugador">0</div>
+    </div>
+</div>
+
+<!-- Mensaje resultado -->
+<div id="mensaje-bj"></div>
+
+<!-- Controles -->
+<div class="bj-controles">
+    <button class="bj-btn btn-nueva" id="btn-nueva" onclick="nuevaPartida()">🃏 Nueva Partida</button>
+    <button class="bj-btn btn-pedir" id="btn-pedir" onclick="pedirCarta()" disabled>➕ Pedir</button>
+    <button class="bj-btn btn-plantar" id="btn-plantar" onclick="plantarse()" disabled>✋ Plantarse</button>
+    <button class="bj-btn btn-doblar" id="btn-doblar" onclick="doblar()" disabled>✖️ Doblar</button>
+</div>
 
 <footer>
-    <p>© 2026 Midnight Ingenium Casino</p>
+    <p>© 2026 Midnight Ingenium Casino · Juego Responsable · 18+</p>
 </footer>
 
+<script src="../assets/js/main.js"></script>
+<script>
+// ============================================
+// BLACKJACK ÉPICO - SVG Cartas (Tema 24)
+// ============================================
+
+const PALOS   = ['♠','♥','♦','♣'];
+const VALORES = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+let mazo=[], manoJugador=[], manoDealer=[], apuestaBJ=10, juegoActivo=false;
+
+function crearMazo() {
+    const m = [];
+    PALOS.forEach(p => VALORES.forEach(v => m.push({palo:p, valor:v})));
+    return m.sort(() => Math.random() - 0.5);
+}
+
+function valorCarta(c) {
+    if (['J','Q','K'].includes(c.valor)) return 10;
+    if (c.valor === 'A') return 11;
+    return parseInt(c.valor);
+}
+
+function calcularMano(mano) {
+    let total = 0, ases = 0;
+    mano.forEach(c => {
+        total += valorCarta(c);
+        if (c.valor === 'A') ases++;
+    });
+    while (total > 21 && ases > 0) { total -= 10; ases--; }
+    return total;
+}
+
+function colorPalo(p) { return (p === '♥' || p === '♦') ? '#cc0000' : '#111'; }
+
+// SVG de carta - TEMA 24
+function svgCarta(carta, boca = true) {
+    const ancho=80, alto=115, r=8;
+    const col = colorPalu(carta.palo);
+
+    if (!boca) {
+        return `<svg class="carta-svg" width="${ancho}" height="${alto}" viewBox="0 0 ${ancho} ${alto}" xmlns="http://www.w3.org/2000/svg">
+            <rect width="${ancho}" height="${alto}" rx="${r}" fill="#1a1a4a" stroke="#f5c518" stroke-width="2"/>
+            <rect x="5" y="5" width="${ancho-10}" height="${alto-10}" rx="${r-2}" fill="none" stroke="rgba(245,197,24,0.3)" stroke-width="1"/>
+            <text x="${ancho/2}" y="${alto/2+5}" text-anchor="middle" font-size="30" fill="rgba(245,197,24,0.4)">🂠</text>
+        </svg>`;
+    }
+
+    return `<svg class="carta-svg" width="${ancho}" height="${alto}" viewBox="0 0 ${ancho} ${alto}" xmlns="http://www.w3.org/2000/svg">
+        <rect width="${ancho}" height="${alto}" rx="${r}" fill="white" stroke="#ccc" stroke-width="1.5"/>
+        <rect x="2" y="2" width="${ancho-4}" height="${alto-4}" rx="${r-1}" fill="white" stroke="#eee" stroke-width="1"/>
+        <text x="8" y="20" font-family="Georgia,serif" font-size="14" font-weight="bold" fill="${col}">${carta.valor}</text>
+        <text x="8" y="34" font-family="Georgia,serif" font-size="14" fill="${col}">${carta.palo}</text>
+        <text x="${ancho/2}" y="${alto/2+12}" text-anchor="middle" font-family="Georgia,serif" font-size="28" fill="${col}">${carta.palo}</text>
+        <text x="${ancho-8}" y="${alto-8}" font-family="Georgia,serif" font-size="14" font-weight="bold" fill="${col}" text-anchor="end" transform="rotate(180,${ancho-8},${alto-8})">${carta.valor}</text>
+        <text x="${ancho-8}" y="${alto-22}" font-family="Georgia,serif" font-size="14" fill="${col}" text-anchor="end" transform="rotate(180,${ancho-8},${alto-22})">${carta.palo}</text>
+    </svg>`;
+}
+
+// Arreglo del typo colorPalu → colorPalo
+function colorPalu(p) { return (p === '♥' || p === '♦') ? '#cc0000' : '#111'; }
+
+function renderMano(mano, elId, ocultarPrimera=false) {
+    const el = document.getElementById(elId);
+    el.innerHTML = mano.map((c,i) => svgCarta(c, !(ocultarPrimera && i===0))).join('');
+}
+
+function nuevaPartida() {
+    const saldo = parseFloat(localStorage.getItem('saldo') || '1250');
+    if (apuestaBJ > saldo) { mostrarToast('❌ Saldo insuficiente','error'); return; }
+
+    mazo = crearMazo();
+    manoJugador = [mazo.pop(), mazo.pop()];
+    manoDealer  = [mazo.pop(), mazo.pop()];
+    juegoActivo = true;
+
+    actualizarSaldo(-apuestaBJ);
+    renderMano(manoJugador, 'cartas-jugador', false);
+    renderMano(manoDealer,  'cartas-dealer',  true);
+
+    document.getElementById('puntaje-jugador').textContent = calcularMano(manoJugador);
+    document.getElementById('puntaje-dealer').textContent  = '?';
+
+    const msg = document.getElementById('mensaje-bj');
+    msg.textContent = ''; msg.style.background = 'transparent';
+
+    document.getElementById('btn-pedir').disabled   = false;
+    document.getElementById('btn-plantar').disabled = false;
+    document.getElementById('btn-doblar').disabled  = false;
+    document.getElementById('btn-nueva').disabled   = true;
+
+    if (calcularMano(manoJugador) === 21) { plantarse(); }
+}
+
+function pedirCarta() {
+    manoJugador.push(mazo.pop());
+    renderMano(manoJugador, 'cartas-jugador');
+    const pts = calcularMano(manoJugador);
+    document.getElementById('puntaje-jugador').textContent = pts;
+    document.getElementById('btn-doblar').disabled = true;
+    if (pts > 21) finJuego('bust');
+    if (pts === 21) plantarse();
+}
+
+function plantarse() {
+    juegoActivo = false;
+    renderMano(manoDealer, 'cartas-dealer', false);
+    let ptsDlr = calcularMano(manoDealer);
+    document.getElementById('puntaje-dealer').textContent = ptsDlr;
+
+    const turnoDealer = setInterval(() => {
+        ptsDlr = calcularMano(manoDealer);
+        if (ptsDlr < 17) {
+            manoDealer.push(mazo.pop());
+            renderMano(manoDealer, 'cartas-dealer');
+            document.getElementById('puntaje-dealer').textContent = calcularMano(manoDealer);
+        } else {
+            clearInterval(turnoDealer);
+            const ptsJug = calcularMano(manoJugador);
+            const ptsDlrF = calcularMano(manoDealer);
+            if (ptsDlrF > 21 || ptsJug > ptsDlrF) finJuego('win');
+            else if (ptsJug === ptsDlrF)           finJuego('tie');
+            else                                    finJuego('lose');
+        }
+    }, 800);
+}
+
+function doblar() {
+    const saldo = parseFloat(localStorage.getItem('saldo') || '0');
+    if (apuestaBJ > saldo) { mostrarToast('❌ Saldo insuficiente para doblar','error'); return; }
+    actualizarSaldo(-apuestaBJ);
+    apuestaBJ *= 2;
+    document.getElementById('apuesta-bj-monto').textContent = apuestaBJ;
+    pedirCarta();
+    if (juegoActivo) plantarse();
+}
+
+function finJuego(resultado) {
+    juegoActivo = false;
+    const msg = document.getElementById('mensaje-bj');
+    document.getElementById('btn-pedir').disabled   = true;
+    document.getElementById('btn-plantar').disabled = true;
+    document.getElementById('btn-doblar').disabled  = true;
+    document.getElementById('btn-nueva').disabled   = false;
+
+    if (resultado === 'win' || resultado === 'bust-dealer') {
+        const ganancia = calcularMano(manoJugador)===21 && manoJugador.length===2
+            ? Math.floor(apuestaBJ * 2.5)
+            : apuestaBJ * 2;
+        actualizarSaldo(ganancia);
+        msg.style.cssText = 'background:rgba(0,255,100,0.2);color:#00ff88;font-size:1.8rem;font-weight:900;text-align:center;padding:20px;border-radius:15px;';
+        msg.textContent = calcularMano(manoJugador)===21 && manoJugador.length===2
+            ? `🎉 BLACKJACK! +$${ganancia}` : `✅ ¡Ganaste! +$${ganancia}`;
+        mostrarToast(`🃏 ¡Ganaste $${ganancia}!`,'exito');
+    } else if (resultado === 'tie') {
+        actualizarSaldo(apuestaBJ);
+        msg.style.cssText = 'background:rgba(245,197,24,0.2);color:#f5c518;font-size:1.8rem;font-weight:900;text-align:center;padding:20px;border-radius:15px;';
+        msg.textContent = '🤝 Empate — Se devuelve la apuesta';
+        mostrarToast('🤝 Empate','aviso');
+    } else if (resultado === 'bust') {
+        msg.style.cssText = 'background:rgba(255,50,50,0.2);color:#ff5555;font-size:1.8rem;font-weight:900;text-align:center;padding:20px;border-radius:15px;';
+        msg.textContent = `💥 Te pasaste de 21! -$${apuestaBJ}`;
+        mostrarToast(`💥 ¡Te pasaste! Perdiste $${apuestaBJ}`,'error');
+    } else {
+        msg.style.cssText = 'background:rgba(255,50,50,0.2);color:#ff5555;font-size:1.8rem;font-weight:900;text-align:center;padding:20px;border-radius:15px;';
+        msg.textContent = `😔 El dealer gana. -$${apuestaBJ}`;
+        mostrarToast(`😔 El dealer ganó. -$${apuestaBJ}`,'error');
+    }
+}
+
+function cambiarApuesta(val) {
+    if (juegoActivo) return;
+    apuestaBJ = val;
+    document.getElementById('apuesta-bj-monto').textContent = val;
+    mostrarToast(`Apuesta: $${val}`,'aviso');
+}
+</script>
 </body>
 </html>

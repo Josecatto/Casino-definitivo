@@ -1,2040 +1,920 @@
+/* ============================================
+   MIDNIGHT INGENIUM CASINO - CSS COMPLETO
+   Cubre: Temas 4,5,6,7,8,9,10,11,12,13,14,
+          18,19,22,26
+============================================ */
+
+/* ===== TEMA 4 & 5: Introducción a CSS + propiedades más usadas ===== */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #0f0f1a, #1b1b2f);
-    color: white;
+:root {
+    --color-fondo: #0b0b14;
+    --color-fondo2: #12122a;
+    --color-card: #16163a;
+    --color-oro: #f5c518;
+    --color-verde: #00ffae;
+    --color-azul: #00d4ff;
+    --color-texto: #e6e6e6;
+    --color-texto2: #aaaaaa;
+    --radio: 12px;
+    --sombra-oro: 0 0 20px rgba(245, 197, 24, 0.4);
+    --sombra-verde: 0 0 20px rgba(0, 255, 174, 0.4);
 }
 
-/* TOPBAR */
+/* ===== TEMA 10: Tipografías ===== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap');
+
+body {
+    font-family: 'Rajdhani', 'Segoe UI', sans-serif;
+    background: var(--color-fondo);
+    color: var(--color-texto);
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    font-family: 'Cinzel', serif;
+    letter-spacing: 1px;
+}
+
+/* ===== TEMA 6: Favicon (se pone en el HTML) ===== */
+
+/* ===== TEMA 7: Bordes redondeados ===== */
+
+.rounded { border-radius: var(--radio); }
+.rounded-full { border-radius: 50%; }
+.rounded-xl { border-radius: 20px; }
+
+/* ===== TEMA 8: Sombras ===== */
+
+.shadow-oro { box-shadow: var(--sombra-oro); }
+.shadow-verde { box-shadow: var(--sombra-verde); }
+.shadow-dark { box-shadow: 0 10px 40px rgba(0,0,0,0.7); }
+
+.text-glow-oro { text-shadow: 0 0 15px var(--color-oro), 0 0 30px var(--color-oro); }
+.text-glow-verde { text-shadow: 0 0 15px var(--color-verde); }
+
+/* ===== TEMA 9: Imágenes de fondo ===== */
+
+.bg-pattern {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60"><text x="10" y="40" font-size="30" opacity="0.04">🂠</text></svg>');
+    background-size: 60px 60px;
+    background-repeat: repeat;
+}
+
+.bg-hero-overlay {
+    background: linear-gradient(
+        to bottom,
+        rgba(11, 11, 20, 0.3) 0%,
+        rgba(11, 11, 20, 0.8) 70%,
+        rgba(11, 11, 20, 1) 100%
+    );
+}
+
+/* ===== TEMA 11: Cajas flotantes (float) ===== */
+
 .topbar {
+    background: #0a0a18;
+    padding: 10px 30px;
+    border-bottom: 1px solid #222;
+    overflow: hidden;
+}
+
+.topbar-left {
+    float: left;
     display: flex;
-    justify-content: space-between;
-    padding: 10px 40px;
-    background: #0a0a14;
+    align-items: center;
+    gap: 14px;
+}
+
+.topbar-right {
+    float: right;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.topbar::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.logo-small { height: 42px; }
+
+.casino-name {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    color: var(--color-oro);
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(245,197,24,0.5);
+}
+
+.saldo {
+    background: rgba(0, 255, 174, 0.1);
+    border: 1px solid rgba(0,255,174,0.3);
+    color: var(--color-verde);
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-weight: 700;
     font-size: 0.9rem;
 }
 
-/* HERO */
+.notificaciones {
+    background: rgba(245,197,24,0.1);
+    border: 1px solid rgba(245,197,24,0.3);
+    padding: 5px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+/* ===== TEMA 12: Centrar el contenido ===== */
+
+.center-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.text-center { text-align: center; }
+
+/* ===== TEMA 13: Flex, sin dolor ===== */
+
+.flex { display: flex; }
+.flex-center { display: flex; justify-content: center; align-items: center; }
+.flex-between { display: flex; justify-content: space-between; align-items: center; }
+.flex-col { display: flex; flex-direction: column; }
+.gap-sm { gap: 10px; }
+.gap-md { gap: 20px; }
+.gap-lg { gap: 30px; }
+
+/* ===== TEMA 14: Posición de los elementos ===== */
+
+.relative { position: relative; }
+.absolute { position: absolute; }
+.fixed { position: fixed; }
+
+/* HERO VIDEO */
 .hero {
+    position: relative;
+    width: 100%;
+    height: 80vh;
+    min-height: 500px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 60px;
+}
+
+.video-container {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.video-bg {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 177.78vh;
+    min-width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    pointer-events: none;
+    border: none;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(11,11,20,0.2), rgba(11,11,20,0.9));
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
     text-align: center;
-    padding: 40px;
-    background: #111;
+    padding: 20px;
 }
 
-.hero h1 {
-    font-size: 3rem;
-    color: gold;
-    text-shadow: 0 0 15px gold;
+.hero-content h1 {
+    font-size: 3.5rem;
+    color: var(--color-oro);
+    text-shadow: 0 0 20px rgba(245,197,24,0.8), 0 0 50px rgba(245,197,24,0.4);
+    margin-bottom: 10px;
 }
 
-/* NAVBAR */
+.hero-content p {
+    font-size: 1.2rem;
+    color: var(--color-texto2);
+    margin-bottom: 25px;
+}
+
+/* ===== NAVBAR ===== */
+
 .navbar {
-    background: #141428;
-    padding: 10px 0;
+    background: rgba(12, 12, 25, 0.97);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    border-bottom: 1px solid rgba(245,197,24,0.15);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
 }
 
 .menu {
     display: flex;
     justify-content: center;
+    align-items: center;
     list-style: none;
-    gap: 20px;
+    gap: 5px;
+    padding: 8px 20px;
+    flex-wrap: wrap;
 }
 
-.menu li {
-    position: relative;
-}
+.menu li { position: relative; }
 
 .menu a {
+    display: block;
+    padding: 10px 16px;
     text-decoration: none;
-    color: white;
-    padding: 8px 12px;
+    color: var(--color-texto);
     font-weight: 600;
-    transition: 0.3s;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
 }
 
 .menu a:hover {
-    color: gold;
+    background: rgba(245,197,24,0.15);
+    color: var(--color-oro);
 }
 
-/* SUBMENU */
+/* ===== TEMA 14: Submenú con position absolute ===== */
+
 .submenu {
     display: none;
     position: absolute;
-    top: 35px;
-    background: #1a1a2e;
+    top: calc(100% + 8px);
+    left: 0;
+    background: rgba(15, 15, 30, 0.98);
+    backdrop-filter: blur(15px);
     list-style: none;
-    padding: 10px;
-    border-radius: 8px;
+    min-width: 200px;
+    border-radius: 12px;
+    border: 1px solid rgba(245,197,24,0.2);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+    overflow: hidden;
+    z-index: 1001;
+    /* TEMA 18: Transiciones */
+    animation: fadeDropdown 0.2s ease;
 }
 
-.dropdown:hover .submenu {
-    display: block;
+@keyframes fadeDropdown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
-/* BOTONES */
+.submenu li a {
+    padding: 12px 20px;
+    font-size: 0.88rem;
+    border-radius: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.submenu li:last-child a { border-bottom: none; }
+.dropdown:hover .submenu { display: block; }
+
 .btn-login {
-    background: gold;
-    color: black !important;
-    border-radius: 6px;
+    background: linear-gradient(90deg, var(--color-oro), #ffaa00);
+    color: #000 !important;
+    font-weight: 700;
+    border-radius: 8px;
+    padding: 8px 18px;
+}
+
+.btn-login:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(245,197,24,0.7);
+    background: linear-gradient(90deg, #ffaa00, var(--color-oro)) !important;
+}
+
+/* ===== CARDS ===== */
+
+.section-title {
+    text-align: center;
+    padding: 50px 20px 10px;
+    font-size: 2rem;
+    color: var(--color-oro);
+    text-shadow: 0 0 15px rgba(245,197,24,0.5);
+}
+
+.section-subtitle {
+    text-align: center;
+    color: var(--color-texto2);
+    margin-bottom: 40px;
+    font-size: 1rem;
+}
+
+.cards {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px 40px 60px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background: var(--color-card);
+    border: 1px solid rgba(245,197,24,0.1);
+    padding: 0;
+    border-radius: 16px;
+    width: 300px;
+    text-align: center;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 20px 50px rgba(245,197,24,0.3);
+    border-color: rgba(245,197,24,0.4);
+}
+
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.card:hover img { transform: scale(1.08); }
+
+.card-body {
+    padding: 20px;
+}
+
+.card h2 {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    color: var(--color-oro);
+}
+
+.card p {
+    font-size: 0.9rem;
+    color: var(--color-texto2);
+    margin-bottom: 15px;
+}
+
+/* ===== BOTONES ===== */
+
+.btn-glow {
+    display: inline-block;
+    padding: 11px 24px;
+    background: linear-gradient(90deg, var(--color-verde), var(--color-azul));
+    color: #000;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(0,255,174,0.4);
+}
+
+.btn-glow:hover {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 0 30px rgba(0,255,174,0.8);
+}
+
+.btn-oro {
+    display: inline-block;
+    padding: 11px 24px;
+    background: linear-gradient(90deg, var(--color-oro), #ff9a00);
+    color: #000;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(245,197,24,0.4);
+}
+
+.btn-oro:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 30px rgba(245,197,24,0.8);
 }
 
 .btn {
     display: inline-block;
-    margin-top: 10px;
-    padding: 8px 16px;
-    background: gold;
-    color: black;
+    padding: 10px 20px;
+    background: var(--color-verde);
+    color: #000;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
     text-decoration: none;
-    border-radius: 6px;
     transition: 0.3s;
 }
+.btn:hover { background: #00cc8a; transform: translateY(-2px); }
 
-.btn:hover {
-    background: orange;
-}
+/* ===== TEMA 19: Columnas de texto ===== */
 
-/* CARDS */
-.cards {
-    display: flex;
-    gap: 20px;
+.columnas-texto {
+    column-count: 3;
+    column-gap: 35px;
+    column-rule: 1px solid rgba(245,197,24,0.2);
     padding: 40px;
-    justify-content: center;
+    text-align: justify;
+    line-height: 1.8;
 }
 
-.card {
-    background: #16213e;
-    padding: 20px;
-    border-radius: 12px;
-    width: 280px;
-    text-align: center;
-    transition: 0.3s;
-}
-
-.card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 0 20px gold;
-}
-
-/* FOOTER */
-footer {
-    text-align: center;
-    padding: 20px;
-    background: #111;
-}
-
-/* RESPONSIVE */
 @media (max-width: 768px) {
-    .cards {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .menu {
-        flex-wrap: wrap;
-        gap: 10px;
-    }
+    .columnas-texto { column-count: 1; }
 }
 
-/* HERO PEQUEÑO */
-.small-hero {
-    padding: 30px;
-    font-size: 1.5rem;
+/* ===== TEMA 20: Vídeo ===== */
+
+.video-container-local {
+    text-align: center;
+    padding: 40px;
 }
 
-/* FORMULARIOS */
+.video-container-local video {
+    width: 100%;
+    max-width: 700px;
+    border-radius: var(--radio);
+    box-shadow: 0 0 30px rgba(0,0,0,0.6);
+    border: 2px solid rgba(245,197,24,0.2);
+}
+
+/* ===== TEMA 21: Audio ===== */
+
+.audio-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.audio-container audio {
+    filter: invert(1) hue-rotate(180deg);
+    border-radius: 30px;
+}
+
+/* ===== TEMA 22: Transparencias y degradados ===== */
+
+.grad-oro {
+    background: linear-gradient(135deg, rgba(245,197,24,0.2), rgba(255,154,0,0.1));
+    border: 1px solid rgba(245,197,24,0.3);
+}
+
+.grad-dark {
+    background: linear-gradient(135deg, #0f0f1f, #1c1c3a);
+}
+
+.semi-trans {
+    background: rgba(22, 22, 58, 0.75);
+    backdrop-filter: blur(10px);
+}
+
+/* ===== TEMA 23: Animaciones ===== */
+
+@keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 10px rgba(245,197,24,0.4); }
+    50%       { box-shadow: 0 0 35px rgba(245,197,24,0.9); }
+}
+
+@keyframes float-up {
+    0%   { transform: translateY(20px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes spin-in {
+    from { transform: rotate(-15deg) scale(0.9); opacity: 0; }
+    to   { transform: rotate(0deg) scale(1); opacity: 1; }
+}
+
+@keyframes neon-flicker {
+    0%, 95%, 100% { opacity: 1; }
+    96%            { opacity: 0.4; }
+    97%            { opacity: 1; }
+    98%            { opacity: 0.3; }
+}
+
+.anim-float { animation: float-up 0.6s ease both; }
+.anim-pulse { animation: pulse-glow 2s infinite; }
+.anim-flicker { animation: neon-flicker 4s infinite; }
+
+.card { animation: float-up 0.5s ease both; }
+.card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2) { animation-delay: 0.2s; }
+.card:nth-child(3) { animation-delay: 0.3s; }
+.card:nth-child(4) { animation-delay: 0.4s; }
+.card:nth-child(5) { animation-delay: 0.5s; }
+
+/* ===== TEMA 24: SVG ===== */
+/* (Las clases SVG se usan inline en los HTML de juegos) */
+
+.svg-badge {
+    width: 50px;
+    height: 50px;
+    fill: var(--color-oro);
+}
+
+/* ===== TEMA 25: Canvas ===== */
+/* (Canvas se inicializa con JS en juegos) */
+
+canvas {
+    display: block;
+    border-radius: var(--radio);
+    box-shadow: 0 0 30px rgba(0,0,0,0.6);
+}
+
+/* ===== TEMA 26: Media Queries (Adaptación móviles) ===== */
+
+@media (max-width: 1024px) {
+    .hero-content h1 { font-size: 2.5rem; }
+    .cards { gap: 20px; padding: 20px; }
+    .card { width: 260px; }
+}
+
+@media (max-width: 768px) {
+    .hero { height: 60vh; }
+    .hero-content h1 { font-size: 2rem; }
+    .topbar-right { display: none; }
+    .menu { gap: 2px; }
+    .menu a { padding: 8px 10px; font-size: 0.8rem; }
+    .cards { flex-direction: column; align-items: center; }
+    .card { width: 90%; max-width: 350px; }
+    .columnas-texto { column-count: 1; padding: 20px; }
+    .iframe-container iframe { width: 100%; height: 250px; }
+}
+
+@media (max-width: 480px) {
+    .hero { height: 50vh; min-height: 350px; }
+    .hero-content h1 { font-size: 1.6rem; }
+    .casino-name { display: none; }
+    .menu a { font-size: 0.75rem; padding: 6px 8px; }
+}
+
+/* ===== FORMULARIOS (Tema 16) ===== */
+
 .form-container {
     display: flex;
     justify-content: center;
-    padding: 50px;
+    align-items: center;
+    min-height: 80vh;
+    padding: 40px 20px;
 }
 
 .casino-form {
-    background: #16213e;
-    padding: 30px;
-    border-radius: 12px;
-    width: 350px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    background: var(--color-card);
+    border: 1px solid rgba(245,197,24,0.2);
+    padding: 40px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
 }
 
-.casino-form input {
-    padding: 8px;
-    border-radius: 6px;
-    border: none;
+.casino-form h2 {
+    text-align: center;
+    color: var(--color-oro);
+    margin-bottom: 25px;
+    font-size: 1.8rem;
 }
 
-.casino-form label {
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    color: var(--color-texto2);
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--color-oro);
+    box-shadow: 0 0 0 3px rgba(245,197,24,0.15);
+}
+
+.form-group input::placeholder { color: #555; }
+
+.casino-form .btn-glow {
+    width: 100%;
+    padding: 14px;
+    font-size: 1.1rem;
+    margin-top: 8px;
+    text-align: center;
+}
+
+.form-links {
+    text-align: center;
+    margin-top: 18px;
+}
+
+.form-links a {
+    color: var(--color-verde);
+    text-decoration: none;
     font-size: 0.9rem;
 }
 
-.casino-form a {
-    color: gold;
-    text-decoration: none;
-}
+.form-links a:hover { text-decoration: underline; }
 
-.casino-form a:hover {
-    text-decoration: underline;
-}
-
-/* DASHBOARD */
-
-.dashboard {
-    display: flex;
-    gap: 20px;
-    padding: 40px;
-    justify-content: center;
-}
-
-.dashboard-card {
-    background: #16213e;
-    padding: 25px;
-    border-radius: 12px;
-    width: 250px;
-    text-align: center;
-}
-
-.big-number {
-    font-size: 2rem;
-    color: gold;
-}
-
-/* HISTORIAL */
-
-.history-container {
-    padding: 40px;
-    display: flex;
-    justify-content: center;
-}
-
-.history-table {
-    width: 80%;
-    border-collapse: collapse;
-    background: #16213e;
-}
-
-.history-table th,
-.history-table td {
-    padding: 12px;
-    text-align: center;
-    border-bottom: 1px solid #333;
-}
-
-.win {
-    color: lime;
-}
-
-.lose {
-    color: red;
-}
-
-/* GRID DE JUEGOS */
-
-.games-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 40px;
-}
-
-.game-card {
-    background: #16213e;
-    padding: 25px;
-    border-radius: 12px;
-    text-decoration: none;
-    color: white;
-    transition: 0.3s;
-}
-
-.game-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 0 20px gold;
-}
+/* ===== JUEGOS ===== */
 
 .game-page {
     display: flex;
     justify-content: center;
-    padding: 60px;
+    padding: 40px 20px;
 }
 
 .game-box {
-    background: #16213e;
+    background: var(--color-card);
+    border: 1px solid rgba(245,197,24,0.2);
     padding: 40px;
-    border-radius: 12px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 700px;
     text-align: center;
-    width: 400px;
-}
-.torneos-container {
-    display: flex;
-    gap: 20px;
-    padding: 40px;
-    justify-content: center;
-    flex-wrap: wrap;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
 }
 
-.torneo-card {
-    background: #1e1e2f;
-    padding: 25px;
-    border-radius: 12px;
-    width: 250px;
-    text-align: center;
-    box-shadow: 0 0 15px rgba(0,0,0,0.4);
-    transition: 0.3s;
+.game-box h2 {
+    color: var(--color-oro);
+    margin-bottom: 25px;
+    font-size: 2rem;
+    text-shadow: 0 0 15px rgba(245,197,24,0.5);
 }
 
-.torneo-card:hover {
-    transform: translateY(-5px);
-}
-
-.torneo-card h2 {
-    color: gold;
-}
-
-.torneo-card button {
-    margin-top: 15px;
-    padding: 10px;
-    border: none;
-    background: crimson;
-    color: white;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-.ranking-container {
-    padding: 40px;
-    display: flex;
-    justify-content: center;
-}
-
-table {
-    width: 80%;
-    border-collapse: collapse;
-    background: #1e1e2f;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-th, td {
-    padding: 15px;
-    text-align: center;
-}
-
-th {
-    background: gold;
-    color: black;
-}
-
-tr:nth-child(even) {
-    background: #2a2a40;
-}
-
-tr:hover {
-    background: #333355;
-}
-
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #0f0f1a;
-    color: white;
-}
-
-header {
-    background: #141428;
-    padding: 20px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-header h1 {
-    margin: 0;
-}
-
-nav a {
-    color: gold;
-    margin-left: 15px;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-nav a:hover {
-    color: white;
-}
-
-/* RESET */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    background: linear-gradient(135deg, #0f0f1f, #1a1a3a);
-    font-family: Arial, sans-serif;
-    color: white;
-}
-
-/* HEADER */
-.main-header {
-    background: #141428;
-    padding: 20px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.main-header h1 {
-    font-size: 24px;
-}
-
-nav a {
-    color: gold;
-    text-decoration: none;
-    margin-left: 20px;
-    font-weight: bold;
-}
-
-nav a:hover {
-    color: white;
-}
-
-/* TORNEOS */
-.torneos-container {
-    display: flex;
-    justify-content: center;
-    gap: 25px;
-    padding: 50px;
-    flex-wrap: wrap;
-}
-
-.torneo-card {
-    background: #1e1e2f;
-    padding: 25px;
-    border-radius: 12px;
-    width: 260px;
-    text-align: center;
-    box-shadow: 0 0 15px rgba(0,0,0,0.5);
-    transition: 0.3s ease;
-}
-
-.torneo-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 0 25px rgba(255,215,0,0.3);
-}
-
-.torneo-card h2 {
-    color: gold;
-    margin-bottom: 15px;
-}
-
-.torneo-card button {
-    margin-top: 15px;
-    padding: 10px;
-    border: none;
-    border-radius: 6px;
-    background: crimson;
-    color: white;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.torneo-card button:hover {
-    background: darkred;
-}
-
-/* VIP */
-.torneo-card.vip {
-    border: 2px solid gold;
-}
-
-/* RANKING */
-.ranking-container {
-    padding: 50px;
-    display: flex;
-    justify-content: center;
-}
-
-table {
-    width: 80%;
-    border-collapse: collapse;
-    background: #1e1e2f;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-th {
-    background: gold;
-    color: black;
-    padding: 15px;
-}
-
-td {
-    padding: 15px;
-    text-align: center;
-}
-
-tr:nth-child(even) {
-    background: #2a2a40;
-}
-
-tr:hover {
-    background: #333355;
-}
-
+/* GRIDS */
 .games-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 25px;
     padding: 40px;
 }
 
 .game-card {
-    background: #111;
-    border-radius: 15px;
+    background: var(--color-card);
+    border: 1px solid rgba(245,197,24,0.1);
+    border-radius: 16px;
     overflow: hidden;
-    text-align: center;
     text-decoration: none;
     color: white;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.35s ease;
+    animation: float-up 0.5s ease both;
+}
+
+.game-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(245,197,24,0.3);
+    border-color: rgba(245,197,24,0.4);
 }
 
 .game-card img {
     width: 100%;
     height: 180px;
     object-fit: cover;
-}
-
-.game-card h2 {
-    margin: 15px 0 10px;
-}
-
-.game-card p {
-    padding: 0 15px 20px;
-    font-size: 14px;
-    opacity: 0.8;
-}
-
-.game-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
-}
-
-/* RESET */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-body {
-    background: #0f0f1a;
-    color: white;
-}
-
-/* TOPBAR */
-.topbar {
-    background: #14142b;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    font-size: 14px;
-    border-bottom: 1px solid #222;
-}
-
-.saldo {
-    color: #00ffae;
-    font-weight: bold;
-}
-
-/* HERO HEADER */
-.hero {
-    background: linear-gradient(90deg, #111132, #1a1a40);
-    padding: 30px 20px;
-    text-align: center;
-    border-bottom: 1px solid #222;
-}
-
-.logo-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-}
-
-.logo {
-    width: 70px;
-    height: auto;
-}
-
-.hero h1 {
-    font-size: 28px;
-}
-
-.hero p {
-    font-size: 14px;
-    color: #aaa;
-}
-
-/* NAVBAR */
-.navbar {
-    background: #16162d;
-}
-
-.menu {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.menu li {
-    position: relative;
-}
-
-.menu a {
-    display: block;
-    padding: 15px 18px;
-    text-decoration: none;
-    color: white;
-    transition: 0.3s;
-}
-
-.menu a:hover {
-    background: #00ffae;
-    color: black;
-}
-
-/* DROPDOWN */
-.submenu {
-    display: none;
-    position: absolute;
-    background: #1e1e3f;
-    list-style: none;
-    min-width: 180px;
-    top: 50px;
-    left: 0;
-    z-index: 1000;
-}
-
-.submenu li a {
-    padding: 12px;
-}
-
-.dropdown:hover .submenu {
-    display: block;
-}
-
-/* LOGIN BUTTON */
-.btn-login {
-    background: #00ffae;
-    color: black !important;
-    border-radius: 5px;
-    font-weight: bold;
-}
-
-/* CARDS */
-.cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-    padding: 40px;
-}
-
-.card {
-    background: #1a1a35;
-    padding: 20px;
-    border-radius: 15px;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 15px;
-}
-
-.card h2 {
-    margin-bottom: 10px;
-}
-
-.card p {
-    font-size: 14px;
-    color: #bbb;
-    margin-bottom: 15px;
-}
-
-.card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 10px 25px rgba(0, 255, 174, 0.3);
-}
-
-/* BOTONES */
-.btn {
-    display: inline-block;
-    padding: 10px 18px;
-    background: #00ffae;
-    color: black;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.btn:hover {
-    background: #00cc8a;
-}
-
-/* FOOTER */
-footer {
-    background: #14142b;
-    text-align: center;
-    padding: 20px;
-    margin-top: 30px;
-    font-size: 14px;
-    color: #aaa;
-}
-
-/* ========================= */
-/* ===== AFILIADOS ========= */
-/* ========================= */
-
-/* CONTENEDOR GENERAL */
-.afiliados-container {
-    padding: 40px;
-    max-width: 1100px;
-    margin: auto;
-}
-
-/* TÍTULOS */
-.afiliados-container h2 {
-    margin-bottom: 20px;
-    font-size: 22px;
-}
-
-/* BOTONES */
-.btn-secundario {
-    display: inline-block;
-    padding: 10px 18px;
-    background: transparent;
-    border: 2px solid #00ffae;
-    color: #00ffae;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.btn-secundario:hover {
-    background: #00ffae;
-    color: black;
-}
-
-/* FORMULARIO */
-form input {
-    width: 100%;
-    padding: 12px;
-    border-radius: 8px;
-    border: none;
-    outline: none;
-    background: #1a1a35;
-    color: white;
-    margin-bottom: 15px;
-}
-
-form input:focus {
-    border: 2px solid #00ffae;
-}
-
-/* PANEL ESTADÍSTICAS */
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    margin-top: 30px;
-}
-
-.stat-card {
-    background: #1a1a35;
-    padding: 25px;
-    border-radius: 15px;
-    text-align: center;
-    transition: 0.3s;
-}
-
-.stat-card h3 {
-    margin-bottom: 10px;
-    font-size: 18px;
-}
-
-.stat-card p {
-    font-size: 22px;
-    font-weight: bold;
-    color: #00ffae;
-}
-
-.stat-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 255, 174, 0.3);
-}
-
-/* ENLACE DE REFERIDO */
-.referido-box {
-    background: #1a1a35;
-    padding: 15px;
-    border-radius: 8px;
-    word-break: break-all;
-    margin-top: 15px;
-    border: 1px solid #00ffae;
-}
-
-/* EVENTOS DEPORTIVOS */
-.evento {
-    background: #1a1a35;
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    transition: 0.3s;
-}
-
-.evento:hover {
-    box-shadow: 0 10px 25px rgba(0, 255, 174, 0.3);
-}
-
-.cuotas {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 10px;
-}
-
-.cuota {
-    background: #00ffae;
-    color: black;
-    padding: 8px 14px;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.cuota:hover {
-    background: #00cc8a;
-}
-/* ============================= */
-/* CONFIGURACION */
-/* ============================= */
-
-.config-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-    padding: 40px;
-}
-
-.config-card {
-    background: #1a1a35;
-    padding: 25px;
-    border-radius: 12px;
-    text-decoration: none;
-    color: white;
-    transition: 0.3s;
-    display: block;
-}
-
-.config-card h3 {
-    margin-bottom: 10px;
-}
-
-.config-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 255, 174, 0.3);
-}
-
-/* HERO */
-.hero {
-    text-align: center;
-    padding: 40px 20px;
-    background: #111;
-    color: #00ffae;
-}
-
-/* BOTONES */
-.btn {
-    background: #00ffae;
-    color: black;
-    padding: 10px 18px;
-    border-radius: 6px;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.btn:hover {
-    background: #00cc8a;
-}
-/* LEGAL */
-
-.legal-container {
-    padding: 40px;
-    max-width: 900px;
-    margin: auto;
-    line-height: 1.6;
-}
-.btn {
-    background: #00ffae;
-    color: black;
-    padding: 10px 18px;
-    border-radius: 6px;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.btn:hover {
-    background: #00cc8a;
-}
-/* ===================== */
-/* PROMOCIONES */
-/* ===================== */
-
-.promo-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 40px;
-}
-
-.promo-card {
-    background: #1a1a35;
-    padding: 25px;
-    border-radius: 12px;
-    text-decoration: none;
-    color: white;
-    transition: 0.3s;
-}
-
-.promo-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 25px rgba(0, 255, 174, 0.3);
-}
-
-.promo-detalle {
-    padding: 40px;
-}
-
-.promo-detalle ul {
-    margin: 20px 0;
-}
-
-.btn {
-    background: #00ffae;
-    color: black;
-    padding: 10px 18px;
-    border-radius: 6px;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.btn:hover {
-    background: #00cc8a;
-}
-/* ===================== */
-/* QUIENES SOMOS */
-/* ===================== */
-
-.info-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 40px;
-}
-
-.info-card {
-    background: #1a1a35;
-    padding: 25px;
-    border-radius: 12px;
-    text-decoration: none;
-    color: white;
-    transition: 0.3s;
-}
-
-.info-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 25px rgba(0, 255, 174, 0.3);
-}
-
-.info-detalle {
-    padding: 40px;
-}
-
-.info-detalle h2 {
-    margin-top: 20px;
-}
-/* ===================================== */
-/* ======== SOPORTE ==================== */
-/* ===================================== */
-
-/* Contenedor principal */
-.info-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 40px;
-}
-
-/* Tarjetas */
-.info-card {
-    background: #1a1a35;
-    padding: 25px;
-    border-radius: 12px;
-    text-decoration: none;
-    color: white;
-    transition: 0.3s;
-    display: block;
-}
-
-.info-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 25px rgba(0, 255, 174, 0.3);
-}
-
-/* Contenido interno (FAQ, Chat, etc) */
-.info-detalle {
-    padding: 40px;
-    max-width: 800px;
-    margin: auto;
-}
-
-.info-detalle h3 {
-    margin-top: 20px;
-}
-
-/* Formulario de contacto */
-.form-container {
-    display: flex;
-    justify-content: center;
-    padding: 40px;
-}
-
-.form-box {
-    background: #1a1a35;
-    padding: 30px;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    width: 350px;
-}
-
-.form-box input,
-.form-box textarea {
-    padding: 10px;
-    border-radius: 6px;
-    border: none;
-    outline: none;
-}
-
-.form-box textarea {
-    resize: none;
-    height: 100px;
-}
-
-
-
-/* ===================================== */
-/* ======== TIENDA ===================== */
-/* ===================================== */
-
-/* Cards tipo tienda */
-.promo-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 40px;
-}
-
-.promo-card {
-    background: #1a1a35;
-    padding: 25px;
-    border-radius: 12px;
-    text-align: center;
-    transition: 0.3s;
-}
-
-.promo-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 25px rgba(0, 255, 174, 0.3);
-}
-
-/* Botón general */
-.btn {
-    background: #00ffae;
-    color: black;
-    padding: 10px 18px;
-    border-radius: 6px;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.btn:hover {
-    background: #00cc8a;
-}
-
-
-
-/* ===================================== */
-/* ======== RESPONSIVE ================= */
-/* ===================================== */
-
-@media (max-width: 768px) {
-    .info-container,
-    .promo-container {
-        grid-template-columns: 1fr;
-        padding: 20px;
-    }
-
-    .form-box {
-        width: 100%;
-    }
-}
-/* ========================= */
-/* CARDS PREMIUM */
-/* ========================= */
-
-.cards {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    padding: 60px 20px;
-    flex-wrap: wrap;
-}
-
-.card {
-    background: rgba(26, 26, 53, 0.8);
-    backdrop-filter: blur(8px);
-    padding: 30px;
-    border-radius: 16px;
-    width: 300px;
-    text-align: center;
-    transition: 0.4s ease;
-    box-shadow: 0 0 20px rgba(0, 255, 174, 0.1);
-}
-
-.card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 40px rgba(0, 255, 174, 0.4);
-}
-
-.card-img img {
-    width: 100%;
-    border-radius: 12px;
-    margin-bottom: 15px;
-}
-
-/* ========================= */
-/* BOTONES PREMIUM */
-/* ========================= */
-
-.btn-glow {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 12px 22px;
-    border-radius: 8px;
-    font-weight: bold;
-    text-decoration: none;
-    color: #000;
-    background: linear-gradient(90deg, #00ffae, #00d4ff);
-    transition: 0.3s;
-    box-shadow: 0 0 10px rgba(0, 255, 174, 0.6);
-}
-
-.btn-glow:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 25px rgba(0, 255, 174, 1);
-}
-
-/* ========================= */
-/* HERO MÁS ELEGANTE */
-/* ========================= */
-
-.hero {
-    background: linear-gradient(135deg, #0f0f1f, #1c1c3a);
-    padding: 50px;
-    text-align: center;
-}
-
-.logo {
-    width: 70px;
-}
-/* ============================= */
-/* NAVBAR PREMIUM */
-/* ============================= */
-
-.navbar {
-    background: #141428;
-    padding: 0 30px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-}
-
-.menu {
-    list-style: none;
-    display: flex;
-    align-items: center;
-    gap: 25px;
-    margin: 0;
-    padding: 15px 0;
-}
-
-.menu li {
-    position: relative;
-}
-
-.menu a {
-    text-decoration: none;
-    color: #fff;
-    font-weight: 500;
-    padding: 8px 12px;
-    border-radius: 6px;
-    transition: 0.3s ease;
-}
-
-/* Hover general */
-.menu a:hover {
-    background: rgba(0, 255, 174, 0.15);
-    color: #00ffae;
-}
-
-/* ============================= */
-/* SUBMENU MEJORADO */
-/* ============================= */
-
-.submenu {
-    position: absolute;
-    top: 45px;
-    left: 0;
-    background: rgba(20, 20, 40, 0.95);
-    backdrop-filter: blur(8px);
-    list-style: none;
-    padding: 15px 0;
-    border-radius: 10px;
-    min-width: 180px;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(10px);
-    transition: 0.3s ease;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-    z-index: 1000;
-}
-
-.submenu li {
-    padding: 0;
-}
-
-.submenu a {
-    display: block;
-    padding: 10px 20px;
-    color: #ccc;
-    font-size: 14px;
-}
-
-.submenu a:hover {
-    background: rgba(0, 255, 174, 0.2);
-    color: #00ffae;
-}
-
-/* Mostrar submenu */
-.dropdown:hover .submenu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-/* ============================= */
-/* BOTÓN LOGIN PREMIUM */
-/* ============================= */
-
-.btn-login {
-    background: linear-gradient(90deg, #00ffae, #00d4ff);
-    color: #000 !important;
-    font-weight: bold;
-    padding: 8px 16px;
-    border-radius: 8px;
-    transition: 0.3s;
-}
-
-.btn-login:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(0, 255, 174, 0.8);
-}
-.card img {
     transition: transform 0.4s ease;
 }
 
-.card:hover img {
-    transform: scale(1.05);
-}
+.game-card:hover img { transform: scale(1.08); }
 
-/* ========================= */
-/* PROMOCIONES */
-/* ========================= */
-
-.promo-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-    padding: 40px;
-}
-
-.promo-card {
-    background: #1a1a35;
-    border-radius: 15px;
-    overflow: hidden;
-    text-decoration: none;
-    color: #fff;
-    transition: 0.4s ease;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
-}
-
-.promo-card img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-}
-
-.promo-content {
+.game-card-body {
     padding: 20px;
-}
-
-.promo-card h3 {
-    margin-bottom: 10px;
-}
-
-.promo-card p {
-    color: #ccc;
-    font-size: 14px;
-}
-
-/* Hover premium */
-.promo-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 35px rgba(0, 255, 174, 0.3);
-}
-
-.promo-card:hover img {
-    transform: scale(1.05);
-    transition: 0.4s ease;
-}
-/* RESET GENERAL */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
-}
-
-/* FONDO GENERAL */
-
-body{
-    background:#0b0b0f;
-    color:white;
-}
-
-/* =========================
-   TOPBAR
-========================= */
-
-.topbar{
-    background:#111;
-    padding:10px 40px;
-    overflow:hidden; /* FLOAT */
-}
-
-.saldo{
-    float:left;
-}
-
-.notificaciones{
-    float:right;
-}
-
-/* =========================
-   HERO
-========================= */
-
-.hero{
-    text-align:center; /* CENTRAR CONTENIDO */
-    padding:40px;
-    background:linear-gradient(180deg,#121212,#000);
-}
-
-.logo{
-    width:90px;
-    margin-bottom:10px;
-}
-
-/* =========================
-   NAVBAR
-========================= */
-
-.navbar{
-    background:#161616;
-}
-
-.menu{
-    display:flex; /* FLEXBOX */
-    justify-content:center;
-    list-style:none;
-}
-
-.menu li{
-    position:relative; /* POSITION */
-}
-
-.menu a{
-    display:block;
-    padding:15px 25px;
-    color:white;
-    text-decoration:none;
-    transition:0.3s; /* TRANSICION */
-}
-
-.menu a:hover{
-    background:#ffcc00;
-    color:black;
-}
-
-/* =========================
-   SUBMENU
-========================= */
-
-.submenu{
-    position:absolute; /* POSITION */
-    background:#222;
-    display:none;
-    list-style:none;
-    min-width:180px;
-}
-
-.submenu li a{
-    padding:12px;
-}
-
-.dropdown:hover .submenu{
-    display:block;
-}
-
-/* =========================
-   CARDS
-========================= */
-
-.cards{
-    display:flex; /* FLEX */
-    justify-content:center;
-    gap:40px;
-    padding:60px;
-}
-
-.card{
-    background:#161616;
-    padding:25px;
-    width:300px;
-    text-align:center;
-    border-radius:10px;
-
-    transition:0.3s; /* TRANSICION */
-}
-
-.card:hover{
-    transform:scale(1.05); /* TRANSFORM */
-}
-
-.card-img img{
-    width:100%;
-    border-radius:8px;
-}
-
-/* BOTON */
-
-.btn-glow{
-    display:inline-block;
-    margin-top:15px;
-    padding:10px 20px;
-    background:#ffcc00;
-    color:black;
-    text-decoration:none;
-    border-radius:5px;
-
-    transition:0.3s;
-}
-
-.btn-glow:hover{
-    transform:translateY(-3px);
-    background:#ffd633;
-}
-
-/* =========================
-   LOGIN BOTON
-========================= */
-
-.btn-login{
-    background:#ffcc00;
-    color:black;
-    border-radius:6px;
-}
-
-/* =========================
-   FOOTER
-========================= */
-
-footer{
-    text-align:center;
-    padding:25px;
-    background:#111;
-    margin-top:50px;
-}
-
-/* =========================
-   FORMULARIOS
-========================= */
-
-form{
-    width:400px;
-    margin:auto;
-    display:flex;
-    flex-direction:column;
-    gap:15px;
-}
-
-input,select,textarea{
-    padding:10px;
-    border:none;
-    border-radius:5px;
-}
-
-/* =========================
-   COLUMNAS DE TEXTO
-========================= */
-
-.columnas{
-    column-count:3;
-    column-gap:30px;
-    padding:40px;
-}
-
-/* =========================
-   VIDEO
-========================= */
-
-.video-container{
-    text-align:center;
-    padding:40px;
-}
-
-video{
-    width:600px;
-    border-radius:10px;
-}
-
-/* =========================
-   AUDIO
-========================= */
-
-.audio-container{
-    text-align:center;
-    padding:20px;
-}
-
-/* =========================
-   IFRAME
-========================= */
-
-.iframe-container{
-    text-align:center;
-    padding:40px;
-}
-
-iframe{
-    width:700px;
-    height:400px;
-    border:none;
-}
-/* HERO */
-
-.hero{
-    position: relative;
-    width: 100%;
-    height: 500px; /* altura del encabezado */
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* VIDEO DE FONDO */
-
-.video-bg{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-
-    min-width: 100%;
-    min-height: 100%;
-
-    width: auto;
-    height: auto;
-
-    transform: translate(-50%, -50%);
-    object-fit: cover;
-
-    z-index: -1;
-}
-
-/* CONTENIDO ENCIMA */
-
-.hero-content{
-    position: relative;
-    z-index: 2;
     text-align: center;
-    color: white;
-}
-/* TOPBAR */
-
-.topbar{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:10px 40px;
-    background:#0F1A2B;
-    color:#E6E6E6;
 }
 
-/* LADO IZQUIERDO */
+.game-card h2 { color: var(--color-oro); margin-bottom: 8px; font-size: 1.2rem; }
+.game-card p  { color: var(--color-texto2); font-size: 0.9rem; margin-bottom: 15px; }
 
-.topbar-left{
-    display:flex;
-    align-items:center;
-    gap:15px;
+/* APUESTAS DEPORTIVAS */
+.evento {
+    background: var(--color-card);
+    border: 1px solid rgba(245,197,24,0.1);
+    padding: 20px;
+    border-radius: 12px;
+    margin: 15px 40px;
+    transition: 0.3s;
 }
 
-/* LOGO PEQUEÑO */
+.evento:hover { box-shadow: 0 10px 30px rgba(245,197,24,0.2); }
+.evento h3 { margin-bottom: 15px; text-align: center; color: var(--color-texto); }
 
-.logo-small{
-    height:40px;
-}
-/* HERO SOLO PARA INDEX */
-
-.hero{
-    position: relative;
-    height: 420px;
-    overflow: hidden;
+.cuotas {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
 }
 
-/* VIDEO DE FONDO */
-
-.hero .video-bg{
-    position:absolute;
-    top:50%;
-    left:50%;
-    width:100%;
-    height:100%;
-    transform:translate(-50%,-50%);
-    object-fit:cover;
-}
-.hero{
-    position: relative;
-    height: 420px;
-    overflow: hidden;
+.cuota {
+    background: linear-gradient(90deg, var(--color-verde), var(--color-azul));
+    color: #000;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    transition: 0.25s;
+    font-size: 0.9rem;
 }
 
-.video-bg{
-    position:absolute;
-    top:50%;
-    left:50%;
-    width:100%;
-    height:100%;
-    transform:translate(-50%,-50%);
-    object-fit:cover;
-}
-.hero{
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-}
-
-.video-bg{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transform: translate(-50%, -50%);
-    z-index: -1;
-}
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial;
-}
-
-/* TOPBAR */
-
-.topbar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-background:#111;
-color:white;
-padding:10px 30px;
-}
-
-.topbar-left{
-display:flex;
-align-items:center;
-gap:15px;
-}
-
-.logo-small{
-height:40px;
-}
-
-.saldo{
-background:#1e1e1e;
-padding:6px 12px;
-border-radius:6px;
-}
-
-.notificaciones{
-background:#1e1e1e;
-padding:6px 12px;
-border-radius:6px;
-}
-
-/* HERO VIDEO */
-
-.hero{
-position:relative;
-height:70vh;
-overflow:hidden;
-}
-
-.video-container{
-position:absolute;
-top:50%;
-left:50%;
-width:177.77vh;
-height:100vh;
-transform:translate(-50%,-50%);
-}
-
-.video-bg{
-width:100%;
-height:100%;
-pointer-events:none;
-}
-
-/* NAVBAR */
-
-.navbar{
-background:#000;
-padding:12px 0;
-}
-
-.menu{
-display:flex;
-justify-content:center;
-align-items:center;
-gap:30px;
-list-style:none;
-flex-wrap:wrap;
-}
-
-.menu li{
-position:relative;
-}
-
-.menu a{
-color:white;
-text-decoration:none;
-font-size:16px;
-padding:8px 12px;
-display:block;
-}
-
-.menu a:hover{
-color:#f5c518;
-}
-
-/* SUBMENU */
-
-.submenu{
-display:none;
-position:absolute;
-top:35px;
-background:#111;
-list-style:none;
-min-width:180px;
-}
-
-.submenu li{
-border-bottom:1px solid #333;
-}
-
-.submenu a{
-padding:10px;
-}
-
-.dropdown:hover .submenu{
-display:block;
-}
-
-/* LOGIN BUTTON */
-
-.btn-login{
-background:#f5c518;
-color:black;
-border-radius:6px;
-padding:8px 15px;
-}
-
-/* CARDS */
-
-.cards{
-display:flex;
-justify-content:center;
-gap:40px;
-padding:60px;
-flex-wrap:wrap;
-background:#0c0c0c;
-}
-
-.card{
-background:#161616;
-color:white;
-width:280px;
-padding:20px;
-text-align:center;
-border-radius:10px;
-transition:transform 0.3s;
-}
-
-.card:hover{
-transform:scale(1.05);
-}
-
-.card img{
-width:100%;
-border-radius:8px;
-margin-bottom:10px;
-}
-
-/* BUTTON */
-
-.btn-glow{
-display:inline-block;
-margin-top:10px;
-padding:10px 20px;
-background:#f5c518;
-color:black;
-text-decoration:none;
-border-radius:6px;
-}
+.cuota:hover { transform: scale(1.08); box-shadow: 0 5px 20px rgba(0,255,174,0.5); }
 
 /* FOOTER */
-
-footer{
-text-align:center;
-padding:20px;
-background:#000;
-color:white;
-}
-.casino-name{
-font-size:18px;
-font-weight:bold;
-color:#f5c518;
-letter-spacing:1px;
-}
-.page-header{
-background:#0b0f2a;
-color:white;
-text-align:center;
-padding:40px 20px;
-font-size:28px;
-font-weight:bold;
-}
-/* CONTENEDOR DEL EVENTO */
-
-.evento{
-    background:#1a1a1a;
-    padding:20px;
-    margin:20px 0;
-    border-radius:10px;
-    box-shadow:0 4px 10px rgba(0,0,0,0.4);
-    transition:0.25s;
-}
-
-.evento:hover{
-    transform:translateY(-3px);
-}
-
-/* TITULO DEL PARTIDO */
-
-.evento h3{
-    margin-bottom:15px;
-    text-align:center;
-}
-
-/* CONTENEDOR DE CUOTAS */
-
-.cuotas{
-    display:flex;
-    justify-content:center;
-    gap:15px;
-}
-
-/* CADA CUOTA */
-
-.cuota{
-    background:#00c853;
-    padding:10px 18px;
-    border-radius:6px;
-    font-weight:bold;
-    cursor:pointer;
-    transition:0.2s;
-}
-
-.cuota:hover{
-    background:#00e676;
-    transform:scale(1.08);
-}
-/* ===== DASHBOARD ===== */
-
-.dashboard{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:25px;
-    padding:40px;
-}
-
-/* CARD BASE */
-
-.dashboard-card{
-    background:rgba(255,255,255,0.05);
-    border-radius:12px;
-    padding:25px;
-    text-align:center;
-    backdrop-filter:blur(10px);
-
-    transition:all 0.35s ease;
-    transform:translateY(30px);
-    opacity:0;
-
-    animation:cardFade 0.8s ease forwards;
-}
-
-/* DELAY ENTRE CARDS */
-
-.dashboard-card:nth-child(1){animation-delay:0.2s;}
-.dashboard-card:nth-child(2){animation-delay:0.4s;}
-.dashboard-card:nth-child(3){animation-delay:0.6s;}
-
-/* HOVER */
-
-.dashboard-card:hover{
-    transform:translateY(-8px) scale(1.03);
-    box-shadow:0 10px 30px rgba(255,215,0,0.25);
-    border:1px solid rgba(255,215,0,0.3);
-}
-
-/* NUMERO GRANDE */
-
-.big-number{
-    font-size:2.5rem;
-    font-weight:bold;
-    margin-top:10px;
-    color:#ffd700;
-}
-
-/* ANIMACION ENTRADA */
-
-@keyframes cardFade{
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-.game-card{
-transition: all .3s ease;
-}
-
-.game-card:hover{
-transform: translateY(-8px) scale(1.03);
-box-shadow:0 15px 35px rgba(255,215,0,0.25);
-}
-.config-card:hover{
-transform: translateY(-6px);
-box-shadow:0 12px 30px rgba(255,215,0,0.25);
-}
-.legal-container{
-max-width:900px;
-margin:auto;
-padding:40px 20px;
-line-height:1.7;
-font-size:16px;
-}
-
-.legal-container h2{
-margin-top:30px;
-color:#ffd700;
-}
-.hero h1 {
+footer {
+    background: #06060f;
+    border-top: 1px solid rgba(245,197,24,0.1);
     text-align: center;
-    margin-top: 20px; /* opcional: separa un poco del logo */
+    padding: 30px 20px;
+    color: var(--color-texto2);
+    font-size: 0.9rem;
+    margin-top: 30px;
 }
- /* Transición suave para botones y enlaces */
-a, .btn-glow {
+
+footer a { color: var(--color-verde); text-decoration: none; margin: 0 8px; }
+footer a:hover { text-decoration: underline; }
+
+/* HISTORIAL */
+.history-container { padding: 40px; display: flex; justify-content: center; }
+
+.history-table {
+    width: 100%;
+    max-width: 900px;
+    border-collapse: collapse;
+    background: var(--color-card);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.history-table th {
+    background: linear-gradient(90deg, rgba(245,197,24,0.3), rgba(245,197,24,0.1));
+    color: var(--color-oro);
+    padding: 15px;
+    text-align: center;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.history-table td {
+    padding: 13px 15px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 0.9rem;
+}
+
+.history-table tr:hover { background: rgba(245,197,24,0.05); }
+.win  { color: #00ff88; font-weight: 700; }
+.lose { color: #ff4444; font-weight: 700; }
+
+/* DASHBOARD */
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    padding: 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.dashboard-card {
+    background: rgba(22, 22, 58, 0.8);
+    border: 1px solid rgba(245,197,24,0.15);
+    border-radius: 16px;
+    padding: 30px 25px;
+    text-align: center;
+    animation: float-up 0.6s ease both;
+    transition: all 0.35s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(245,197,24,0.2);
+    border-color: rgba(245,197,24,0.4);
+}
+
+.big-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-oro);
+    font-family: 'Cinzel', serif;
+    margin-top: 10px;
+}
+
+/* IFRAME TEMA 17 */
+.iframe-container {
+    text-align: center;
+    padding: 30px 40px;
+}
+
+.iframe-container iframe {
+    width: 100%;
+    max-width: 800px;
+    height: 420px;
+    border: none;
+    border-radius: var(--radio);
+    box-shadow: 0 0 30px rgba(0,0,0,0.6);
+}
+
+/* ===== TEMA 27: Contenido editable ===== */
+[contenteditable="true"] {
+    outline: 2px dashed var(--color-oro);
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: text;
+}
+
+[contenteditable="true"]:focus {
+    outline: 2px solid var(--color-verde);
+    background: rgba(0,255,174,0.05);
+}
+
+/* MISC */
+.page-header {
+    background: linear-gradient(135deg, #0a0a18, #12122a);
+    padding: 50px 20px;
+    text-align: center;
+    border-bottom: 1px solid rgba(245,197,24,0.1);
+}
+
+.page-header h1 {
+    font-size: 2.5rem;
+    color: var(--color-oro);
+    text-shadow: 0 0 20px rgba(245,197,24,0.6);
+}
+
+.page-header p {
+    color: var(--color-texto2);
+    margin-top: 10px;
+    font-size: 1.1rem;
+}
+
+/* BOTÓN FLOTANTE MÚSICA */
+#btn-musica {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 9999;
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 700;
+    background: linear-gradient(90deg, var(--color-oro), #ff9a00);
+    color: #000;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 5px 25px rgba(245,197,24,0.6);
     transition: all 0.3s ease;
+    animation: pulse-glow 2s infinite;
 }
 
-/* Hover efecto para botones */
-.btn-glow:hover {
-    transform: scale(1.05); /* ligero aumento */
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.6); /* brillo dorado suave */
+#btn-musica:hover { transform: scale(1.1); }
+
+/* LEGAL */
+.legal-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 50px 30px;
+    line-height: 1.8;
+    font-size: 0.95rem;
+    color: var(--color-texto2);
 }
 
-/* Hover efecto para tarjetas */
-.card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-5px); /* levanta ligeramente la tarjeta */
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-}
-
-/* Transición ligera para imágenes dentro de tarjetas */
-.card img {
-    transition: transform 0.3s ease;
-}
-
-.card:hover img {
-    transform: scale(1.05);
-}
+.legal-container h2 { color: var(--color-oro); margin-top: 35px; margin-bottom: 10px; }
+.legal-container p  { margin-bottom: 15px; }
