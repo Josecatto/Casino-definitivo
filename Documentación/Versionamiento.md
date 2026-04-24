@@ -174,5 +174,120 @@ Todos los cambios relevantes del proyecto se documentan en este archivo siguiend
 - [ ] Modo oscuro/claro con selector persistido
 
 ---
+## 🔮 Propuesta de Versionamiento Futuro
 
+A continuación se definen las próximas etapas de evolución del proyecto **Casino Midnight Ingenium**, orientadas a su transformación de una aplicación frontend avanzada a una plataforma full stack completa.
+
+---
+
+## [2.1.0] - En desarrollo — Integración Backend Inicial
+
+### ⚙️ Nuevas Funcionalidades Planificadas
+
+- Implementación de API REST básica con Node.js y Express.
+- Registro de usuarios conectado a base de datos.
+- Sistema de login con autenticación básica (sin JWT en fase inicial).
+- Migración progresiva de `localStorage` a persistencia en base de datos.
+- Registro de apuestas desde juegos hacia backend.
+
+---
+
+### 🗄️ Backend (Primera Fase)
+
+- Creación de estructura base del servidor:
+  - `server.js`
+  - `routes/usuarios.routes.js`
+  - `routes/apuestas.routes.js`
+- Modelos iniciales:
+  - Usuario
+  - Apuesta
+- Conexión a base de datos MongoDB.
+- Primer endpoint funcional:
+  - `POST /api/apuestas`
+  - `GET /api/apuestas`
+
+---
+
+### 🎰 Integración con Frontend
+
+- Ruleta conectada a backend (envío de apuestas reales).
+- Historial de apuestas consumiendo API.
+- Login conectado a base de datos.
+- Eliminación progresiva de almacenamiento local para datos críticos.
+
+---
+
+## [2.2.0] - Planificado — Sistema de Usuarios Completo
+
+### 🔐 Autenticación Avanzada
+
+- Implementación de JWT para sesiones seguras.
+- Protección de rutas privadas (middleware).
+- Persistencia de sesión en frontend.
+- Roles de usuario (jugador / administrador).
+
+---
+
+### 👤 Panel de Usuario Mejorado
+
+- Historial de apuestas en tiempo real.
+- Saldo dinámico desde backend.
+- Perfil editable sincronizado con base de datos.
+
+---
+
+## [2.3.0] - Planificado — Backend Completo de Casino
+
+### 🎮 Motor de Juegos en Backend
+
+- Lógica de ruleta ejecutada en servidor.
+- Validación de apuestas desde backend.
+- Cálculo de ganancias centralizado.
+- Prevención de manipulación desde frontend.
+
+---
+
+### 📊 Sistema Administrativo
+
+- Panel de administración conectado a base de datos.
+- Visualización de usuarios activos.
+- Monitoreo de apuestas en tiempo real.
+- Estadísticas generales del casino.
+
+---
+
+## [2.4.0] - Planificado — Tiempo Real
+
+### ⚡ Funcionalidades en Tiempo Real
+
+- Implementación de WebSockets.
+- Actualización de apuestas en vivo.
+- Cuotas dinámicas en apuestas deportivas.
+- Notificaciones en tiempo real dentro del casino.
+
+---
+
+## [3.0.0] - Futuro — Versión Plataforma Completa
+
+### 🚀 Evolución del Sistema
+
+- Arquitectura full stack completa estable.
+- Backend escalable modularizado.
+- Sistema de juegos completamente server-side.
+- API pública documentada.
+- Preparación para despliegue en la nube.
+
+---
+
+### ☁️ Despliegue
+
+- Backend desplegado en servidor cloud.
+- Frontend separado como aplicación estática.
+- Base de datos en producción (MongoDB Atlas u equivalente).
+
+---
+
+## 🧠 Nota de Evolución
+
+El proyecto evoluciona progresivamente desde una aplicación frontend estática hacia una plataforma full stack modular, incorporando backend, persistencia de datos, autenticación y tiempo real, siguiendo principios de arquitectura moderna de software.}
 © 2026 Midnight Ingenium Casino · Proyecto Académico
