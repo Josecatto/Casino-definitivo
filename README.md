@@ -1,6 +1,6 @@
 # 🎰 Casino Midnight Ingenium
 
-> Proyecto académico de desarrollo web — Exploración de tecnologías frontend modernas
+> Proyecto académico de desarrollo web — Simulación de plataforma de casino online con arquitectura full stack
 
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
@@ -10,30 +10,45 @@
 
 ## 📋 Descripción del Proyecto
 
-**Casino Midnight Ingenium** es una aplicación web estructurada como una plataforma integral de casino online. Simula un ecosistema digital completo que incluye gestión de usuarios, juegos de casino interactivos, apuestas deportivas, promociones, tienda virtual, soporte técnico y configuración avanzada.
+**Casino Midnight Ingenium** es una aplicación web desarrollada con fines académicos que simula una plataforma de casino online modular. El sistema integra juegos de azar, apuestas deportivas, gestión de usuarios, sistema de afiliados, promociones, tienda virtual, soporte y configuración de usuario.
 
-Este desarrollo tiene **fines estrictamente académicos y demostrativos**, enfocado en aplicar los 28 temas del curso [html6.es](https://www.html6.es/index.html#punto1Links), principios de arquitectura web modular, organización jerárquica y buenas prácticas de estructuración de proyectos frontend.
+El proyecto inicia como una aplicación **frontend estática** desarrollada con HTML5, CSS3 y JavaScript, y evoluciona hacia una arquitectura **full stack**, incorporando un backend basado en Node.js y Express, junto con una base de datos NoSQL MongoDB para la persistencia de datos.
 
-> ⚠️ **Aviso:** Este proyecto no opera con dinero real. Todos los juegos, saldos y transacciones son simulados con fines educativos.
+El objetivo principal es aplicar principios de arquitectura web moderna como:
+
+- Separación de responsabilidades
+- Modularidad del sistema
+- Consumo de API REST
+- Persistencia de datos
+- Escalabilidad de aplicaciones web
 
 ---
 
-## 🗂️ Arquitectura del Proyecto
-```
+## ⚠️ Nota Importante
+
+Este proyecto es estrictamente académico.  
+No maneja dinero real ni transacciones financieras.  
+Todos los juegos, saldos y apuestas son simulaciones con fines educativos.
+
+---
+
+## 🗂️ Estructura del Proyecto
+
+```bash
 Casino-Midnight-Ingenium/
 │
-├── index.html                  ← Página principal
+├── index.html
 ├── README.md
 │
 ├── assets/
 │   ├── css/
-│   │   └── style.css           ← Estilos globales
+│   │   └── style.css
 │   ├── js/
-│   │   └── main.js             ← JavaScript principal
-│   ├── images/                 ← Imágenes del proyecto
-│   ├── icons/                  ← Íconos
-│   ├── fonts/                  ← Fuentes locales
-│   └── musica/                 ← Audio de ambiente
+│   │   └── main.js
+│   ├── images/
+│   ├── icons/
+│   ├── fonts/
+│   └── musica/
 │
 ├── cuenta/
 │   ├── login.html
@@ -42,15 +57,15 @@ Casino-Midnight-Ingenium/
 │   └── recuperar-password.html
 │
 ├── juegos/
-│   ├── index.html              ← Catálogo de juegos
-│   ├── ruleta.html             ← Ruleta (Canvas)
-│   ├── blackjack.html          ← Blackjack (SVG)
-│   ├── slots.html              ← Slots (Animaciones)
-│   ├── crash.html              ← Crash Game (Canvas)
+│   ├── index.html
+│   ├── ruleta.html
+│   ├── blackjack.html
+│   ├── slots.html
+│   ├── crash.html
 │   ├── poker.html
 │   ├── baccarat.html
 │   ├── dados.html
-│   └── en-vivo.html            ← Casino en vivo (iframe)
+│   └── en-vivo.html
 │
 ├── apuestas-deportivas/
 │   ├── index.html
@@ -60,8 +75,10 @@ Casino-Midnight-Ingenium/
 │   ├── esports.html
 │   └── apuestas-en-vivo.html
 │
-├── torneos/
-│   └── index.html
+├── afiliados/
+│   ├── index.html
+│   ├── panel.html
+│   └── registro-afiliado.html
 │
 ├── promociones/
 │   ├── index.html
@@ -75,9 +92,6 @@ Casino-Midnight-Ingenium/
 ├── soporte/
 │   └── index.html
 │
-├── quienes-somos/
-│   └── index.html
-│
 ├── configuracion/
 │   └── tema.html
 │
@@ -85,13 +99,30 @@ Casino-Midnight-Ingenium/
 │   ├── terminos.html
 │   └── privacidad.html
 │
-├── afiliados/
-│   ├── index.html
-│   ├── panel.html
-│   └── registro-afiliado.html
-│
-└── notificaciones/
-    └── index.html
+└── backend/
+    ├── server.js
+    ├── config/
+    │   └── db.js
+    ├── models/
+    │   ├── Usuario.js
+    │   ├── Apuesta.js
+    │   └── Juego.js
+    ├── routes/
+    │   ├── usuarios.routes.js
+    │   ├── apuestas.routes.js
+    │   └── juegos.routes.js
+    ├── controllers/
+    │   ├── usuarios.controller.js
+    │   ├── apuestas.controller.js
+    │   └── juegos.controller.js
+    ├── services/
+    │   ├── auth.service.js
+    │   └── casino.service.js
+    ├── middlewares/
+    │   ├── auth.middleware.js
+    │   └── error.middleware.js
+    └── utils/
+        └── helpers.js
 ```
 
 ---
