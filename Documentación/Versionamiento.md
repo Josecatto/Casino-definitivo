@@ -1,293 +1,529 @@
-# 📝 Historial de Cambios — Midnight Ingenium Casino
+# 🎰 Casino Midnight Ingenium
 
-Todos los cambios relevantes del proyecto se documentan en este archivo siguiendo el estándar [Keep a Changelog](https://keepachangelog.com/es/).
+> Proyecto académico de desarrollo web — Simulación de plataforma de casino online con arquitectura full stack
 
----
-
-## [2.0.0] - 27-03-2026 — Refactorización Total
-
-> 🚀 **Versión mayor** — Reescritura completa de todos los módulos con estética unificada, juegos funcionales, sistema de apuestas deportivas y cobertura de los 28 temas del curso html6.es.
-
----
-
-### ✨ Nuevas Funcionalidades
-
-#### 🎰 Juegos de Casino
-- **Ruleta Europea** (`juegos/ruleta.html`) — dibujada completamente con **Canvas API**, con animación de giro con easing, 37 números, fichas de apuesta ($1–$500), apuestas externas (rojo/negro, par/impar, docenas) e historial de resultados.
-- **Blackjack 21** (`juegos/blackjack.html`) — cartas generadas dinámicamente con **SVG inline**, lógica completa con pedir, plantarse, doblar y Blackjack natural (paga 2.5x).
-- **Slots Épicos** (`juegos/slots.html`) — 5 rodillos con animación **CSS @keyframes**, 10 símbolos con pesos de aparición, jackpot progresivo, tabla de pagos y selección de líneas.
-- **Crash Game** (`juegos/crash.html`) — gráfica en tiempo real con **Canvas**, curva exponencial animada, auto cash-out, historial de rondas con badges de color y distribución de crash realista.
-- **Casino en Vivo** (`juegos/en-vivo.html`) — 4 mesas con **iframe YouTube**, contador de jugadores online simulado con variación dinámica cada 5 segundos.
-
-#### ⚽ Apuestas Deportivas
-- **Apuestas en Vivo** (`apuestas-deportivas/apuestas-en-vivo.html`) — 4 eventos multideporte con badge EN VIVO parpadeante, marcadores, cuotas con **fluctuación automática cada 4 segundos** y betslip flotante.
-- **Baloncesto** (`apuestas-deportivas/baloncesto.html`) — video de partido NBA real via **iframe YouTube**, marcador animado con actualización automática de puntos, eventos NBA y EuroLeague.
-- **eSports** (`apuestas-deportivas/esports.html`) — CS2, LoL, Valorant, Dota 2 y FIFA con **filtros por juego**, tags de color por disciplina y video destacado.
-
-#### 🤝 Afiliados
-- **Panel de Afiliado** (`afiliados/panel.html`) — dashboard completo con métricas, barra de progreso de nivel, tabla de referidos, enlace único con botón copiar/compartir (`navigator.clipboard`, `navigator.share`) y solicitud de retiro.
-- **Registro Afiliado** (`afiliados/registro-afiliado.html`) — formulario externo **Formspree** con campo de plataforma de promoción, método de pago preferido y validación de contraseñas.
-- **Index Afiliados** (`afiliados/index.html`) — presentación con estadísticas, pasos numerados con `position absolute` y tabla de niveles (Bronce → Diamante).
-
-#### ⚙️ Configuración
-- **tema.html** (`configuracion/tema.html`) — toggles de preferencias persistidos en **localStorage**, campos de perfil con `contenteditable="true"`, visualizador del storage en tiempo real y opción de reset total.
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=nodedotjs&logoColor=white)
+![Express](https://img.shields.io/badge/Express-000000?style=flat&logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=flat&logo=mongodb&logoColor=white)
 
 ---
 
-### 🎨 Mejoras de Diseño (UI/UX)
+## 📋 Descripción del Proyecto
 
-- **Sistema de diseño unificado** — variables CSS globales (`--color-fondo`, `--color-oro`, `--color-verde`, `--color-azul`, `--color-card`, etc.) aplicadas consistentemente en todos los módulos.
-- **Topbar** estandarizado en todas las páginas con saldo dinámico, notificaciones y reloj en tiempo real.
-- **Navbar** con submenús animados (`position: absolute` + `@keyframes fadeDropdown`) y página activa resaltada.
-- **Betslip flotante** implementado en todos los módulos de apuestas — calcula ganancia potencial en tiempo real.
-- **Badges EN VIVO** con punto parpadeante (`@keyframes`) en eventos en tiempo real.
-- **Page header** consistente en todas las páginas internas.
-- **Footer** unificado con enlaces a módulos principales.
+**Casino Midnight Ingenium** es una aplicación web desarrollada con fines académicos que simula una plataforma de casino online modular. El sistema integra juegos de azar, apuestas deportivas, gestión de usuarios, sistema de afiliados, promociones, tienda virtual, soporte y configuración de usuario.
 
----
+El proyecto inicia como una aplicación **frontend estática** desarrollada con HTML5, CSS3 y JavaScript, y evoluciona hacia una arquitectura **full stack**, incorporando un backend basado en Node.js y Express, junto con una base de datos NoSQL MongoDB para la persistencia de datos.
 
-### 🛠️ Mejoras Técnicas
+El objetivo principal es aplicar principios de arquitectura web moderna como:
 
-- **Canvas API** — ruleta con 37 sectores, colores, números y puntero triangular. Crash game con curva exponencial, área rellena bajo la curva y punto cohete/explosión animado.
-- **SVG dinámico** — generación programática de cartas de Blackjack con palo, valor y colores correctos. SVG decorativos en catálogo de juegos.
-- **localStorage** — sistema centralizado de saldo compartido entre todos los juegos, perfil de usuario y configuración de preferencias.
-- **Formspree** — formularios de registro de jugador y afiliado alojados externamente para verificación de datos.
-- **IntersectionObserver** — animaciones de entrada al hacer scroll en cards y elementos del dashboard.
-- **Web Share API** — botón de compartir enlace de afiliado con fallback a clipboard.
-- **setInterval animaciones** — marcador de baloncesto, fluctuación de cuotas, contador de jugadores online y reloj en tiempo real.
+- Separación de responsabilidades
+- Modularidad del sistema
+- Consumo de API REST
+- Persistencia de datos
+- Escalabilidad de aplicaciones web
 
 ---
 
-### 📚 Temas del Curso Completados (html6.es)
+## ⚠️ Nota Importante
 
-| # | Tema | Estado |
+> Este proyecto es estrictamente académico.
+> No maneja dinero real ni transacciones financieras.
+> Todos los juegos, saldos y apuestas son simulaciones con fines educativos.
+
+---
+
+## 🗂️ Estructura del Proyecto
+
+```
+Casino-Midnight-Ingenium/
+│
+├── index.html
+├── README.md
+├── CHANGELOG.md
+│
+├── assets/
+│   ├── css/
+│   │   └── style.css
+│   ├── js/
+│   │   └── main.js
+│   ├── images/
+│   ├── icons/
+│   ├── fonts/
+│   └── musica/
+│
+├── cuenta/
+│   ├── login.html
+│   ├── registro.html
+│   ├── historial.html
+│   └── recuperar-password.html
+│
+├── juegos/
+│   ├── index.html
+│   ├── ruleta.html
+│   ├── blackjack.html
+│   ├── slots.html
+│   ├── crash.html
+│   ├── poker.html
+│   ├── baccarat.html
+│   ├── dados.html
+│   └── en-vivo.html
+│
+├── apuestas-deportivas/
+│   ├── index.html
+│   ├── futbol.html
+│   ├── baloncesto.html
+│   ├── tenis.html
+│   ├── esports.html
+│   └── apuestas-en-vivo.html
+│
+├── afiliados/
+│   ├── index.html
+│   ├── panel.html
+│   └── registro-afiliado.html
+│
+├── promociones/
+│   ├── index.html
+│   ├── bono-bienvenida.html
+│   ├── cashback.html
+│   └── programa-vip.html
+│
+├── tienda/
+│   └── index.html
+│
+├── soporte/
+│   └── index.html
+│
+├── configuracion/
+│   └── tema.html
+│
+├── legal/
+│   ├── terminos.html
+│   └── privacidad.html
+│
+└── backend/
+    ├── server.js                   # Punto de entrada del servidor
+    ├── .env                        # Variables de entorno (NO subir a Git)
+    ├── .env.example                # Plantilla de variables de entorno
+    ├── .gitignore
+    ├── config/
+    │   └── db.js                   # Conexión a MongoDB con Mongoose
+    ├── models/
+    │   ├── Usuario.js              # Esquema de usuario
+    │   ├── Apuesta.js              # Esquema de apuesta / historial
+    │   └── Juego.js                # Esquema de sesión de juego
+    ├── routes/
+    │   ├── usuarios.routes.js
+    │   ├── apuestas.routes.js
+    │   └── juegos.routes.js
+    ├── controllers/
+    │   ├── usuarios.controller.js
+    │   ├── apuestas.controller.js
+    │   └── juegos.controller.js
+    ├── services/
+    │   ├── auth.service.js         # Lógica de autenticación
+    │   └── casino.service.js       # Lógica de negocio del casino
+    ├── middlewares/
+    │   ├── auth.middleware.js      # Protección de rutas
+    │   └── error.middleware.js
+    └── utils/
+        └── helpers.js
+```
+
+---
+
+## 🎯 Justificación Estructural
+
+| Principio | Descripción |
+|---|---|
+| **Modularidad** | Cada carpeta es un módulo independiente con su propia responsabilidad |
+| **Escalabilidad** | Permite integrar backend, base de datos o frameworks en el futuro |
+| **Separación de responsabilidades** | HTML → Estructura · CSS → Diseño · JS → Interactividad · Node.js → Servidor |
+| **Organización profesional** | Facilita mantenimiento, trabajo colaborativo y control de versiones |
+| **Reutilización** | `style.css` y `main.js` compartidos por todos los módulos |
+
+---
+
+## 🛠️ Tecnologías Utilizadas
+
+### Frontend
+
+| Tecnología | Uso |
+|---|---|
+| **HTML5** | Estructura semántica de todas las páginas |
+| **CSS3** | Estilos, animaciones, variables, grid y flexbox |
+| **JavaScript (ES6+)** | Interactividad, juegos, localStorage, DOM |
+| **Canvas API** | Ruleta y gráfica del Crash Game |
+| **SVG** | Cartas del Blackjack y elementos decorativos |
+| **Google Fonts** | Tipografías Cinzel y Rajdhani |
+| **Formspree** | Alojamiento externo de formularios |
+| **YouTube iframe API** | Videos de fondo y partidos deportivos |
+| **localStorage** | Persistencia de saldo, perfil y configuración |
+
+### Backend
+
+| Tecnología | Uso |
+|---|---|
+| **Node.js** | Entorno de ejecución del servidor |
+| **Express.js** | Framework para construir la API REST |
+| **MongoDB** | Base de datos NoSQL para persistencia |
+| **Mongoose** | Modelado de datos y esquemas |
+| **dotenv** | Gestión de variables de entorno |
+| **cors** | Comunicación entre frontend y backend |
+| **nodemon** | Reinicio automático del servidor en desarrollo |
+
+---
+
+## 🔌 API REST — Documentación de Endpoints
+
+La API corre por defecto en `http://localhost:5000/api`.
+
+---
+
+### 👤 Usuarios — `/api/usuarios`
+
+| Método | Endpoint | Descripción |
 |---|---|---|
-| T1 | Estructura semántica HTML5 | ✅ |
-| T2 | Etiquetas básicas | ✅ |
-| T3 | Imágenes, listas, enlaces | ✅ |
-| T4 | Introducción a CSS | ✅ |
-| T5 | Propiedades CSS más usadas | ✅ |
-| T6 | Favicon | ✅ |
-| T7 | Bordes redondeados | ✅ |
-| T8 | Sombras | ✅ |
-| T9 | Imágenes de fondo | ✅ |
-| T10 | Tipografías | ✅ |
-| T11 | Float | ✅ |
-| T12 | Centrar contenido | ✅ |
-| T13 | Flexbox | ✅ |
-| T14 | Posición de elementos | ✅ |
-| T15 | Transform | ✅ |
-| T16 | Formularios HTML5 | ✅ |
-| T17 | iframe | ✅ |
-| T18 | Transiciones | ✅ |
-| T19 | Columnas de texto | ✅ |
-| T20 | Vídeo HTML5 | ✅ |
-| T21 | Audio HTML5 | ✅ |
-| T22 | Transparencias y degradados | ✅ |
-| T23 | Animaciones CSS | ✅ |
-| T24 | SVG | ✅ |
-| T25 | Canvas | ✅ |
-| T26 | Media Queries | ✅ |
-| T27 | Contenido editable | ✅ |
-| T28 | localStorage | ✅ |
+| `POST` | `/api/usuarios/registro` | Registrar un nuevo usuario |
+| `POST` | `/api/usuarios/login` | Iniciar sesión |
+| `GET` | `/api/usuarios/:id` | Obtener perfil de un usuario |
+| `PUT` | `/api/usuarios/:id` | Actualizar datos del usuario |
+
+**Ejemplo — body `POST /api/usuarios/registro`:**
+
+```json
+{
+  "nombre": "Juan Pérez",
+  "email": "juan@ejemplo.com",
+  "password": "miPassword123"
+}
+```
+
+**Ejemplo — respuesta `GET /api/usuarios/:id`:**
+
+```json
+{
+  "_id": "664a1f...",
+  "nombre": "Juan Pérez",
+  "email": "juan@ejemplo.com",
+  "saldo": 1500,
+  "fechaRegistro": "2026-03-27T10:00:00.000Z"
+}
+```
 
 ---
 
-### 🐛 Correcciones
+### 🎲 Apuestas — `/api/apuestas`
 
-- Corregido typo `colorPalu` → `colorPalo` en función de renderizado de cartas SVG del Blackjack.
-- Corregidas rutas relativas `../` en todos los archivos de subcarpetas.
-- Corregido desbordamiento del hero video en pantallas pequeñas.
-- Ajustada lógica de resultado `bust-dealer` en Blackjack para retornar al estado correcto.
+| Método | Endpoint | Descripción |
+|---|---|---|
+| `POST` | `/api/apuestas` | Registrar una nueva apuesta |
+| `GET` | `/api/apuestas` | Obtener todas las apuestas |
+| `GET` | `/api/apuestas/:id` | Obtener una apuesta por ID |
+| `GET` | `/api/apuestas/usuario/:usuarioId` | Historial de apuestas de un usuario |
+
+**Ejemplo — body `POST /api/apuestas`:**
+
+```json
+{
+  "usuarioId": "664a1f...",
+  "juego": "ruleta",
+  "monto": 100,
+  "resultado": "ganó",
+  "ganancia": 200
+}
+```
+
+**Ejemplo — respuesta `GET /api/apuestas`:**
+
+```json
+[
+  {
+    "_id": "664b2e...",
+    "usuarioId": "664a1f...",
+    "juego": "blackjack",
+    "monto": 50,
+    "resultado": "perdió",
+    "ganancia": 0,
+    "fecha": "2026-03-27T12:30:00.000Z"
+  }
+]
+```
 
 ---
 
-## [1.2.1] - 13-03-2026
+### 🎮 Juegos — `/api/juegos`
 
-### 🔧 Correcciones
-- Arreglo del tamaño del archivo de música usado en `index.html`.
-- Carga y actualización de archivos en repositorio de GitHub.
-
----
-
-## [1.2.0] - 13-03-2026
-
-### ✨ Nuevas Funcionalidades
-- Implementación de **cajas flotantes (float)** para organización de elementos visuales.
-- Integración de **contenido multimedia de video** dentro de páginas informativas.
-- Incorporación de **audio embebido** para recursos interactivos del sitio.
-- Uso de **iframe** para integrar contenido externo dentro de la plataforma.
-
-### 🎨 Mejoras de Diseño (UI/UX)
-- Mejora en la **alineación y centrado de contenido** en distintas secciones.
-- Implementación de **Flexbox** para organizar elementos de manera eficiente.
-- Aplicación de **columnas de texto** para mejorar legibilidad en páginas informativas.
-- Mejora en diseño y estructura de **formularios**.
-
-### 🛠️ Mejoras Técnicas
-- Implementación de **transiciones CSS** para efectos suaves en elementos interactivos.
-- Uso de **transformaciones CSS** para animaciones en tarjetas e imágenes.
-- Mejor control del layout con **position relative y absolute**.
-- Optimización de estructura CSS con propiedades modernas.
+| Método | Endpoint | Descripción |
+|---|---|---|
+| `GET` | `/api/juegos` | Listar todos los juegos disponibles |
+| `GET` | `/api/juegos/:id` | Obtener detalles de un juego |
 
 ---
 
-## [1.0.0] - 20-02-2026 — Versión Inicial
+## 🗄️ Modelos de Datos
 
-### ✨ Nuevas Funcionalidades
-- Creación del logo principal (`logo-casino.png`) e implementación del favicon.
-- Integración de imágenes en tarjetas de categorías (Fútbol, Juegos de Casino).
-- Sistema visual para promociones con diseño moderno.
-- Formulario base para registro de afiliado.
-- Efectos hover en tarjetas (zoom + elevación).
-- Estructura responsive para sección de promociones con CSS Grid.
+### Usuario
 
-### 🎨 Mejoras de Diseño (UI/UX)
-- Estética general de casino oscuro moderno.
-- `object-fit: cover` para imágenes proporcionales.
-- Bordes redondeados y sombras suaves.
-- Alineación de logo y título con Flexbox.
-- Unificación visual de botones y tarjetas.
+```js
+{
+  nombre:         String,    // requerido
+  email:          String,    // único, requerido
+  password:       String,    // requerido (hash)
+  saldo:          Number,    // default: 1000
+  fechaRegistro:  Date       // default: Date.now
+}
+```
 
-### 🐛 Correcciones
-- Corrección de rutas relativas para imágenes (`assets/images/`).
-- Ajuste del favicon para carga correcta en todas las páginas.
-- Solución al desplazamiento del título causado por el logo.
-- Organización coherente de estructura de carpetas.
+### Apuesta
 
-### 🛠️ Mejoras Técnicas
-- Flexbox para alineaciones horizontales.
-- CSS Grid para tarjetas responsivas.
-- Transiciones CSS suaves.
-- Estructura base preparada para escalabilidad futura.
+```js
+{
+  usuarioId:  ObjectId,   // referencia a Usuario
+  juego:      String,     // enum: ['ruleta', 'blackjack', 'slots', 'crash', 'poker', 'baccarat', 'dados']
+  monto:      Number,     // requerido
+  resultado:  String,     // enum: ['ganó', 'perdió', 'empate']
+  ganancia:   Number,     // default: 0
+  fecha:      Date        // default: Date.now
+}
+```
+
+### Juego
+
+```js
+{
+  nombre:       String,    // requerido
+  descripcion:  String,
+  activo:       Boolean    // default: true
+}
+```
+
+---
+
+## 🚀 Guía para Clonar y Ejecutar
+
+### Requisitos Previos
+
+- [Git](https://git-scm.com/)
+- [Node.js](https://nodejs.org/) v18 o superior
+- [MongoDB](https://www.mongodb.com/) local o cuenta en [MongoDB Atlas](https://www.mongodb.com/atlas)
+- [Visual Studio Code](https://code.visualstudio.com/) *(recomendado)*
+- [Postman](https://www.postman.com/) o [Insomnia](https://insomnia.rest/) para probar la API
+
+---
+
+### Paso 1 — Clonar el repositorio
+
+```bash
+git clone https://github.com/tu-usuario/Casino-Midnight-Ingenium.git
+cd Casino-Midnight-Ingenium
+```
+
+---
+
+### Paso 2 — Configurar y levantar el Backend
+
+```bash
+cd backend
+npm install
+```
+
+Crea tu archivo `.env` a partir de la plantilla incluida:
+
+```bash
+cp .env.example .env
+```
+
+Edita el `.env` con tus valores reales:
+
+```env
+PORT=5000
+MONGO_URI=mongodb://localhost:27017/casino_midnight
+```
+
+> 💡 Si usas MongoDB Atlas, tu URI se verá así:
+> `mongodb+srv://<usuario>:<password>@cluster0.xxxxx.mongodb.net/casino_midnight`
+
+Inicia el servidor:
+
+```bash
+# Modo desarrollo (reinicio automático con nodemon)
+npm run dev
+
+# Modo producción
+npm start
+```
+
+El servidor quedará disponible en `http://localhost:5000`.
+
+---
+
+### Paso 3 — Abrir el Frontend
+
+**Opción A — Doble clic:**
+Abre directamente `index.html` en tu navegador.
+
+**Opción B — VS Code con Live Server:**
+
+```bash
+code .
+```
+
+Instala la extensión **Live Server**, clic derecho en `index.html` → *Open with Live Server*.
+
+> 💡 Se recomienda Live Server para evitar restricciones CORS con audio y storage.
+
+---
+
+### Variables de Entorno — `.env.example`
+
+```env
+# Puerto en el que corre el servidor
+PORT=5000
+
+# URI de conexión a MongoDB
+MONGO_URI=mongodb://localhost:27017/casino_midnight
+```
+
+> ⚠️ El archivo `.env` real **nunca debe subirse a GitHub**. Está incluido en el `.gitignore`.
+
+---
+
+## 🧪 Pruebas de la API con Postman / Insomnia
+
+| # | Acción | Método | URL |
+|---|---|---|---|
+| 1 | Registrar usuario | `POST` | `http://localhost:5000/api/usuarios/registro` |
+| 2 | Iniciar sesión | `POST` | `http://localhost:5000/api/usuarios/login` |
+| 3 | Registrar apuesta | `POST` | `http://localhost:5000/api/apuestas` |
+| 4 | Ver todas las apuestas | `GET` | `http://localhost:5000/api/apuestas` |
+| 5 | Historial de un usuario | `GET` | `http://localhost:5000/api/apuestas/usuario/:id` |
+
+---
+
+## 📚 Temas del Curso Aplicados (html6.es)
+
+| # | Tema | Dónde se aplica |
+|---|---|---|
+| T1 | Estructura semántica HTML5 | `index.html` — `header`, `nav`, `main`, `section`, `article`, `footer` |
+| T2 | Etiquetas básicas | Todos los archivos — `h1`-`h3`, `p`, `a`, `ul`, `li`, `strong` |
+| T3 | Imágenes, listas y enlaces | `index.html`, `juegos/index.html`, navegación general |
+| T4 | Introducción a CSS | `style.css` — variables CSS, selectores, reset |
+| T5 | Propiedades CSS más usadas | `style.css` — `color`, `padding`, `margin`, `font-size` |
+| T6 | Favicon | Todos los `<head>` — `logo-casino.png` |
+| T7 | Bordes redondeados | `style.css` — `.rounded`, `.card`, `.btn-glow` |
+| T8 | Sombras | `style.css` — `text-shadow`, `box-shadow` en cards y botones |
+| T9 | Imágenes de fondo | `style.css` — `.bg-pattern`, hero overlay |
+| T10 | Tipografías | Google Fonts — `Cinzel` (títulos) + `Rajdhani` (texto) |
+| T11 | Float | `style.css` — `.topbar` con `float: left/right` |
+| T12 | Centrar contenido | `style.css` — `.center-wrap`, `margin: auto` |
+| T13 | Flexbox | `style.css` — navbar, cards, controles de juegos |
+| T14 | Posición de elementos | Hero video, navbar sticky, submenús con `position: absolute` |
+| T15 | Transform | Hover en cards, botones — `translateY`, `scale` |
+| T16 | Formularios | `cuenta/registro.html`, `afiliados/registro-afiliado.html` |
+| T17 | iframe | Hero YouTube en `index.html`, videos en módulos deportivos |
+| T18 | Transiciones | `style.css` — `transition` en todos los elementos interactivos |
+| T19 | Columnas de texto | `index.html` — sección "Sobre Midnight Ingenium" con `column-count` |
+| T20 | Vídeo HTML5 | `index.html` — elemento `<video>` con `controls` |
+| T21 | Audio HTML5 | `index.html` — elemento `<audio>` + botón flotante de música |
+| T22 | Transparencias y degradados | `style.css` — `rgba`, `linear-gradient` en CTAs y secciones |
+| T23 | Animaciones CSS | `style.css` + `juegos/slots.html` — `@keyframes`, rodillos animados |
+| T24 | SVG | `juegos/blackjack.html` — cartas SVG · `juegos/index.html` — badges |
+| T25 | Canvas | `juegos/ruleta.html` — ruleta · `juegos/crash.html` — gráfica animada |
+| T26 | Media Queries | `style.css` — breakpoints 480px, 768px, 1024px |
+| T27 | Contenido editable | `configuracion/tema.html` — campos con `contenteditable="true"` |
+| T28 | localStorage | `assets/js/main.js` + `configuracion/tema.html` — saldo, perfil, preferencias |
+
+---
+
+## 🎮 Módulos y Funcionalidades
+
+### 🏠 Página Principal (`index.html`)
+
+- Hero con video de fondo via iframe YouTube
+- Navbar con submenús desplegables animados
+- Sección de juegos destacados con cards animadas
+- Texto en columnas (T19), video HTML5 (T20), audio de ambiente (T21)
+- CTA con degradado y transparencias (T22)
+
+### 🎰 Juegos (`juegos/`)
+
+| Archivo | Descripción | Tecnología destacada |
+|---|---|---|
+| `ruleta.html` | Ruleta europea con apuestas múltiples | Canvas (T25) |
+| `blackjack.html` | Blackjack 21 con cartas dibujadas | SVG (T24) |
+| `slots.html` | Slots con 5 rodillos y jackpot progresivo | Animaciones CSS (T23) |
+| `crash.html` | Crash game con gráfica en tiempo real | Canvas animado (T25) |
+| `poker.html` | Poker Texas Hold'em | JavaScript |
+| `baccarat.html` | Baccarat Punto Banco | JavaScript |
+| `dados.html` | Sic Bo / Dados | JavaScript |
+| `en-vivo.html` | Casino en vivo con dealers simulados | iframe (T17) |
+
+### ⚽ Apuestas Deportivas (`apuestas-deportivas/`)
+
+- Fútbol, Baloncesto, Tenis y eSports con cuotas reales
+- Cuotas con fluctuación automática cada 4 segundos
+- Betslip flotante que calcula ganancia potencial en tiempo real
+- Videos embed de partidos simulados via YouTube iframe
+
+### 👤 Cuenta (`cuenta/`)
+
+- Login con validación JavaScript
+- Registro via Formspree con todos los tipos de input HTML5 (T16)
+- Historial de partidas con resultados
+- Flujo de recuperación de contraseña
+
+### 🤝 Afiliados (`afiliados/`)
+
+- Dashboard con métricas, barra de progreso de nivel y tabla de referidos
+- Formulario externo Formspree con método de pago preferido
+- Tabla de niveles Bronce → Diamante
+
+### ⚙️ Configuración (`configuracion/`)
+
+- Toggles de preferencias persistidos en `localStorage` (T28)
+- Campos de perfil editables con `contenteditable` (T27)
+- Visualizador del storage en tiempo real y opción de reset total
+
+---
+
+## 👥 Equipo de Desarrollo
+
+| Rol | Responsabilidad |
+|---|---|
+| Desarrollador Frontend | HTML, CSS, JavaScript |
+| Desarrollador Backend | Node.js, Express, MongoDB |
+| Diseñador UI | Estética, paleta de colores, tipografía |
+| QA / Tester | Pruebas en navegadores y Postman |
+
+---
+
+## 📌 Notas Importantes
+
+- El archivo `.env` **nunca debe subirse a GitHub** — usa siempre `.env.example` como referencia
+- Los saldos y juegos son **completamente simulados** — no hay transacciones reales
+- El formulario de registro usa **Formspree** — reemplaza `YOUR_FORM_ID` con tu ID real en [formspree.io](https://formspree.io)
+- Proyecto optimizado para **Chrome, Firefox y Edge** modernos
+- Para mejor experiencia de audio, interactúa con la página antes de activar la música *(política de autoplay del navegador)*
 
 ---
 
 ## 🔮 Próximas Mejoras Planificadas
 
+- [ ] Autenticación con JWT y protección de rutas privadas
+- [ ] Saldo dinámico sincronizado desde el backend (reemplazar localStorage)
+- [ ] Historial de apuestas consumiendo la API REST
 - [ ] Navbar responsive con menú hamburguesa para móviles
-- [ ] Implementación de juegos faltantes: Poker, Baccarat y Dados
-- [ ] Integración de backend para autenticación real
-- [ ] Sistema de seguimiento real de afiliados
-- [ ] Módulo de pagos y retiros
+- [ ] Poker, Baccarat y Dados completamente funcionales
+- [ ] WebSockets para apuestas deportivas en tiempo real
 - [ ] PWA — Progressive Web App para instalación en móviles
-- [ ] Modo oscuro/claro con selector persistido
-
----
-## 🔮 Propuesta de Versionamiento Futuro
-
-A continuación se definen las próximas etapas de evolución del proyecto **Casino Midnight Ingenium**, orientadas a su transformación de una aplicación frontend avanzada a una plataforma full stack completa.
+- [ ] Despliegue en la nube (Railway, Render o MongoDB Atlas)
 
 ---
 
-## [2.1.0] - En desarrollo — Integración Backend Inicial
+## 📄 Licencia
 
-### ⚙️ Nuevas Funcionalidades Planificadas
-
-- Implementación de API REST básica con Node.js y Express.
-- Registro de usuarios conectado a base de datos.
-- Sistema de login con autenticación básica (sin JWT en fase inicial).
-- Migración progresiva de `localStorage` a persistencia en base de datos.
-- Registro de apuestas desde juegos hacia backend.
-
----
-
-### 🗄️ Backend (Primera Fase)
-
-- Creación de estructura base del servidor:
-  - `server.js`
-  - `routes/usuarios.routes.js`
-  - `routes/apuestas.routes.js`
-- Modelos iniciales:
-  - Usuario
-  - Apuesta
-- Conexión a base de datos MongoDB.
-- Primer endpoint funcional:
-  - `POST /api/apuestas`
-  - `GET /api/apuestas`
-
----
-
-### 🎰 Integración con Frontend
-
-- Ruleta conectada a backend (envío de apuestas reales).
-- Historial de apuestas consumiendo API.
-- Login conectado a base de datos.
-- Eliminación progresiva de almacenamiento local para datos críticos.
-
----
-
-## [2.2.0] - Planificado — Sistema de Usuarios Completo
-
-### 🔐 Autenticación Avanzada
-
-- Implementación de JWT para sesiones seguras.
-- Protección de rutas privadas (middleware).
-- Persistencia de sesión en frontend.
-- Roles de usuario (jugador / administrador).
-
----
-
-### 👤 Panel de Usuario Mejorado
-
-- Historial de apuestas en tiempo real.
-- Saldo dinámico desde backend.
-- Perfil editable sincronizado con base de datos.
-
----
-
-## [2.3.0] - Planificado — Backend Completo de Casino
-
-### 🎮 Motor de Juegos en Backend
-
-- Lógica de ruleta ejecutada en servidor.
-- Validación de apuestas desde backend.
-- Cálculo de ganancias centralizado.
-- Prevención de manipulación desde frontend.
-
----
-
-### 📊 Sistema Administrativo
-
-- Panel de administración conectado a base de datos.
-- Visualización de usuarios activos.
-- Monitoreo de apuestas en tiempo real.
-- Estadísticas generales del casino.
-
----
-
-## [2.4.0] - Planificado — Tiempo Real
-
-### ⚡ Funcionalidades en Tiempo Real
-
-- Implementación de WebSockets.
-- Actualización de apuestas en vivo.
-- Cuotas dinámicas en apuestas deportivas.
-- Notificaciones en tiempo real dentro del casino.
-
----
-
-## [3.0.0] - Futuro — Versión Plataforma Completa
-
-### 🚀 Evolución del Sistema
-
-- Arquitectura full stack completa estable.
-- Backend escalable modularizado.
-- Sistema de juegos completamente server-side.
-- API pública documentada.
-- Preparación para despliegue en la nube.
-
----
-
-### ☁️ Despliegue
-
-- Backend desplegado en servidor cloud.
-- Frontend separado como aplicación estática.
-- Base de datos en producción (MongoDB Atlas u equivalente).
-
----
-
-## 🧠 Nota de Evolución
-
-El proyecto evoluciona progresivamente desde una aplicación frontend estática hacia una plataforma full stack modular, incorporando backend, persistencia de datos, autenticación y tiempo real, siguiendo principios de arquitectura moderna de software.}
-© 2026 Midnight Ingenium Casino · Proyecto Académico
+Proyecto académico — Uso educativo y demostrativo.
+© 2026 Midnight Ingenium Casino · Todos los derechos reservados.
