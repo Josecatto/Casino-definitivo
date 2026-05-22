@@ -25,7 +25,17 @@ El objetivo principal es aplicar principios de arquitectura web moderna como:
 - Escalabilidad de aplicaciones web
 
 ---
+## 🧩 Problemática que Resuelve el Proyecto
 
+En Colombia, el acceso al entretenimiento digital con retribución económica sigue siendo un privilegio para pocos. La mayoría de plataformas de juegos en línea exigen métodos de pago exclusivos, cuentas bancarias específicas o procesos de retiro complicados que dejan por fuera a millones de ciudadanos, especialmente a quienes hacen parte de la economía informal o no están completamente bancarizados.
+
+Desde una perspectiva de **economía básica**, el dinero solo genera valor cuando circula. Cada peso que un usuario gana en una plataforma de entretenimiento y logra retirar y gastar en su entorno local, es un peso que se inyecta de vuelta a la economía: en tiendas, servicios, transporte y consumo del día a día. Sin embargo, cuando ese dinero queda atrapado en plataformas inaccesibles o sistemas de retiro complejos, ese ciclo se rompe y el beneficio económico desaparece para el usuario.
+
+**Casino Midnight Ingenium** interviene directamente en ese ciclo. La plataforma permite al usuario registrarse, jugar y acumular ganancias de forma sencilla desde cualquier dispositivo con acceso a internet. Una vez acumulado el saldo deseado, el usuario puede solicitar su retiro y hacerlo efectivo en cualquier cajero **Servibanca** del país, sin importar el banco de su preferencia.
+
+La red Servibanca está presente en más de **400 municipios** del territorio nacional, lo que convierte a Casino Midnight Ingenium en una plataforma verdaderamente incluyente: cualquier colombiano, independientemente de su banco o su nivel de bancarización, puede acceder a sus ganancias de forma rápida, segura y sin intermediarios adicionales.
+
+De esta manera, el proyecto no solo ofrece entretenimiento digital, sino que se convierte en un pequeño pero real motor de circulación económica local, poniendo las ganancias del usuario en sus manos de forma accesible y democratizando un sector que históricamente ha sido excluyente.
 ## ⚠️ Nota Importante
 
 Este proyecto es estrictamente académico.  
