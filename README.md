@@ -42,21 +42,72 @@ Casino-Midnight-Ingenium/
 ├── index.html
 ├── README.md
 │
+├── afiliados/
+│   ├── index.html
+│   ├── panel.html
+│   └── registro-afiliado.html
+│
+├── apuestas-deportivas/
+│   ├── index.html
+│   ├── futbol.html
+│   ├── baloncesto.html
+│   ├── tenis.html
+│   ├── esports.html
+│   └── apuestas-en-vivo.html
+│
 ├── assets/
 │   ├── css/
 │   │   └── style.css
-│   ├── js/
-│   │   └── main.js
 │   ├── images/
 │   ├── icons/
 │   ├── fonts/
 │   └── musica/
 │
+│── backend/
+│   ├── server.js
+│   ├── config/
+│   │   └── db.js
+│   ├── models/
+│   │   ├── Usuario.js
+│   │   ├── Apuesta.js
+│   │   └── Juego.js
+│   ├── routes/
+│   │   ├── usuarios.routes.js
+│   │   └── apuestas.routes.js
+│   ├── controllers/
+│   │   ├── usuarios.controller.js
+│   │   ├── apuestas.controller.js
+│   │   └── juegos.controller.js
+│   ├── middleware/
+│   │   └── auth.js
+│   ├── middlewares/
+│   │   ├── auth.middleware.js
+│   │   └── error.middleware.js
+│   ├── node_modules/
+│   │   └── ...
+│   └── utils/
+│        └── helpers.js
+│
+├── configuracion/
+│   ├── index.html
+│   ├── idioma.html
+│   ├── limites-apuesta.html
+│   ├── notificaciones.html
+│   ├── perfil.html
+│   ├── privacidad.html
+│   ├── seguridad.html
+│   └── tema.html
+│
 ├── cuenta/
 │   ├── login.html
+│   ├── index.html
 │   ├── registro.html
 │   ├── historial.html
-│   └── recuperar-password.html
+│   ├── recuperar-password.html
+│   └── verificacion.html
+│
+├── js/
+│   └── script.js
 │
 ├── juegos/
 │   ├── index.html
@@ -69,18 +120,12 @@ Casino-Midnight-Ingenium/
 │   ├── dados.html
 │   └── en-vivo.html
 │
-├── apuestas-deportivas/
+├── legal/
 │   ├── index.html
-│   ├── futbol.html
-│   ├── baloncesto.html
-│   ├── tenis.html
-│   ├── esports.html
-│   └── apuestas-en-vivo.html
-│
-├── afiliados/
-│   ├── index.html
-│   ├── panel.html
-│   └── registro-afiliado.html
+│   ├── cookies.html
+│   ├── juego-responsable.html
+│   ├── politica-privacidad.html
+│   └── termino-condiciones.html
 │
 ├── promociones/
 │   ├── index.html
@@ -88,43 +133,27 @@ Casino-Midnight-Ingenium/
 │   ├── cashback.html
 │   └── programa-vip.html
 │
-├── tienda/
-│   └── index.html
+├── quienes-somos/
+│   ├── index.html
+│   ├── equipo.html
+│   ├── licencias.html
+│   └── mision-vision.html
 │
 ├── soporte/
-│   └── index.html
+│   ├── index.html
+│   ├── chat.html
+│   ├── fak.html
+│   └── contacto.html
 │
-├── configuracion/
-│   └── tema.html
+├── tienda/
+│   ├── index.html
+│   ├── comprar-ficha.html
+│   ├── metodos-pago.html
+│   └── retiros.html
 │
-├── legal/
-│   ├── terminos.html
-│   └── privacidad.html
-│
-└── backend/
-    ├── server.js
-    ├── config/
-    │   └── db.js
-    ├── models/
-    │   ├── Usuario.js
-    │   ├── Apuesta.js
-    │   └── Juego.js
-    ├── routes/
-    │   ├── usuarios.routes.js
-    │   ├── apuestas.routes.js
-    │   └── juegos.routes.js
-    ├── controllers/
-    │   ├── usuarios.controller.js
-    │   ├── apuestas.controller.js
-    │   └── juegos.controller.js
-    ├── services/
-    │   ├── auth.service.js
-    │   └── casino.service.js
-    ├── middlewares/
-    │   ├── auth.middleware.js
-    │   └── error.middleware.js
-    └── utils/
-        └── helpers.js
+└── torneos/
+     ├── index.html
+     └── ranking.html
 ```
 
 ---
