@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Bono de Bienvenida - Midnight Ingenium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../logo-casino.png">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --gold:#f5c518; --gold-glow:rgba(245,197,24,0.5); --dark-bg:#050510; --border:rgba(245,197,24,0.2); }
+        body { background:var(--dark-bg); color:#e0e0e0; margin:0; font-family:'Rajdhani',sans-serif; }
+        .topbar { display:flex; justify-content:space-between; align-items:center; padding:15px 30px; background:#0a0a1a; border-bottom:1px solid #1a1a3a; }
+        .topbar-left { display:flex; align-items:center; gap:10px; }
+        .logo-small { width:30px; height:30px; }
+        .casino-name { font-family:'Cinzel',serif; color:var(--gold); font-weight:900; font-size:1.2rem; }
+        .saldo { font-family:'Rajdhani',sans-serif; color:#00ffae; font-weight:700; }
+        .navbar { background:#11112a; padding:12px 0; border-bottom:1px solid var(--gold); position:sticky; top:0; z-index:100; }
+        .menu { list-style:none; display:flex; justify-content:center; gap:30px; margin:0; padding:0; }
+        .menu a { color:white; text-decoration:none; font-weight:700; font-size:0.85rem; text-transform:uppercase; transition:0.3s; }
+        .menu a:hover { color:var(--gold); }
+        .btn-login { border:1px solid var(--gold); padding:6px 16px; border-radius:20px; color:var(--gold) !important; }
+        .promo-header { text-align:center; padding:80px 20px 40px; background:radial-gradient(circle at center,#1a1a3a 0%,var(--dark-bg) 70%); }
+        .promo-header h1 { font-family:'Cinzel',serif; font-size:3.5rem; color:var(--gold); margin:0; text-shadow:0 0 30px var(--gold-glow); text-transform:uppercase; }
+        .promo-header p { font-size:1.2rem; color:#888; margin-top:10px; letter-spacing:5px; text-transform:uppercase; }
+        .promo-container { max-width:800px; margin:0 auto 80px; padding:0 20px; }
+        .promo-card { background:linear-gradient(145deg,rgba(20,20,40,0.8),rgba(10,10,20,0.9)); border:2px solid var(--gold); padding:40px; border-radius:20px; text-align:center; box-shadow:0 0 40px rgba(0,0,0,0.6); }
+        .promo-card h2 { font-family:'Cinzel',serif; font-size:2rem; margin-bottom:25px; color:white; }
+        .promo-card p  { font-size:1.2rem; line-height:1.6; color:#bbb; margin-bottom:30px; }
+        .promo-list { list-style:none; padding:0; margin:0 0 40px 0; display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:15px; text-align:left; }
+        .promo-list li { background:rgba(255,255,255,0.05); padding:15px; border-radius:10px; border-left:3px solid var(--gold); font-size:1rem; }
+        .promo-list strong { color:var(--gold); display:block; font-size:1.1rem; }
+        .btn-claim { background:var(--gold); color:#000; font-family:'Rajdhani',sans-serif; font-weight:800; font-size:1.4rem; padding:18px 50px; border:none; border-radius:50px; cursor:pointer; text-transform:uppercase; letter-spacing:2px; transition:0.3s; box-shadow:0 0 20px var(--gold-glow); }
+        .btn-claim:hover:not(:disabled) { transform:scale(1.05); background:#fff; }
+        .btn-claim:disabled { background:#333; color:#666; cursor:not-allowed; box-shadow:none; }
+        .reclamado-box { background:rgba(0,255,174,0.1); border:1px solid #00ffae; border-radius:12px; padding:20px; margin-top:20px; color:#00ffae; font-size:1.1rem; display:none; }
+        footer { text-align:center; padding:40px; border-top:1px solid #1a1a3a; color:#444; font-size:0.9rem; }
+    </style>
+</head>
+<body>
+
+<div class="topbar">
+    <div class="topbar-left">
+        <img src="../logo-casino.png" class="logo-small" alt="Logo">
+        <span class="casino-name">Midnight Ingenium</span>
+    </div>
+    <div class="topbar-right">
+        <span class="saldo" id="saldo-display">💰 $0.00</span>
+    </div>
+</div>
+
+<nav class="navbar">
+    <ul class="menu">
+        <li><a href="../index.html">🏠 Inicio</a></li>
+        <li><a href="index.html">🎁 Promociones</a></li>
+        <li><a href="../cuenta/login.html" class="btn-login" id="btn-sesion">Iniciar Sesión</a></li>
+    </ul>
+</nav>
+
+<header class="promo-header">
+    <p>Oferta Exclusiva</p>
+    <h1>Bono de Bienvenida</h1>
+</header>
+
+<main class="promo-container">
+    <div class="promo-card">
+        <h2>Multiplica tu Suerte</h2>
+        <p>Entra en el círculo VIP de Midnight Ingenium. Duplicamos tu primer depósito para que las luces nunca se apaguen.</p>
+        <ul class="promo-list">
+            <li><strong>+$500</strong> Crédito directo al saldo</li>
+            <li><strong>$20 MÍNIMO</strong> Depósito de entrada</li>
+            <li><strong>ROLLOVER X30</strong> Requisito de apuesta</li>
+            <li><strong>7 DÍAS</strong> Tiempo de validez</li>
+        </ul>
+        <button class="btn-claim" id="btn-reclamar" onclick="reclamarBono()">
+            Reclamar Bono Ahora
+        </button>
+        <div class="reclamado-box" id="reclamado-box">
+            ✅ Bono ya reclamado — $500 acreditados en tu cuenta
+        </div>
+    </div>
+</main>
+
+<footer><p>© 2026 Midnight Ingenium Casino · Aplican términos y condiciones.</p></footer>
+
+<script>
+    const _usuario = JSON.parse(localStorage.getItem('usuario') || 'null');
+    const _token   = localStorage.getItem('token');
+
+    if (!_usuario || !_token) window.location.href = '../cuenta/login.html';
+
+    function actualizarUI(bonos, saldo) {
+        document.getElementById('saldo-display').textContent =
+            `💰 $${parseFloat(saldo || 0).toLocaleString(undefined, {minimumFractionDigits:2})}`;
+        if (bonos.includes('bienvenida')) {
+            document.getElementById('btn-reclamar').disabled = true;
+            document.getElementById('btn-reclamar').textContent = '✅ Ya Reclamado';
+            document.getElementById('reclamado-box').style.display = 'block';
+        }
+        const btn = document.getElementById('btn-sesion');
+        if (btn && _usuario) { btn.textContent = '👤 ' + _usuario.nombre; btn.href = '../cuenta/index.html'; btn.style.color = '#00ffae'; }
+    }
+
+    // Cargar estado inicial desde localStorage
+    if (_usuario) {
+        actualizarUI(_usuario.bonosReclamados || [], _usuario.saldo);
+    }
+
+    // Sincronizar con API
+    fetch('http://localhost:5000/api/usuarios/perfil', {
+        headers: { 'Authorization': `Bearer ${_token}` }
+    })
+    .then(r => r.json())
+    .then(perfil => {
+        if (perfil?._id) {
+            const u = { ..._usuario, ...perfil, token: _token };
+            localStorage.setItem('usuario', JSON.stringify(u));
+            actualizarUI(perfil.bonosReclamados || [], perfil.saldo);
+        }
+    }).catch(() => {});
+
+    async function reclamarBono() {
+        const btn = document.getElementById('btn-reclamar');
+        btn.disabled = true;
+        btn.textContent = '⏳ Procesando...';
+
+        try {
+            const res  = await fetch('http://localhost:5000/api/usuarios/bono', {
+                method:  'POST',
+                headers: { 'Content-Type':'application/json', 'Authorization':`Bearer ${_token}` },
+                body:    JSON.stringify({ bono: 'bienvenida' })
+            });
+            const data = await res.json();
+
+            if (res.ok) {
+                const u = JSON.parse(localStorage.getItem('usuario'));
+                u.saldo = data.saldoActual;
+                u.bonosReclamados = data.bonosReclamados;
+                localStorage.setItem('usuario', JSON.stringify(u));
+                actualizarUI(data.bonosReclamados, data.saldoActual);
+            } else {
+                alert(data.mensaje || 'Error al reclamar');
+                btn.disabled = false;
+                btn.textContent = 'Reclamar Bono Ahora';
+            }
+        } catch {
+            alert('Error al conectar con el servidor');
+            btn.disabled = false;
+            btn.textContent = 'Reclamar Bono Ahora';
+        }
+    }
+</script>
+</body>
+</html>

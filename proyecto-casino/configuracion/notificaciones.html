@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Notificaciones - Midnight Ingenium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../logo-casino.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .notif-container { max-width:650px; margin:40px auto; padding:0 20px 80px; }
+        .settings-card {
+            background:var(--color-card); border:1px solid rgba(245,197,24,0.2);
+            border-radius:20px; padding:30px; box-shadow:0 15px 40px rgba(0,0,0,0.6);
+        }
+        .settings-card h2 { font-family:'Cinzel',serif; color:var(--color-oro); text-align:center; margin-bottom:30px; font-size:1.5rem; }
+        .notif-row {
+            display:flex; align-items:center; justify-content:space-between;
+            padding:20px 0; border-bottom:1px solid rgba(255,255,255,0.05);
+        }
+        .notif-row:last-of-type { border-bottom:none; }
+        .notif-text h4 { font-family:'Rajdhani',sans-serif; color:#fff; margin:0; font-size:1.1rem; }
+        .notif-text p  { font-family:'Rajdhani',sans-serif; color:#888; margin:5px 0 0; font-size:0.85rem; }
+        .switch { position:relative; display:inline-block; width:50px; height:26px; }
+        .switch input { opacity:0; width:0; height:0; }
+        .slider {
+            position:absolute; cursor:pointer; top:0; left:0; right:0; bottom:0;
+            background-color:#333; transition:.4s; border-radius:34px;
+        }
+        .slider:before {
+            position:absolute; content:""; height:18px; width:18px;
+            left:4px; bottom:4px; background-color:white; transition:.4s; border-radius:50%;
+        }
+        input:checked + .slider { background-color:var(--color-verde); box-shadow:0 0 10px var(--color-verde); }
+        input:checked + .slider:before { transform:translateX(24px); }
+        .btn-save {
+            width:100%; background:var(--color-oro); color:#000; border:none; padding:15px;
+            border-radius:12px; font-family:'Rajdhani',sans-serif; font-weight:800;
+            font-size:1.1rem; text-transform:uppercase; margin-top:30px; cursor:pointer; transition:0.3s;
+        }
+        .btn-save:hover { background:#fff; transform:scale(1.02); }
+    </style>
+</head>
+<body class="bg-pattern">
+
+<div class="topbar">
+    <div class="topbar-left">
+        <img src="../logo-casino.png" class="logo-small" alt="Logo">
+        <span class="casino-name">Midnight Ingenium</span>
+    </div>
+    <div class="topbar-right">
+        <span class="saldo" id="saldo-display">💰 $0.00</span>
+    </div>
+</div>
+
+<nav class="navbar">
+    <ul class="menu">
+        <li><a href="../index.html">🏠 Inicio</a></li>
+        <li><a href="index.html">⚙️ Ajustes</a></li>
+        <li><a href="notificaciones.html" style="color:var(--color-oro);">🔔 Alertas</a></li>
+        <li><a href="../cuenta/login.html" class="btn-login" id="btn-sesion">Iniciar Sesión</a></li>
+    </ul>
+</nav>
+
+<header class="page-header">
+    <h1>🔔 Centro de Mensajes</h1>
+    <p>Controla cómo quieres que te contactemos</p>
+</header>
+
+<main class="notif-container">
+    <div class="settings-card">
+        <h2>Preferencias de Alerta</h2>
+        <form id="notif-form">
+            <div class="notif-row">
+                <div class="notif-text">
+                    <h4>Promociones Exclusivas</h4>
+                    <p>Recibe bonos y ofertas especiales por correo.</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="toggle-promociones">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="notif-row">
+                <div class="notif-text">
+                    <h4>Alertas de Apuestas</h4>
+                    <p>Notificarme cuando mis apuestas se resuelvan.</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="toggle-alertas">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="notif-row">
+                <div class="notif-text">
+                    <h4>Inicios de Sesión</h4>
+                    <p>Avisar cuando se inicie sesión desde un nuevo dispositivo.</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="toggle-seguridad">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <button type="button" class="btn-save" onclick="guardarNotificaciones()">
+                Guardar Preferencias
+            </button>
+        </form>
+    </div>
+</main>
+
+<footer><p>© 2026 Midnight Ingenium Casino</p></footer>
+
+<script src="../assets/js/main.js"></script>
+<script>
+    const _usuario  = JSON.parse(localStorage.getItem('usuario') || 'null');
+    const _token    = localStorage.getItem('token');
+
+    if (!_usuario || !_token) window.location.href = '../cuenta/login.html';
+
+    if (_usuario) {
+        document.getElementById('saldo-display').textContent =
+            `💰 $${parseFloat(_usuario.saldo || 0).toLocaleString(undefined, {minimumFractionDigits:2})}`;
+        const btnSesion = document.getElementById('btn-sesion');
+        if (btnSesion) {
+            btnSesion.textContent = '👤 ' + _usuario.nombre;
+            btnSesion.href = '../cuenta/index.html';
+            btnSesion.style.color = '#00ffae';
+        }
+    }
+
+    // Cargar preferencias guardadas
+    const notifGuardadas = JSON.parse(localStorage.getItem('notificaciones') || '{}');
+    document.getElementById('toggle-promociones').checked = notifGuardadas.promociones ?? true;
+    document.getElementById('toggle-alertas').checked     = notifGuardadas.alertas     ?? true;
+    document.getElementById('toggle-seguridad').checked   = notifGuardadas.seguridad   ?? false;
+
+    function guardarNotificaciones() {
+        const prefs = {
+            promociones: document.getElementById('toggle-promociones').checked,
+            alertas:     document.getElementById('toggle-alertas').checked,
+            seguridad:   document.getElementById('toggle-seguridad').checked
+        };
+        localStorage.setItem('notificaciones', JSON.stringify(prefs));
+        mostrarToast('✅ Preferencias guardadas correctamente', 'exito');
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Preguntas Frecuentes | Midnight Ingenium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../logo-casino.png">
+    
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --gold: #f5c518;
+            --gold-glow: rgba(245, 197, 24, 0.3);
+            --dark-bg: #050510;
+            --glass: rgba(20, 20, 40, 0.7);
+        }
+
+        body { 
+            background: var(--dark-bg); 
+            color: #e0e0e0; 
+            margin: 0; 
+            font-family: 'Rajdhani', sans-serif; 
+            background-image: radial-gradient(circle at top right, #1a1a3a, transparent);
+            line-height: 1.6;
+        }
+
+        /* --- TOPBAR CON LOGO AL LADO --- */
+        .topbar { 
+            display: flex; 
+            justify-content: flex-start; 
+            align-items: center; 
+            padding: 15px 30px; 
+            background: #0a0a1a; 
+            border-bottom: 1px solid #1a1a3a; 
+            gap: 12px; /* Espacio entre logo y texto */
+        }
+        .logo-small {
+            width: 35px;
+            height: 35px;
+            filter: drop-shadow(0 0 5px var(--gold-glow));
+        }
+        .casino-name { 
+            font-family: 'Cinzel', serif; 
+            color: var(--gold); 
+            font-weight: 900; 
+            font-size: 1.4rem; 
+            letter-spacing: 1px;
+        }
+        
+        /* --- NAVBAR CON EMOJIS --- */
+        .navbar { 
+            background: #11112a; 
+            padding: 12px 0; 
+            border-bottom: 1px solid var(--gold); 
+            position: sticky; 
+            top: 0; 
+            z-index: 100;
+        }
+        .menu { 
+            list-style: none; 
+            display: flex; 
+            justify-content: center; 
+            gap: 25px; 
+            margin: 0; 
+            padding: 0; 
+        }
+        .menu a { 
+            color: white; 
+            text-decoration: none; 
+            font-weight: 700; 
+            font-size: 0.9rem; 
+            text-transform: uppercase; 
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px; /* Espacio entre emoji y texto */
+        }
+        .menu a:hover { 
+            color: var(--gold); 
+            text-shadow: 0 0 8px var(--gold-glow);
+            transform: translateY(-2px);
+        }
+
+        /* --- HEADER --- */
+        .hero-section {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        .hero-section h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            text-shadow: 0 0 15px var(--gold-glow);
+            margin: 0;
+        }
+
+        /* --- CONTENEDOR FAQ --- */
+        .main-wrapper {
+            max-width: 850px;
+            margin: 0 auto 100px;
+            padding: 0 20px;
+        }
+
+        .faq-card {
+            background: var(--glass);
+            border: 1px solid rgba(245, 197, 24, 0.1);
+            padding: 30px 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: 0.3s;
+        }
+
+        .faq-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-5px);
+        }
+
+        h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            margin-top: 0;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        h3::before {
+            content: "◆";
+            font-size: 0.8rem;
+            color: var(--gold-glow);
+        }
+
+        p { color: #bbb; font-size: 1.1rem; margin-bottom: 0; }
+        .highlight { color: white; font-weight: 700; border-bottom: 1px solid var(--gold-glow); }
+
+        footer { text-align: center; padding: 60px; color: #444; border-top: 1px solid #1a1a3a; }
+
+        @media (max-width: 600px) {
+            .menu { gap: 15px; flex-wrap: wrap; justify-content: center; }
+            .menu a { font-size: 0.75rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOPBAR MEJORADA -->
+    <div class="topbar">
+        <img src="../logo-casino.png" class="logo-small" alt="Logo">
+        <span class="casino-name">Midnight Ingenium</span>
+    </div>
+
+    <!-- NAVBAR CON EMOJIS -->
+    <nav class="navbar">
+        <ul class="menu">
+            <li><a href="../index.html">🏠 Inicio</a></li>
+            <li><a href="soporte.html">🛠 Soporte</a></li>
+            <li><a href="contacto.html">👤 Perfil VIP</a></li>
+            <li><a href="../quienes-somos/index.html">🏴‍☠️ Nosotros</a></li>
+        </ul>
+    </nav>
+
+    <!-- HEADER -->
+    <header class="hero-section">
+        <h1>❓ Preguntas Frecuentes</h1>
+        <p style="color: #666; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-top: 10px;">Centro de Ayuda y Claridad</p>
+    </header>
+
+    <!-- FAQ CONTENT -->
+    <div class="main-wrapper">
+        
+        <div class="faq-card">
+            <h3>¿Cómo realizo un depósito?</h3>
+            <p>Es simple. Dirígete a nuestra <span class="highlight">Tienda Virtual</span> y selecciona la opción "Comprar Fichas". Aceptamos tarjetas de crédito, transferencias bancarias y criptomonedas de forma instantánea.</p>
+        </div>
+
+        <div class="faq-card">
+            <h3>¿Cuánto tarda en procesarse un retiro?</h3>
+            <p>La seguridad es nuestra prioridad. Los retiros se procesan en un periodo de <span class="highlight">24 a 48 horas</span> hábiles tras la validación de tu identidad por nuestro equipo de auditoría.</p>
+        </div>
+
+        <div class="faq-card">
+            <h3>¿El casino es legal y seguro?</h3>
+            <p>Absolutamente. Midnight Ingenium utiliza protocolos de <span class="highlight">cifrado SSL</span> de nivel bancario y certificación RNG para garantizar que todos los resultados de los juegos sean 100% aleatorios y justos.</p>
+        </div>
+
+        <div class="faq-card">
+            <h3>¿Tienen programa para jugadores VIP?</h3>
+            <p>Sí. Al completar tu perfil en la sección de contacto, nuestro sistema evalúa tu actividad. Los miembros <span class="highlight">VIP Platinum</span> disfrutan de retiros prioritarios y bonos exclusivos cada semana.</p>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2026 Midnight Ingenium Casino · Jugamos limpio, ganamos en grande.</p>
+    </footer>
+
+</body>
+</html>

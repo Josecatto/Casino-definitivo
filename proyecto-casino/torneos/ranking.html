@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ranking Global | Midnight Ingenium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../logo-casino.png">
+    
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --gold: #f5c518;
+            --gold-glow: rgba(245, 197, 24, 0.4);
+            --dark-bg: #050510;
+            --glass: rgba(20, 20, 40, 0.8);
+            --silver: #d1d1d1;
+            --bronze: #cd7f32;
+        }
+
+        body { 
+            background: var(--dark-bg); 
+            color: #e0e0e0; 
+            margin: 0; 
+            font-family: 'Rajdhani', sans-serif; 
+            background-image: radial-gradient(circle at top right, #1a1a3a, transparent);
+            min-height: 100vh;
+        }
+
+        /* --- TOPBAR CON LOGO --- */
+        .topbar { 
+            display: flex; justify-content: flex-start; align-items: center; 
+            padding: 15px 30px; background: #0a0a1a; border-bottom: 1px solid #1a1a3a; gap: 12px;
+        }
+        .logo-small { width: 35px; height: 35px; filter: drop-shadow(0 0 5px var(--gold-glow)); }
+        .casino-name { font-family: 'Cinzel', serif; color: var(--gold); font-weight: 900; font-size: 1.4rem; letter-spacing: 1px; }
+        
+        /* --- NAVBAR MINIMALISTA --- */
+        .navbar { 
+            background: #11112a; padding: 12px 0; border-bottom: 1px solid var(--gold); 
+            position: sticky; top: 0; z-index: 100;
+        }
+        .menu { list-style: none; display: flex; justify-content: center; margin: 0; padding: 0; }
+        .menu a { 
+            color: white; text-decoration: none; font-weight: 700; font-size: 1rem; 
+            text-transform: uppercase; display: flex; align-items: center; gap: 8px; transition: 0.3s;
+        }
+        .menu a:hover { color: var(--gold); text-shadow: 0 0 8px var(--gold-glow); transform: translateY(-2px); }
+
+        /* --- HERO --- */
+        .hero {
+            text-align: center;
+            padding: 50px 20px 20px;
+        }
+        .hero h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.8rem;
+            color: var(--gold);
+            text-shadow: 0 0 20px var(--gold-glow);
+            margin: 0;
+        }
+
+        /* --- RANKING TABLE --- */
+        .ranking-container {
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .ranking-container table {
+            border-collapse: separate;
+            border-spacing: 0 10px; /* Espacio entre filas */
+            width: 100%;
+            max-width: 900px;
+            background: transparent;
+            color: #fff;
+        }
+
+        .ranking-container th {
+            font-family: 'Cinzel', serif;
+            padding: 15px;
+            text-transform: uppercase;
+            color: var(--gold);
+            border-bottom: 2px solid var(--gold);
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+        }
+
+        .ranking-container td {
+            padding: 20px;
+            text-align: center;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Redondear bordes de las filas */
+        .ranking-container td:first-child { border-radius: 15px 0 0 15px; border-left: 1px solid rgba(255,255,255,0.05); }
+        .ranking-container td:last-child { border-radius: 0 15px 15px 0; border-right: 1px solid rgba(255,255,255,0.05); }
+
+        .ranking-container tr:hover td {
+            background: rgba(245, 197, 24, 0.1);
+            border-color: var(--gold);
+            transform: scale(1.02);
+            transition: 0.3s;
+            cursor: default;
+        }
+
+        /* POSICIONES DESTACADAS */
+        .rank-pos { font-size: 1.5rem; }
+
+        /* Oro */
+        .ranking-container tr:nth-child(1) td {
+            background: linear-gradient(90deg, rgba(245, 197, 24, 0.3), rgba(245, 197, 24, 0.1));
+            color: var(--gold);
+            border: 1px solid var(--gold);
+        }
+
+        /* Plata */
+        .ranking-container tr:nth-child(2) td {
+            background: linear-gradient(90deg, rgba(209, 209, 209, 0.2), rgba(209, 209, 209, 0.05));
+            color: var(--silver);
+            border: 1px solid var(--silver);
+        }
+
+        /* Bronce */
+        .ranking-container tr:nth-child(3) td {
+            background: linear-gradient(90deg, rgba(205, 127, 50, 0.2), rgba(205, 127, 50, 0.05));
+            color: var(--bronze);
+            border: 1px solid var(--bronze);
+        }
+
+        footer { text-align: center; padding: 60px; color: #444; }
+    </style>
+</head>
+<body>
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+        <img src="../logo-casino.png" class="logo-small" alt="Logo">
+        <span class="casino-name">Midnight Ingenium</span>
+    </div>
+
+    <!-- NAVBAR MINIMALISTA -->
+    <nav class="navbar">
+        <ul class="menu">
+            <li><a href="../index.html">🏠 Regresar al Inicio</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <h1>🏅 Salón de la Fama</h1>
+        <p style="color: #666; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;">Los mejores apostadores de la temporada</p>
+    </header>
+
+    <section class="ranking-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Rango</th>
+                    <th>Leyenda</th>
+                    <th>Puntos VIP</th>
+                    <th>Bono Actual</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="rank-pos">🥇</span> 1</td>
+                    <td>ShadowKing</td>
+                    <td>15,420</td>
+                    <td>$3,000</td>
+                </tr>
+                <tr>
+                    <td><span class="rank-pos">🥈</span> 2</td>
+                    <td>DarkAce</td>
+                    <td>13,210</td>
+                    <td>$2,000</td>
+                </tr>
+                <tr>
+                    <td><span class="rank-pos">🥉</span> 3</td>
+                    <td>MidnightWolf</td>
+                    <td>11,980</td>
+                    <td>$1,000</td>
+                </tr>
+                <!-- Fila normal para ejemplo -->
+                <tr>
+                    <td>4</td>
+                    <td>NeonGambit</td>
+                    <td>9,450</td>
+                    <td>$500</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <footer>
+        <p>© 2026 Midnight Ingenium Casino · El ranking se actualiza cada 24 horas.</p>
+    </footer>
+
+</body>
+</html>

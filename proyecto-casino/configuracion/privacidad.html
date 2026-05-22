@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Privacidad - Midnight Ingenium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../logo-casino.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .privacy-container { max-width:800px; margin:40px auto; padding:0 20px 80px; }
+        .privacy-card {
+            background:var(--color-card); border:1px solid rgba(255,255,255,0.05);
+            border-radius:20px; padding:30px; margin-bottom:25px;
+            display:flex; align-items:center; gap:20px; transition:0.3s;
+        }
+        .privacy-card:hover { border-color:rgba(245,197,24,0.3); background:rgba(255,255,255,0.02); }
+        .icon-circle {
+            width:60px; height:60px; background:rgba(255,255,255,0.05);
+            border-radius:50%; display:flex; align-items:center; justify-content:center;
+            font-size:1.5rem; flex-shrink:0;
+        }
+        .content-box { flex-grow:1; }
+        .content-box h3 { font-family:'Cinzel',serif; color:var(--color-oro); font-size:1.1rem; margin-bottom:5px; }
+        .content-box p  { font-family:'Rajdhani',sans-serif; color:#888; font-size:0.9rem; line-height:1.4; }
+        .btn-action {
+            background:transparent; border:1px solid var(--color-oro); color:var(--color-oro);
+            padding:10px 20px; border-radius:8px; font-family:'Rajdhani'; font-weight:700;
+            cursor:pointer; transition:0.3s; white-space:nowrap;
+        }
+        .btn-action:hover { background:var(--color-oro); color:#000; }
+        .btn-danger { border-color:#ff4444; color:#ff4444; }
+        .btn-danger:hover { background:#ff4444; color:#fff; box-shadow:0 0 15px rgba(255,68,68,0.4); }
+        .switch { position:relative; display:inline-block; width:45px; height:22px; }
+        .switch input { opacity:0; width:0; height:0; }
+        .slider {
+            position:absolute; cursor:pointer; top:0; left:0; right:0; bottom:0;
+            background-color:#333; transition:.4s; border-radius:34px;
+        }
+        .slider:before {
+            position:absolute; content:""; height:14px; width:14px;
+            left:4px; bottom:4px; background-color:white; transition:.4s; border-radius:50%;
+        }
+        input:checked + .slider { background-color:var(--color-verde); }
+        input:checked + .slider:before { transform:translateX(23px); }
+    </style>
+</head>
+<body class="bg-pattern">
+
+<div class="topbar">
+    <div class="topbar-left">
+        <img src="../logo-casino.png" class="logo-small" alt="Logo">
+        <span class="casino-name">Midnight Ingenium</span>
+    </div>
+    <div class="topbar-right">
+        <span class="saldo" id="saldo-display">💰 $0.00</span>
+    </div>
+</div>
+
+<nav class="navbar">
+    <ul class="menu">
+        <li><a href="../index.html">🏠 Inicio</a></li>
+        <li><a href="index.html">⚙️ Ajustes</a></li>
+        <li><a href="privacidad.html" style="color:var(--color-oro);">🛡️ Privacidad</a></li>
+        <li><a href="../cuenta/login.html" class="btn-login" id="btn-sesion">Iniciar Sesión</a></li>
+    </ul>
+</nav>
+
+<header class="page-header">
+    <h1>🛡️ Centro de Privacidad</h1>
+    <p>Tus datos son tu propiedad. Gestiona cómo los protegemos.</p>
+</header>
+
+<main class="privacy-container">
+
+    <div class="privacy-card">
+        <div class="icon-circle">👻</div>
+        <div class="content-box">
+            <h3>Modo Incógnito</h3>
+            <p>Oculta tu nombre de las tablas de clasificación y apuestas en vivo.</p>
+        </div>
+        <label class="switch">
+            <input type="checkbox" id="toggle-incognito">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="privacy-card">
+        <div class="icon-circle">📥</div>
+        <div class="content-box">
+            <h3>Portabilidad de Datos</h3>
+            <p>Solicita un archivo con todo tu historial de apuestas y transacciones.</p>
+        </div>
+        <button class="btn-action" onclick="solicitarDatos()">Solicitar</button>
+    </div>
+
+    <div class="privacy-card">
+        <div class="icon-circle">🍪</div>
+        <div class="content-box">
+            <h3>Gestión de Cookies</h3>
+            <p>Configura qué rastreadores permites para mejorar tu experiencia.</p>
+        </div>
+        <label class="switch">
+            <input type="checkbox" id="toggle-cookies" checked>
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="privacy-card">
+        <div class="icon-circle">📊</div>
+        <div class="content-box">
+            <h3>Análisis de Marketing</h3>
+            <p>Permitir que usemos tu comportamiento para ofrecerte bonos personalizados.</p>
+        </div>
+        <label class="switch">
+            <input type="checkbox" id="toggle-marketing">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="privacy-card" style="border-left:4px solid #ff4444;">
+        <div class="icon-circle" style="color:#ff4444;">⚠️</div>
+        <div class="content-box">
+            <h3>Cerrar Cuenta Permanentemente</h3>
+            <p>Esta acción es irreversible. Se eliminarán tus fondos y tu historial.</p>
+        </div>
+        <button class="btn-action btn-danger" onclick="confirmarDelete()">Eliminar</button>
+    </div>
+
+</main>
+
+<footer><p>© 2026 Midnight Ingenium Casino · GDPR Compliant</p></footer>
+
+<script src="../assets/js/main.js"></script>
+<script>
+    const _usuario  = JSON.parse(localStorage.getItem('usuario') || 'null');
+    const _token    = localStorage.getItem('token');
+
+    if (!_usuario || !_token) window.location.href = '../cuenta/login.html';
+
+    if (_usuario) {
+        document.getElementById('saldo-display').textContent =
+            `💰 $${parseFloat(_usuario.saldo || 0).toLocaleString(undefined, {minimumFractionDigits:2})}`;
+        const btnSesion = document.getElementById('btn-sesion');
+        if (btnSesion) {
+            btnSesion.textContent = '👤 ' + _usuario.nombre;
+            btnSesion.href = '../cuenta/index.html';
+            btnSesion.style.color = '#00ffae';
+        }
+    }
+
+    // Cargar preferencias de privacidad
+    const privacidad = JSON.parse(localStorage.getItem('privacidad') || '{}');
+    document.getElementById('toggle-incognito').checked  = privacidad.incognito  ?? false;
+    document.getElementById('toggle-cookies').checked    = privacidad.cookies    ?? true;
+    document.getElementById('toggle-marketing').checked  = privacidad.marketing  ?? false;
+
+    // Guardar automáticamente al cambiar cualquier switch
+    ['toggle-incognito','toggle-cookies','toggle-marketing'].forEach(id => {
+        document.getElementById(id).addEventListener('change', () => {
+            const prefs = {
+                incognito: document.getElementById('toggle-incognito').checked,
+                cookies:   document.getElementById('toggle-cookies').checked,
+                marketing: document.getElementById('toggle-marketing').checked
+            };
+            localStorage.setItem('privacidad', JSON.stringify(prefs));
+            mostrarToast('✅ Preferencia guardada', 'exito');
+        });
+    });
+
+    function solicitarDatos() {
+        mostrarToast('📧 Solicitud enviada. Recibirás un enlace en tu correo en 24h.', 'exito');
+    }
+
+    function confirmarDelete() {
+        if (confirm('⚠️ ¿Estás SEGURO? Esta acción no se puede deshacer y perderás tus fondos.')) {
+            mostrarToast('🗑️ Cuenta programada para eliminación en 30 días.', 'aviso');
+            // Cuando tengas endpoint: DELETE /api/usuarios/cuenta
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Legal - Midnight Ingenium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../logo-casino.png">
+    <!-- Fuentes oficiales del Casino -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --gold: #f5c518;
+            --dark-bg: #050510;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(245, 197, 24, 0.2);
+        }
+
+        body { 
+            background: var(--dark-bg); 
+            color: #e0e0e0; 
+            margin: 0; 
+            font-family: 'Rajdhani', sans-serif; 
+        }
+
+        /* --- TOPBAR --- */
+        .topbar { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 15px 30px; 
+            background: #0a0a1a; 
+            border-bottom: 1px solid #1a1a3a; 
+        }
+        .topbar-left { display: flex; align-items: center; gap: 10px; }
+        .logo-small { width: 30px; height: 30px; }
+        .casino-name { 
+            font-family: 'Cinzel', serif; 
+            color: var(--gold); 
+            font-weight: 900; 
+            font-size: 1.2rem; 
+        }
+        
+        /* --- NAVBAR --- */
+        .navbar { 
+            background: #11112a; 
+            padding: 12px 0; 
+            border-bottom: 1px solid var(--gold); 
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .menu { list-style: none; display: flex; justify-content: center; gap: 30px; margin: 0; padding: 0; }
+        .menu a { 
+            color: white; 
+            text-decoration: none; 
+            font-weight: 700; 
+            font-size: 0.85rem; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+        }
+        .menu a:hover { color: var(--gold); }
+
+        /* --- HEADER LEGAL --- */
+        .legal-header {
+            text-align: center;
+            padding: 70px 20px 40px;
+            background: radial-gradient(circle at center, #1a1a3a 0%, var(--dark-bg) 80%);
+        }
+        .legal-header h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            color: var(--gold);
+            margin: 0;
+            text-shadow: 0 0 20px rgba(245, 197, 24, 0.4);
+        }
+        .legal-header .sub {
+            font-size: 1.1rem;
+            color: #888;
+            margin-top: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        /* --- CONTENEDOR DE TARJETAS --- */
+        .config-container {
+            max-width: 1000px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .config-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            padding: 30px;
+            border-radius: 15px;
+            text-decoration: none;
+            color: white;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .config-card:hover {
+            border-color: var(--gold);
+            background: rgba(245, 197, 24, 0.08);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .config-card h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            margin: 0 0 10px 0;
+            font-size: 1.2rem;
+        }
+
+        .config-card p {
+            margin: 0;
+            color: #aaa;
+            font-size: 0.95rem;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid #1a1a3a;
+            color: #555;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+    <div class="topbar-left">
+        <img src="../logo-casino.png" class="logo-small">
+        <span class="casino-name">Midnight Ingenium</span>
+    </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <ul class="menu">
+        <li><a href="../index.html">🏠 Inicio</a></li>
+        <li><a href="../juegos/index.html">🎮 Juegos</a></li>
+        <li><a href="../juegos/ruleta.html">🎡 Ruleta</a></li>
+        <li><a href="../juegos/slots.html">🎰 Slots</a></li>
+    </ul>
+</nav>
+
+<!-- TITULO -->
+<header class="legal-header">
+    <div class="sub">Centro de Transparencia</div>
+    <h1>⚖ Información Legal</h1>
+</header>
+
+<main class="config-container">
+
+    <a href="terminos-condiciones.html" class="config-card">
+        <h3>📜 Términos</h3>
+        <p>Normas y reglas del casino</p>
+    </a>
+
+    <a href="politica-privacidad.html" class="config-card">
+        <h3>🛡 Privacidad</h3>
+        <p>Uso y protección de datos</p>
+    </a>
+
+    <a href="cookies.html" class="config-card">
+        <h3>🍪 Cookies</h3>
+        <p>Gestión de datos de navegación</p>
+    </a>
+
+    <a href="juego-responsable.html" class="config-card">
+        <h3>🎯 Seguridad</h3>
+        <p>Compromiso con el juego seguro</p>
+    </a>
+
+</main>
+
+<footer>
+    <p>© 2026 Midnight Ingenium Casino · El azar es un arte, la ética es nuestra base.</p>
+</footer>
+
+</body>
+</html>

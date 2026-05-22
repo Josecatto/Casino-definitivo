@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Historial - Midnight Ingenium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../logo-casino.png">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        body { background: #050510; color: white; margin: 0; font-family: 'Rajdhani', sans-serif; }
+        .topbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background: #000; border-bottom: 2px solid #333; }
+        .topbar-left { display: flex; align-items: center; gap: 10px; }
+        .logo-small { width: 30px; }
+        .casino-name { font-family: 'Cinzel', serif; font-size: 1.2rem; color: #f5c518; }
+        .navbar { background: #11112a; padding: 12px 0; border-bottom: 1px solid #f5c518; }
+        .navbar .menu { display: flex; list-style: none; gap: 20px; justify-content: center; padding: 0; margin: 0; }
+        .navbar a { text-decoration: none; color: #aaa; font-weight: 600; transition: 0.3s; text-transform: uppercase; font-size: 0.9rem; }
+        .navbar a:hover { color: #f5c518; }
+        .page-header { text-align: center; padding: 40px 20px 30px; background: linear-gradient(rgba(10,10,31,0.95), rgba(10,10,31,0.98)); border-bottom: 2px solid rgba(245,197,24,0.3); }
+        .page-header h1 { font-family: 'Cinzel', serif; font-size: 2rem; margin: 0; }
+        .page-header p { color: #aaa; margin: 8px 0 0; }
+
+        .history-wrap { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+
+        /* Resumen stats */
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            gap: 15px; margin-bottom: 30px;
+        }
+        .stat-card {
+            background: #11112b; border-radius: 12px; padding: 20px;
+            text-align: center; border: 1px solid rgba(255,255,255,0.05);
+        }
+        .stat-card .stat-val { font-family: 'Cinzel', serif; font-size: 1.6rem; font-weight: 900; margin: 5px 0; }
+        .stat-card .stat-lbl { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+        .stat-verde { color: #00ffae; }
+        .stat-rojo  { color: #ff4444; }
+        .stat-oro   { color: #f5c518; }
+        .stat-azul  { color: #00d4ff; }
+
+        .history-controls {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 20px; gap: 15px; flex-wrap: wrap;
+        }
+        .search-input {
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(245,197,24,0.3);
+            padding: 10px 15px; border-radius: 8px; color: white;
+            font-family: 'Rajdhani'; width: 250px; font-size: 1rem;
+        }
+        .search-input:focus { outline: none; border-color: #f5c518; }
+
+        .filter-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+        .filter-btn {
+            padding: 8px 16px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.03); color: #aaa; cursor: pointer;
+            font-family: 'Rajdhani'; font-weight: 700; font-size: 0.85rem; transition: 0.2s;
+        }
+        .filter-btn:hover, .filter-btn.activo { border-color: #f5c518; color: #f5c518; background: rgba(245,197,24,0.08); }
+
+        .table-container {
+            background: #11112b; border-radius: 15px; overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+        .history-table { width: 100%; border-collapse: collapse; text-align: left; }
+        .history-table thead { background: rgba(245,197,24,0.08); color: #f5c518; font-family: 'Cinzel', serif; font-size: 0.85rem; }
+        .history-table th, .history-table td { padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.03); }
+        .history-table tbody tr:hover { background: rgba(255,255,255,0.02); }
+        .history-table tbody tr { transition: 0.2s; }
+
+        .status-badge { padding: 4px 12px; border-radius: 6px; font-weight: 700; font-size: 0.9rem; display: inline-block; }
+        .win  { background: rgba(0,255,174,0.1); color: #00ffae; border: 1px solid rgba(0,255,174,0.3); }
+        .lose { background: rgba(255,68,68,0.1);  color: #ff4444; border: 1px solid rgba(255,68,68,0.3); }
+
+        .game-icon { margin-right: 8px; }
+
+        .loading-msg { text-align: center; padding: 50px; color: #888; font-size: 1.1rem; }
+        .empty-msg   { text-align: center; padding: 50px; color: #555; font-size: 1rem; }
+
+        .no-sesion { text-align: center; padding: 40px; background: rgba(255,100,100,0.1); border: 1px solid rgba(255,100,100,0.3); border-radius: 10px; margin: 40px auto; max-width: 400px; }
+
+        @media (max-width: 700px) {
+            .stats-grid { grid-template-columns: repeat(2,1fr); }
+            .table-container { overflow-x: auto; }
+            .history-table { min-width: 550px; }
+        }
+
+        footer { text-align: center; padding: 40px; color: #444; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+<div class="topbar">
+    <div class="topbar-left">
+        <img src="../logo-casino.png" class="logo-small" alt="Logo">
+        <span class="casino-name">Midnight Ingenium</span>
+    </div>
+    <div class="topbar-right">
+        <span style="color:#f5c518; font-weight:700;" id="nombre-usuario">👤 Mi Cuenta</span>
+    </div>
+</div>
+
+<nav class="navbar">
+    <ul class="menu">
+        <li><a href="../index.html">🏠 Inicio</a></li>
+        <li><a href="index.html">📊 Dashboard</a></li>
+        <li><a href="historial.html" style="color:#f5c518;">📜 Historial</a></li>
+        <li><a href="../juegos/index.html">🎮 Juegos</a></li>
+    </ul>
+</nav>
+
+<header class="page-header">
+    <h1>📜 Registro de Operaciones</h1>
+    <p>Consulta tus victorias y movimientos reales desde la base de datos</p>
+</header>
+
+<main class="history-wrap">
+
+    <!-- Stats -->
+    <div class="stats-grid" id="stats-grid">
+        <div class="stat-card"><div class="stat-val stat-azul" id="stat-total">-</div><div class="stat-lbl">Total Apuestas</div></div>
+        <div class="stat-card"><div class="stat-val stat-verde" id="stat-ganadas">-</div><div class="stat-lbl">Ganadas</div></div>
+        <div class="stat-card"><div class="stat-val stat-rojo" id="stat-perdidas">-</div><div class="stat-lbl">Perdidas</div></div>
+        <div class="stat-card"><div class="stat-val stat-oro" id="stat-ganancia">-</div><div class="stat-lbl">Ganancia Neta</div></div>
+    </div>
+
+    <div class="history-controls">
+        <input type="text" id="historySearch" class="search-input" placeholder="🔍 Buscar por juego..." oninput="filtrar()">
+        <div class="filter-btns">
+            <button class="filter-btn activo" onclick="setFiltro('todos', this)">Todos</button>
+            <button class="filter-btn" onclick="setFiltro('ganó', this)">✅ Ganadas</button>
+            <button class="filter-btn" onclick="setFiltro('perdió', this)">❌ Perdidas</button>
+        </div>
+        <div style="color:#888; font-size:0.9rem;">Mostrando <span id="count">0</span> registros</div>
+    </div>
+
+    <div class="table-container">
+        <div class="loading-msg" id="loading-msg">⏳ Cargando historial...</div>
+        <table class="history-table" id="myTable" style="display:none;">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Juego</th>
+                    <th>Monto</th>
+                    <th>Resultado</th>
+                    <th>Ganancia</th>
+                    <th>Saldo Final</th>
+                </tr>
+            </thead>
+            <tbody id="tabla-body"></tbody>
+        </table>
+        <div class="empty-msg" id="empty-msg" style="display:none;">No hay apuestas registradas aún. ¡Ve a jugar!</div>
+    </div>
+
+</main>
+
+<footer>
+    <p>© 2026 Midnight Ingenium Casino · Datos en tiempo real desde MongoDB</p>
+</footer>
+
+<script>
+    const usuarioData = JSON.parse(localStorage.getItem('usuario') || 'null');
+    const token = localStorage.getItem('token');
+
+    if (!usuarioData || !token) {
+        document.querySelector('main').innerHTML = `
+            <div class="no-sesion">
+                <h2>🔒 Acceso restringido</h2>
+                <p>Debes iniciar sesión para ver tu historial.</p>
+                <a href="login.html" style="color:#f5c518; font-weight:700;">Ir al Login</a>
+            </div>`;
+    } else {
+        document.getElementById('nombre-usuario').textContent = `👤 ${usuarioData.nombre}`;
+        cargarHistorial();
+    }
+
+    const ICONOS = { ruleta: '🎡', blackjack: '🃏', slots: '🎰', crash: '🚀', dados: '🎲', baccarat: '🎴', poker: '♠️' };
+
+    let todasLasApuestas = [];
+    let filtroActual = 'todos';
+
+    async function cargarHistorial() {
+        try {
+            const res = await fetch('http://localhost:5000/api/apuestas/historial', {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            const data = await res.json();
+
+            document.getElementById('loading-msg').style.display = 'none';
+
+            if (!res.ok || !data.length) {
+                document.getElementById('empty-msg').style.display = 'block';
+                actualizarStats([]);
+                return;
+            }
+
+            todasLasApuestas = data;
+            document.getElementById('myTable').style.display = 'table';
+            actualizarStats(data);
+            renderTabla(data);
+
+        } catch(err) {
+            document.getElementById('loading-msg').textContent = '❌ Error al conectar con el servidor.';
+            console.error(err);
+        }
+    }
+
+    function renderTabla(apuestas) {
+        const tbody = document.getElementById('tabla-body');
+        tbody.innerHTML = '';
+
+        if (!apuestas.length) {
+            document.getElementById('myTable').style.display = 'none';
+            document.getElementById('empty-msg').style.display = 'block';
+            document.getElementById('count').textContent = 0;
+            return;
+        }
+
+        document.getElementById('myTable').style.display = 'table';
+        document.getElementById('empty-msg').style.display = 'none';
+        document.getElementById('count').textContent = apuestas.length;
+
+        apuestas.forEach(ap => {
+            const fecha  = new Date(ap.createdAt);
+            const fStr   = `${fecha.toLocaleDateString('es-CO')} ${fecha.toLocaleTimeString('es-CO', {hour:'2-digit', minute:'2-digit'})}`;
+            const icono  = ICONOS[ap.juego] || '🎮';
+            const gano   = ap.resultado === 'ganó';
+            const ganStr = gano ? `+$${ap.ganancia.toLocaleString()}` : `-$${ap.monto.toLocaleString()}`;
+
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td style="color:#888; font-size:0.85rem;">${fStr}</td>
+                <td><span class="game-icon">${icono}</span>${ap.juego.charAt(0).toUpperCase() + ap.juego.slice(1)}</td>
+                <td style="color:#f5c518; font-weight:700;">$${ap.monto.toLocaleString()}</td>
+                <td><span class="status-badge ${gano ? 'win' : 'lose'}">${gano ? '✅ GANÓ' : '❌ PERDIÓ'}</span></td>
+                <td style="color:${gano ? '#00ffae' : '#ff4444'}; font-weight:700;">${ganStr}</td>
+                <td style="color:#aaa;">$${ap.saldoDespues.toLocaleString()}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function actualizarStats(apuestas) {
+        const total    = apuestas.length;
+        const ganadas  = apuestas.filter(a => a.resultado === 'ganó').length;
+        const perdidas = apuestas.filter(a => a.resultado === 'perdió').length;
+        const neta     = apuestas.reduce((acc, a) => {
+            return a.resultado === 'ganó' ? acc + a.ganancia : acc - a.monto;
+        }, 0);
+
+        document.getElementById('stat-total').textContent    = total;
+        document.getElementById('stat-ganadas').textContent  = ganadas;
+        document.getElementById('stat-perdidas').textContent = perdidas;
+        document.getElementById('stat-ganancia').textContent = (neta >= 0 ? '+' : '') + '$' + neta.toLocaleString();
+        document.getElementById('stat-ganancia').style.color = neta >= 0 ? '#00ffae' : '#ff4444';
+    }
+
+    function filtrar() {
+        const busqueda = document.getElementById('historySearch').value.toLowerCase();
+        let resultado  = todasLasApuestas;
+
+        if (filtroActual !== 'todos') {
+            resultado = resultado.filter(a => a.resultado === filtroActual);
+        }
+        if (busqueda) {
+            resultado = resultado.filter(a => a.juego.toLowerCase().includes(busqueda));
+        }
+        renderTabla(resultado);
+    }
+
+    function setFiltro(filtro, btn) {
+        filtroActual = filtro;
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('activo'));
+        btn.classList.add('activo');
+        filtrar();
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Baccarat Royale - Midnight Ingenium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../logo-casino.png">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        body { background: #050510; color: white; margin: 0; font-family: 'Rajdhani', sans-serif; }
+        .topbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background: #000; border-bottom: 2px solid #333; }
+        .topbar-left { display: flex; align-items: center; gap: 10px; }
+        .logo-small { width: 30px; }
+        .casino-name { font-family: 'Cinzel', serif; font-size: 1.2rem; color: #f5c518; }
+        .saldo { color: #00ff88; font-weight: 700; font-size: 1.2rem; }
+        .navbar { background: #11112a; padding: 12px 0; border-bottom: 1px solid #f5c518; }
+        .navbar .menu { display: flex; list-style: none; gap: 20px; justify-content: center; padding: 0; margin: 0; }
+        .navbar a { text-decoration: none; color: #aaa; font-weight: 600; transition: 0.3s; text-transform: uppercase; font-size: 0.9rem; }
+        .navbar a:hover { color: #f5c518; }
+        .page-header { text-align: center; padding: 30px 20px 10px; }
+        .page-header h1 { font-family: 'Cinzel', serif; font-size: 2.2rem; margin: 0; }
+        .page-header p { color: #aaa; margin: 8px 0 0; }
+
+        .apuesta-bj {
+            display: flex; align-items: center; gap: 12px;
+            justify-content: center; flex-wrap: wrap;
+            background: rgba(0,0,0,0.4); padding: 20px; border-radius: 15px;
+            max-width: 500px; margin: 20px auto;
+        }
+        .chip-bj {
+            width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 900; font-size: 0.8rem; cursor: pointer;
+            border: 3px dashed rgba(255,255,255,0.4); transition: 0.2s;
+        }
+        .chip-bj:hover { transform: scale(1.1); border-color: #fff; }
+
+        .game-wrapper { display: flex; flex-direction: column; align-items: center; width: 100%; padding: 20px; box-sizing: border-box; }
+        .ba-mesa {
+            background: radial-gradient(ellipse at center, #1a5e1a 0%, #0d3d0d 60%, #07280a 100%);
+            border-radius: 50% 50% 10% 10% / 30% 30% 5% 5%;
+            padding: 60px 40px; margin: 0 auto 30px auto;
+            width: 100%; max-width: 800px;
+            border: 8px solid #5d2e0a;
+            box-shadow: 0 0 60px rgba(0,0,0,0.9), inset 0 0 40px rgba(0,0,0,0.4);
+            position: relative;
+        }
+        .ba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 30px; }
+        .ba-zona { text-align: center; }
+        .ba-zona h3 { color: rgba(255,255,255,0.6); font-size: 0.8rem; letter-spacing: 3px; margin-bottom: 15px; text-transform: uppercase; }
+        .mano-cartas { display: flex; justify-content: center; gap: 8px; min-height: 120px; }
+        .carta-svg { filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.5)); transition: 0.3s; }
+        .puntaje-ba { font-size: 2rem; font-weight: 900; font-family: 'Cinzel', serif; color: #f5c518; margin-top: 10px; text-shadow: 0 0 10px rgba(245,197,24,0.5); }
+        .ba-bet-zones { display: flex; justify-content: center; gap: 15px; margin: 20px 0; }
+        .bet-option { flex: 1; padding: 15px; border: 2px solid rgba(255,255,255,0.1); border-radius: 12px; cursor: pointer; transition: 0.3s; background: rgba(0,0,0,0.3); text-align: center; }
+        .bet-option:hover { border-color: #f5c518; }
+        .bet-option.active { border-color: #00ffae; background: rgba(0,255,174,0.1); box-shadow: 0 0 15px rgba(0,255,174,0.2); }
+        .bet-option h4 { font-family: 'Cinzel'; margin: 0; font-size: 0.9rem; color: #fff; }
+        .bet-option span { font-size: 0.7rem; color: #aaa; font-weight: 700; }
+        .controles-centrados { display: flex; justify-content: center; width: 100%; margin-top: 10px; margin-bottom: 40px; }
+        .btn-play-ba {
+            background: linear-gradient(90deg,#00ffae,#00d4ff); color: #000;
+            padding: 18px 45px; border: none; border-radius: 12px;
+            font-weight: 800; font-size: 1.2rem; cursor: pointer;
+            transition: all 0.3s ease; font-family: 'Rajdhani', sans-serif;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); text-transform: uppercase;
+        }
+        .btn-play-ba:hover:not(:disabled) { transform: scale(1.05); box-shadow: 0 0 20px rgba(0,255,174,0.4); }
+        .btn-play-ba:disabled { opacity: 0.4; cursor: not-allowed; }
+        #resultado-ba {
+            position: absolute; top: 40%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Cinzel'; font-size: 3rem; font-weight: 900;
+            text-align: center; z-index: 10;
+            text-shadow: 2px 2px 15px #000; pointer-events: none;
+        }
+        .no-sesion { text-align: center; padding: 30px; background: rgba(255,100,100,0.1); border: 1px solid rgba(255,100,100,0.3); border-radius: 10px; margin: 20px auto; max-width: 400px; }
+        footer { text-align: center; padding: 30px; color: #444; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+<div class="topbar">
+    <div class="topbar-left">
+        <img src="../logo-casino.png" class="logo-small" alt="Logo">
+        <span class="casino-name">Midnight Ingenium</span>
+    </div>
+    <div class="topbar-right">
+        <span class="saldo" id="saldo-display">💰 $0</span>
+    </div>
+</div>
+
+<nav class="navbar">
+    <ul class="menu">
+        <li><a href="../index.html">🏠 Inicio</a></li>
+        <li><a href="index.html">🎮 Juegos</a></li>
+        <li><a href="ruleta.html">🎡 Ruleta</a></li>
+        <li><a href="blackjack.html">🃏 Blackjack</a></li>
+        <li><a href="slots.html">🎰 Slots</a></li>
+        <li><a href="crash.html">🚀 Crash</a></li>
+        <li><a href="dados.html">🎲 Dados</a></li>
+        <li><a href="baccarat.html" style="color:#f5c518;">🎴 Baccarat</a></li>
+    </ul>
+</nav>
+
+<div class="page-header">
+    <h1>🎴 Baccarat Royale</h1>
+    <p>Apuesta al que más se acerque a 9 — Punto, Banca o Empate</p>
+</div>
+
+<div class="apuesta-bj">
+    <span style="color:#aaa; font-size:0.8rem;">APUESTA:</span>
+    <div class="chip-bj" style="background:linear-gradient(135deg,#e0e0e0,#888);color:#000;" onclick="setBet(5)">$5</div>
+    <div class="chip-bj" style="background:linear-gradient(135deg,#ff4444,#cc0000);color:#fff;" onclick="setBet(10)">$10</div>
+    <div class="chip-bj" style="background:linear-gradient(135deg,#4488ff,#0044cc);color:#fff;" onclick="setBet(25)">$25</div>
+    <div class="chip-bj" style="background:linear-gradient(135deg,#f5c518,#cc8800);color:#000;" onclick="setBet(50)">$50</div>
+    <div style="background:rgba(245,197,24,0.1); border:1px solid rgba(245,197,24,0.3); border-radius:8px; padding:8px 16px; color:#f5c518; font-weight:700;">
+        Monto: $<span id="bet-amount">10</span>
+    </div>
+</div>
+
+<main class="game-wrapper">
+    <div class="ba-mesa">
+        <div id="resultado-ba"></div>
+        <div class="ba-grid">
+            <div class="ba-zona">
+                <h3>PUNTO (PLAYER)</h3>
+                <div class="mano-cartas" id="mano-punto"></div>
+                <div class="puntaje-ba" id="pts-punto">0</div>
+            </div>
+            <div class="ba-zona">
+                <h3>BANCA (BANKER)</h3>
+                <div class="mano-cartas" id="mano-banca"></div>
+                <div class="puntaje-ba" id="pts-banca">0</div>
+            </div>
+        </div>
+        <div class="ba-bet-zones">
+            <div class="bet-option" id="bet-punto" onclick="selectTarget('punto')">
+                <h4>PUNTO</h4><span>PAGA 1:1</span>
+            </div>
+            <div class="bet-option" id="bet-tie" onclick="selectTarget('tie')">
+                <h4>EMPATE</h4><span>PAGA 8:1</span>
+            </div>
+            <div class="bet-option" id="bet-banca" onclick="selectTarget('banca')">
+                <h4>BANCA</h4><span>PAGA 0.95:1</span>
+            </div>
+        </div>
+    </div>
+    <div class="controles-centrados">
+        <button class="btn-play-ba" id="btn-play" onclick="playBaccarat()">🃏 REPARTIR CARTAS</button>
+    </div>
+</main>
+
+<footer>
+    <p>© 2026 Midnight Ingenium Casino · El 9 es el límite</p>
+</footer>
+
+<script>
+    const usuarioData = JSON.parse(localStorage.getItem('usuario') || 'null');
+    const token = localStorage.getItem('token');
+
+    if (!usuarioData || !token) {
+        document.querySelector('.ba-mesa').innerHTML = `
+            <div class="no-sesion">
+                <h2>🔒 Acceso restringido</h2>
+                <p>Debes iniciar sesión para jugar.</p>
+                <a href="../cuenta/login.html" style="color:#f5c518; font-weight:700;">Ir al Login</a>
+            </div>`;
+        document.querySelector('.apuesta-bj').style.display = 'none';
+        document.querySelector('.controles-centrados').style.display = 'none';
+    } else {
+        document.getElementById('saldo-display').textContent = `💰 $${usuarioData.saldo.toLocaleString()}`;
+    }
+
+    let currentBet = 10;
+    let selectedTarget = 'punto';
+    const suits  = ['♠','♥','♦','♣'];
+    const values = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+
+    function getSaldo() {
+        const u = JSON.parse(localStorage.getItem('usuario') || 'null');
+        return u ? u.saldo : 0;
+    }
+
+    function setSaldo(monto) {
+        const u = JSON.parse(localStorage.getItem('usuario'));
+        if (!u) return;
+        u.saldo = monto;
+        localStorage.setItem('usuario', JSON.stringify(u));
+        document.getElementById('saldo-display').textContent = `💰 $${monto.toLocaleString()}`;
+    }
+
+    function setBet(v) {
+        currentBet = v;
+        document.getElementById('bet-amount').textContent = v;
+    }
+
+    function selectTarget(t) {
+        selectedTarget = t;
+        document.querySelectorAll('.bet-option').forEach(el => el.classList.remove('active'));
+        document.getElementById('bet-' + t).classList.add('active');
+    }
+
+    selectTarget('punto');
+
+    function getCardValue(c) {
+        if (['10','J','Q','K'].includes(c.valor)) return 0;
+        if (c.valor === 'A') return 1;
+        return parseInt(c.valor);
+    }
+
+    function calculateScore(mano) {
+        return mano.reduce((acc, c) => acc + getCardValue(c), 0) % 10;
+    }
+
+    function generateCardSVG(card) {
+        const color = (card.palo === '♥' || card.palo === '♦') ? '#cc0000' : '#111';
+        return `<svg class="carta-svg" width="70" height="100" viewBox="0 0 80 115" xmlns="http://www.w3.org/2000/svg">
+            <rect width="80" height="115" rx="8" fill="white" stroke="#ccc" stroke-width="1.5"/>
+            <text x="8" y="20" font-family="Georgia" font-size="14" font-weight="bold" fill="${color}">${card.valor}</text>
+            <text x="8" y="34" font-family="Georgia" font-size="14" fill="${color}">${card.palo}</text>
+            <text x="40" y="70" text-anchor="middle" font-size="28" fill="${color}">${card.palo}</text>
+        </svg>`;
+    }
+
+    async function playBaccarat() {
+        if (currentBet > getSaldo()) return alert('Saldo insuficiente');
+
+        const btn = document.getElementById('btn-play');
+        btn.disabled = true;
+
+        const draw = () => ({
+            palo:  suits[Math.floor(Math.random() * suits.length)],
+            valor: values[Math.floor(Math.random() * values.length)]
+        });
+
+        document.getElementById('mano-punto').innerHTML = '';
+        document.getElementById('mano-banca').innerHTML = '';
+        document.getElementById('resultado-ba').textContent = '';
+
+        const puntoMano = [], bancaMano = [];
+
+        setTimeout(async () => {
+            puntoMano.push(draw()); bancaMano.push(draw());
+            puntoMano.push(draw()); bancaMano.push(draw());
+
+            document.getElementById('mano-punto').innerHTML = puntoMano.map(generateCardSVG).join('');
+            document.getElementById('mano-banca').innerHTML = bancaMano.map(generateCardSVG).join('');
+
+            let pPts = calculateScore(puntoMano);
+            let bPts = calculateScore(bancaMano);
+            document.getElementById('pts-punto').textContent = pPts;
+            document.getElementById('pts-banca').textContent = bPts;
+
+            if (pPts < 8 && bPts < 8) {
+                if (pPts <= 5) puntoMano.push(draw());
+                if (bPts <= 5) bancaMano.push(draw());
+            }
+
+            setTimeout(async () => {
+                document.getElementById('mano-punto').innerHTML = puntoMano.map(generateCardSVG).join('');
+                document.getElementById('mano-banca').innerHTML = bancaMano.map(generateCardSVG).join('');
+
+                pPts = calculateScore(puntoMano);
+                bPts = calculateScore(bancaMano);
+                document.getElementById('pts-punto').textContent = pPts;
+                document.getElementById('pts-banca').textContent = bPts;
+
+                let winner = pPts > bPts ? 'punto' : bPts > pPts ? 'banca' : 'tie';
+
+                const display = document.getElementById('resultado-ba');
+                let gano = selectedTarget === winner;
+                let ganancia = 0;
+                let premio = 0;
+
+                if (gano) {
+                    let mult = winner === 'tie' ? 9 : winner === 'banca' ? 1.95 : 2;
+                    premio   = Math.floor(currentBet * mult);
+                    ganancia = premio - currentBet;
+                    display.textContent = '¡GANASTE!';
+                    display.style.color = '#00ffae';
+                } else {
+                    display.textContent = 'PIERDES';
+                    display.style.color = '#ff4444';
+                }
+
+                // Registrar en la API
+                try {
+                    const res = await fetch('http://localhost:5000/api/apuestas', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        },
+                        body: JSON.stringify({
+                            juego: 'baccarat',
+                            monto: currentBet,
+                            resultado: gano ? 'ganó' : 'perdió',
+                            ganancia: ganancia < 0 ? 0 : ganancia
+                        })
+                    });
+                    const data = await res.json();
+                    if (res.ok) setSaldo(data.saldoActual);
+                } catch(err) {
+                    console.error('Error al registrar apuesta baccarat:', err);
+                }
+
+                btn.disabled = false;
+            }, 800);
+        }, 500);
+    }
+</script>
+</body>
+</html>

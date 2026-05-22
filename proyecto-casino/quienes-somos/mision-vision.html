@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Misión & Visión - Midnight Ingenium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../logo-casino.png">
+    
+    <!-- Fuentes oficiales -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --gold: #f5c518;
+            --dark-bg: #050510;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(245, 197, 24, 0.2);
+        }
+
+        body { 
+            background: var(--dark-bg); 
+            color: #e0e0e0; 
+            margin: 0; 
+            font-family: 'Rajdhani', sans-serif; 
+        }
+
+        /* --- NAVEGACIÓN --- */
+        .topbar { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 15px 30px; background: #0a0a1a; border-bottom: 1px solid #1a1a3a; 
+        }
+        .topbar-left { display: flex; align-items: center; gap: 10px; }
+        .logo-small { width: 30px; height: 30px; }
+        .casino-name { font-family: 'Cinzel', serif; color: var(--gold); font-weight: 900; font-size: 1.2rem; }
+        
+        .navbar { 
+            background: #11112a; padding: 12px 0; border-bottom: 1px solid var(--gold); 
+            position: sticky; top: 0; z-index: 100;
+        }
+        .menu { list-style: none; display: flex; justify-content: center; gap: 30px; margin: 0; padding: 0; }
+        .menu a { color: white; text-decoration: none; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; }
+        .menu a:hover { color: var(--gold); }
+
+        /* --- HEADER --- */
+        .mission-header {
+            text-align: center;
+            padding: 80px 20px 40px;
+            background: radial-gradient(circle at center, #1a1a3a 0%, var(--dark-bg) 80%);
+        }
+        .mission-header h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            color: var(--gold);
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* --- CONTENIDO --- */
+        .mission-container {
+            max-width: 1100px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .mission-card {
+            background: var(--glass);
+            border-left: 4px solid var(--gold);
+            padding: 40px;
+            border-radius: 0 20px 20px 0;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            transform: translateX(10px);
+        }
+
+        .mission-card h2 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            font-size: 2rem;
+            margin: 0 0 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .mission-card p {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: #ccc;
+            margin: 0;
+        }
+
+        /* Decoración de fondo */
+        .bg-icon {
+            position: absolute;
+            right: -20px;
+            bottom: -20px;
+            font-size: 8rem;
+            opacity: 0.05;
+            transform: rotate(-15deg);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 50px;
+            border-top: 1px solid #1a1a3a;
+            color: #444;
+        }
+
+        @media (max-width: 768px) {
+            .mission-container { grid-template-columns: 1fr; }
+            .mission-header h1 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="topbar">
+    <div class="topbar-left">
+        <img src="../logo-casino.png" class="logo-small">
+        <span class="casino-name">Midnight Ingenium</span>
+    </div>
+</div>
+
+<nav class="navbar">
+    <ul class="menu">
+        <li><a href="../index.html">🏠 Inicio</a></li>
+        <li><a href="index.html">🔙 Volver</a></li>
+        <li><a href="../juegos/index.html">🎮 Juegos</a></li>
+    </ul>
+</nav>
+
+<header class="mission-header">
+    <h1>🎯 Nuestra Esencia</h1>
+</header>
+
+<main class="mission-container">
+
+    <!-- MISIÓN -->
+    <div class="mission-card">
+        <h2>Misión</h2>
+        <p>
+            Nuestra misión es redefinir el entretenimiento digital en Latinoamérica, ofreciendo una plataforma donde la <strong>seguridad</strong>, la <strong>innovación tecnológica</strong> y la transparencia sean los pilares de cada jugada. Trabajamos para que cada usuario viva una experiencia emocionante en un entorno de juego responsable.
+        </p>
+        <div class="bg-icon">🎯</div>
+    </div>
+
+    <!-- VISIÓN -->
+    <div class="mission-card">
+        <h2>Visión</h2>
+        <p>
+            Proyectamos ser el referente número uno de los casinos online en el mercado hispanohablante para el año 2030. Buscamos liderar la vanguardia de la industria mediante la integración de <strong>tecnología blockchain</strong>, inteligencia artificial y una comunidad de jugadores que valore el prestigio y la excelencia.
+        </p>
+        <div class="bg-icon">🚀</div>
+    </div>
+
+</main>
+
+<footer>
+    <p>© 2026 Midnight Ingenium Casino · Construyendo el futuro del azar.</p>
+</footer>
+
+</body>
+</html>

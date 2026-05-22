@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Promociones - Midnight Ingenium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../logo-casino.png">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --gold: #f5c518; --dark-bg: #050510; --border: rgba(245,197,24,0.2); }
+        body { background:var(--dark-bg); color:#e0e0e0; margin:0; font-family:'Rajdhani',sans-serif; overflow-x:hidden; }
+        .topbar { display:flex; justify-content:space-between; align-items:center; padding:15px 30px; background:#0a0a1a; border-bottom:1px solid #1a1a3a; }
+        .topbar-left { display:flex; align-items:center; gap:10px; }
+        .logo-small { width:30px; height:30px; }
+        .casino-name { font-family:'Cinzel',serif; color:var(--gold); font-weight:900; font-size:1.2rem; }
+        .saldo { font-family:'Rajdhani',sans-serif; color:#00ffae; font-weight:700; font-size:1rem; }
+        .navbar { background:#11112a; padding:12px 0; border-bottom:1px solid var(--gold); position:sticky; top:0; z-index:100; }
+        .menu { list-style:none; display:flex; justify-content:center; gap:30px; margin:0; padding:0; }
+        .menu a { color:white; text-decoration:none; font-weight:700; font-size:0.85rem; text-transform:uppercase; letter-spacing:1px; transition:0.3s; }
+        .menu a:hover { color:var(--gold); }
+        .btn-login { border:1px solid var(--gold); padding:6px 16px; border-radius:20px; color:var(--gold) !important; }
+        .promo-header { text-align:center; padding:80px 20px 50px; background:radial-gradient(circle at center,#1a1a3a 0%,var(--dark-bg) 80%); }
+        .promo-header h1 { font-family:'Cinzel',serif; font-size:3.5rem; color:var(--gold); margin:0; text-shadow:0 0 25px rgba(245,197,24,0.4); text-transform:uppercase; }
+        .promo-header .sub { font-size:1.1rem; color:#888; margin-top:10px; letter-spacing:5px; text-transform:uppercase; }
+        .promo-container { max-width:1200px; margin:0 auto 80px; padding:0 25px; display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:30px; }
+        .promo-card { background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:20px; overflow:hidden; text-decoration:none; transition:all 0.4s ease; display:flex; flex-direction:column; box-shadow:0 10px 30px rgba(0,0,0,0.5); position:relative; }
+        .promo-card:hover { transform:translateY(-10px); border-color:var(--gold); background:rgba(245,197,24,0.08); }
+        .promo-card img { width:100%; height:200px; object-fit:cover; border-bottom:2px solid var(--border); }
+        .promo-content { padding:30px; text-align:center; flex-grow:1; display:flex; flex-direction:column; justify-content:center; }
+        .promo-content h3 { font-family:'Cinzel',serif; color:var(--gold); font-size:1.5rem; margin:0 0 10px 0; text-transform:uppercase; }
+        .promo-content p { color:#ccc; font-size:1.1rem; line-height:1.5; margin:0 0 15px 0; }
+        .badge-reclamado { background:rgba(0,255,174,0.15); color:#00ffae; border:1px solid #00ffae; padding:6px 16px; border-radius:20px; font-size:0.8rem; font-weight:700; font-family:'Rajdhani',sans-serif; display:inline-block; }
+        .badge-disponible { background:rgba(245,197,24,0.15); color:var(--gold); border:1px solid var(--gold); padding:6px 16px; border-radius:20px; font-size:0.8rem; font-weight:700; font-family:'Rajdhani',sans-serif; display:inline-block; }
+        footer { text-align:center; padding:50px; border-top:1px solid #1a1a3a; color:#444; font-size:0.9rem; }
+        @media (max-width:768px) { .promo-header h1 { font-size:2.2rem; } .promo-container { grid-template-columns:1fr; } }
+    </style>
+</head>
+<body>
+
+<div class="topbar">
+    <div class="topbar-left">
+        <img src="../logo-casino.png" class="logo-small" alt="Logo">
+        <span class="casino-name">Midnight Ingenium</span>
+    </div>
+    <div class="topbar-right">
+        <span class="saldo" id="saldo-display">💰 $0.00</span>
+    </div>
+</div>
+
+<nav class="navbar">
+    <ul class="menu">
+        <li><a href="../index.html">🏠 Inicio</a></li>
+        <li><a href="../juegos/index.html">🎮 Juegos</a></li>
+        <li><a href="index.html" style="color:var(--gold);">🎁 Promociones</a></li>
+        <li><a href="../cuenta/index.html">👤 Mi Cuenta</a></li>
+        <li><a href="../cuenta/login.html" class="btn-login" id="btn-sesion">Iniciar Sesión</a></li>
+    </ul>
+</nav>
+
+<header class="promo-header">
+    <div class="sub">Eleva tu experiencia VIP</div>
+    <h1>🎁 Promociones</h1>
+</header>
+
+<main class="promo-container">
+    <a href="bono-bienvenida.html" class="promo-card">
+        <img src="../assets/images/bonos.jpeg" alt="Bono de Bienvenida">
+        <div class="promo-content">
+            <h3>Bono de Bienvenida</h3>
+            <p>Duplica tu primer depósito hasta $500 y juega sin límites.</p>
+            <span id="badge-bienvenida" class="badge-disponible">✨ Disponible</span>
+        </div>
+    </a>
+    <a href="cashback.html" class="promo-card">
+        <img src="../assets/images/cashback.jpeg" alt="Cashback Semanal">
+        <div class="promo-content">
+            <h3>Cashback Semanal</h3>
+            <p>Recupera el 15% de tus jugadas cada lunes automáticamente.</p>
+            <span id="badge-cashback" class="badge-disponible">✨ Disponible</span>
+        </div>
+    </a>
+    <a href="programa-vip.html" class="promo-card">
+        <img src="../assets/images/vip.jpeg" alt="Programa VIP">
+        <div class="promo-content">
+            <h3>Programa VIP</h3>
+            <p>Beneficios exclusivos y atención personalizada para la élite.</p>
+            <span id="badge-vip" class="badge-disponible">✨ Disponible</span>
+        </div>
+    </a>
+</main>
+
+<footer>
+    <p>© 2026 Midnight Ingenium Casino · El prestigio se juega cada noche.</p>
+</footer>
+
+<script>
+    const _usuario = JSON.parse(localStorage.getItem('usuario') || 'null');
+    const _token   = localStorage.getItem('token');
+
+    if (_usuario && _token) {
+        document.getElementById('saldo-display').textContent =
+            `💰 $${parseFloat(_usuario.saldo || 0).toLocaleString(undefined, {minimumFractionDigits:2})}`;
+        const btn = document.getElementById('btn-sesion');
+        if (btn) { btn.textContent = '👤 ' + _usuario.nombre; btn.href = '../cuenta/index.html'; btn.style.color = '#00ffae'; }
+
+        // Marcar bonos ya reclamados
+        const bonos = _usuario.bonosReclamados || [];
+        ['bienvenida','cashback','vip'].forEach(b => {
+            if (bonos.includes(b)) {
+                const badge = document.getElementById(`badge-${b}`);
+                if (badge) { badge.className = 'badge-reclamado'; badge.textContent = '✅ Ya Reclamado'; }
+            }
+        });
+    }
+
+    // Sincronizar con API para tener bonosReclamados actualizados
+    if (_token) {
+        fetch('http://localhost:5000/api/usuarios/perfil', {
+            headers: { 'Authorization': `Bearer ${_token}` }
+        })
+        .then(r => r.json())
+        .then(perfil => {
+            if (perfil?.bonosReclamados) {
+                const u = JSON.parse(localStorage.getItem('usuario'));
+                u.bonosReclamados = perfil.bonosReclamados;
+                u.saldo = perfil.saldo;
+                localStorage.setItem('usuario', JSON.stringify(u));
+                document.getElementById('saldo-display').textContent =
+                    `💰 $${perfil.saldo.toLocaleString(undefined, {minimumFractionDigits:2})}`;
+                perfil.bonosReclamados.forEach(b => {
+                    const badge = document.getElementById(`badge-${b}`);
+                    if (badge) { badge.className = 'badge-reclamado'; badge.textContent = '✅ Ya Reclamado'; }
+                });
+            }
+        }).catch(() => {});
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Tenis - Midnight Ingenium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../logo-casino.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .tenis-container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .video-live-frame {
+            position: relative; width: 100%; aspect-ratio: 16/9;
+            border-radius: 20px; overflow: hidden;
+            border: 2px solid rgba(245,197,24,0.4);
+            box-shadow: 0 0 40px rgba(0,0,0,0.9);
+            margin-bottom: 50px; background: #000;
+        }
+        .video-live-frame iframe { width: 100%; height: 100%; border: none; }
+        .live-indicator {
+            position: absolute; top: 20px; left: 20px;
+            background: rgba(255,68,68,0.9); color: #fff;
+            padding: 6px 14px; border-radius: 6px;
+            font-family: 'Rajdhani', sans-serif; font-weight: 800;
+            font-size: 0.8rem; display: flex; align-items: center; gap: 8px; z-index: 10;
+        }
+        .dot {
+            width: 8px; height: 8px; background: #fff;
+            border-radius: 50%; animation: pulse 1s infinite;
+        }
+        @keyframes pulse { 0% { opacity:1; } 50% { opacity:0.3; } 100% { opacity:1; } }
+        .evento-card {
+            background: var(--color-card);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 16px; padding: 20px; margin-bottom: 15px;
+            display: flex; justify-content: space-between;
+            align-items: center; transition: 0.3s;
+        }
+        .evento-card:hover {
+            border-color: var(--color-oro);
+            transform: translateY(-3px);
+            background: rgba(245,197,24,0.03);
+        }
+        .evento-info h3 {
+            font-family: 'Cinzel', serif; color: #fff;
+            margin: 5px 0; font-size: 1.1rem;
+        }
+        .evento-tag {
+            color: var(--color-verde); font-family: 'Rajdhani', sans-serif;
+            font-weight: 700; font-size: 0.75rem; text-transform: uppercase;
+        }
+        .futuras-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px; margin-bottom: 40px;
+        }
+        .futura-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px dashed rgba(245,197,24,0.3);
+            padding: 15px; border-radius: 12px; text-align: center;
+        }
+        .futura-name {
+            font-family: 'Cinzel', serif; color: #fff;
+            font-size: 0.9rem; display: block; margin-bottom: 10px;
+        }
+        .btn-cuota {
+            background: rgba(0,255,174,0.05); color: var(--color-verde);
+            border: 1px solid rgba(0,255,174,0.3); padding: 8px 20px;
+            border-radius: 10px; font-family: 'Rajdhani', sans-serif;
+            font-weight: 800; font-size: 1.1rem; cursor: pointer; transition: 0.3s;
+        }
+        .btn-cuota:hover {
+            background: var(--color-verde); color: #000;
+            box-shadow: 0 0 15px rgba(0,255,174,0.4);
+        }
+        @media (max-width: 768px) {
+            .evento-card { flex-direction: column; text-align: center; gap: 15px; }
+        }
+    </style>
+</head>
+
+<body class="bg-pattern">
+
+<div class="topbar">
+    <div class="topbar-left">
+        <img src="../logo-casino.png" class="logo-small" alt="Logo">
+        <span class="casino-name">Midnight Ingenium</span>
+    </div>
+    <div class="topbar-right">
+        <span class="saldo" id="saldo-display">💰 $0.00</span>
+    </div>
+</div>
+
+<nav class="navbar">
+    <ul class="menu">
+        <li><a href="../index.html">🏠 Inicio</a></li>
+        <li><a href="index.html">📊 Apuestas</a></li>
+        <li><a href="tenis.html" style="color:var(--color-oro);">🎾 Tenis</a></li>
+        <li><a href="../juegos/index.html">🎰 Casino</a></li>
+        <li><a href="../cuenta/login.html" class="btn-login" id="btn-sesion">Iniciar Sesión</a></li>
+    </ul>
+</nav>
+
+<header class="page-header">
+    <h1 style="font-family:'Cinzel',serif;">TENNIS ARENA LIVE</h1>
+    <p>Grand Slams y ATP World Tour 2026</p>
+</header>
+
+<main class="tenis-container">
+
+    <h2 class="section-title">📺 En Pantalla: Central Court</h2>
+    <div class="video-live-frame">
+        <div class="live-indicator"><div class="dot"></div>EN VIVO: AUSTRALIAN OPEN</div>
+        <iframe
+            src="https://www.youtube.com/embed/Op3SGIbtQlM?autoplay=1&mute=1&loop=1&playlist=Op3SGIbtQlM&controls=1"
+            allowfullscreen>
+        </iframe>
+    </div>
+
+    <h2 class="section-title" style="color:var(--color-oro);">💎 Ganador Final: Roland Garros 2026</h2>
+    <div class="futuras-grid">
+        <div class="futura-card">
+            <span class="futura-name">Carlos Alcaraz</span>
+            <button class="btn-cuota">2.10</button>
+        </div>
+        <div class="futura-card">
+            <span class="futura-name">Jannik Sinner</span>
+            <button class="btn-cuota">3.50</button>
+        </div>
+        <div class="futura-card">
+            <span class="futura-name">Novak Djokovic</span>
+            <button class="btn-cuota">5.00</button>
+        </div>
+        <div class="futura-card">
+            <span class="futura-name">Rafael Nadal</span>
+            <button class="btn-cuota">12.0</button>
+        </div>
+    </div>
+
+    <h2 class="section-title">📈 Próximos Encuentros</h2>
+
+    <div class="evento-card">
+        <div class="evento-info">
+            <div class="evento-tag">🏆 Australian Open - Semifinal</div>
+            <h3>Alcaraz vs Zverev</h3>
+        </div>
+        <div style="display:flex; gap:10px;">
+            <button class="btn-cuota">1.45</button>
+            <button class="btn-cuota">2.75</button>
+        </div>
+    </div>
+
+    <div class="evento-card">
+        <div class="evento-info">
+            <div class="evento-tag">🎾 ATP 1000 - Miami</div>
+            <h3>Sinner vs Medvedev</h3>
+        </div>
+        <div style="display:flex; gap:10px;">
+            <button class="btn-cuota">1.60</button>
+            <button class="btn-cuota">2.25</button>
+        </div>
+    </div>
+
+    <div class="evento-card">
+        <div class="evento-info">
+            <div class="evento-tag">🎾 ATP 500 - Dubai</div>
+            <h3>Tsitsipas vs Rublev</h3>
+        </div>
+        <div style="display:flex; gap:10px;">
+            <button class="btn-cuota">1.90</button>
+            <button class="btn-cuota">1.90</button>
+        </div>
+    </div>
+
+    <div class="evento-card">
+        <div class="evento-info">
+            <div class="evento-tag">🎀 WTA - Indian Wells</div>
+            <h3>Iga Swiatek vs Aryna Sabalenka</h3>
+        </div>
+        <div style="display:flex; gap:10px;">
+            <button class="btn-cuota">1.72</button>
+            <button class="btn-cuota">2.10</button>
+        </div>
+    </div>
+
+    <div class="evento-card">
+        <div class="evento-info">
+            <div class="evento-tag">🎾 ATP - Acapulco</div>
+            <h3>Holger Rune vs Casper Ruud</h3>
+        </div>
+        <div style="display:flex; gap:10px;">
+            <button class="btn-cuota">2.05</button>
+            <button class="btn-cuota">1.78</button>
+        </div>
+    </div>
+
+    <div class="evento-card">
+        <div class="evento-info">
+            <div class="evento-tag">🎾 ATP - Rio Open</div>
+            <h3>Carlos Taberner vs Facundo Bagnis</h3>
+        </div>
+        <div style="display:flex; gap:10px;">
+            <button class="btn-cuota">2.50</button>
+            <button class="btn-cuota">1.53</button>
+        </div>
+    </div>
+
+</main>
+
+<footer>
+    <p>© 2026 Midnight Ingenium Casino · 18+ Juego Responsable</p>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+<script>
+    const _usuario  = JSON.parse(localStorage.getItem('usuario') || 'null');
+    const _token    = localStorage.getItem('token');
+    const _logueado = !!(_usuario && _token);
+
+    if (!_logueado) window.location.href = '../cuenta/login.html';
+
+    if (_usuario) {
+        document.getElementById('saldo-display').textContent =
+            `💰 $${parseFloat(_usuario.saldo || 0).toLocaleString(undefined, {minimumFractionDigits:2})}`;
+
+        const btnSesion = document.getElementById('btn-sesion');
+        if (btnSesion) {
+            btnSesion.textContent = '👤 ' + _usuario.nombre;
+            btnSesion.href = '../cuenta/index.html';
+            btnSesion.style.color = '#00ffae';
+        }
+    }
+
+    if (_token) {
+        fetch('http://localhost:5000/api/usuarios/perfil', {
+            headers: { 'Authorization': `Bearer ${_token}` }
+        })
+        .then(r => r.json())
+        .then(perfil => {
+            if (perfil?.saldo !== undefined) {
+                const u = JSON.parse(localStorage.getItem('usuario'));
+                u.saldo = perfil.saldo;
+                localStorage.setItem('usuario', JSON.stringify(u));
+                document.getElementById('saldo-display').textContent =
+                    `💰 $${perfil.saldo.toLocaleString(undefined, {minimumFractionDigits:2})}`;
+            }
+        }).catch(() => {});
+    }
+</script>
+
+</body>
+</html>

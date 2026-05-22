@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Soporte en Vivo - Midnight Ingenium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../logo-casino.png">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --gold: #f5c518;
+            --dark-bg: #050510;
+            --chat-bg: #0a0a1a;
+            --msg-user: #1a1a3a;
+            --msg-bot: #222244;
+        }
+
+        body { 
+            background: var(--dark-bg); 
+            color: #e0e0e0; 
+            margin: 0; 
+            font-family: 'Rajdhani', sans-serif; 
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- NAVEGACIÓN --- */
+        .topbar { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 15px 30px; background: #0a0a1a; border-bottom: 1px solid #1a1a3a; 
+        }
+        .casino-name { font-family: 'Cinzel', serif; color: var(--gold); font-weight: 900; }
+        
+        /* --- CONTENEDOR DE CHAT --- */
+        .chat-wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .chat-window {
+            width: 100%;
+            max-width: 500px;
+            height: 600px;
+            background: var(--chat-bg);
+            border: 1px solid var(--gold);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 30px rgba(245, 197, 24, 0.1);
+            overflow: hidden;
+        }
+
+        /* Cabecera del Chat */
+        .chat-header {
+            background: #11112a;
+            padding: 20px;
+            border-bottom: 1px solid #1a1a3a;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .status-dot {
+            width: 10px; height: 10px;
+            background: #2ecc71;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #2ecc71;
+        }
+
+        /* Área de Mensajes */
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: linear-gradient(to bottom, transparent, rgba(245,197,24,0.02));
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 12px 18px;
+            border-radius: 15px;
+            font-size: 1rem;
+            line-height: 1.4;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .bot-msg {
+            align-self: flex-start;
+            background: var(--msg-bot);
+            border-bottom-left-radius: 2px;
+            border: 1px solid #333;
+        }
+
+        .user-msg {
+            align-self: flex-end;
+            background: var(--gold);
+            color: #000;
+            font-weight: 700;
+            border-bottom-right-radius: 2px;
+        }
+
+        /* Input de Texto */
+        .chat-input-area {
+            padding: 20px;
+            background: #11112a;
+            display: flex;
+            gap: 10px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            background: #050510;
+            border: 1px solid #333;
+            padding: 12px;
+            border-radius: 10px;
+            color: white;
+            outline: none;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        input[type="text"]:focus { border-color: var(--gold); }
+
+        .send-btn {
+            background: var(--gold);
+            border: none;
+            padding: 0 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .send-btn:hover { transform: scale(1.05); }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        footer { text-align: center; padding: 15px; font-size: 0.8rem; color: #444; }
+    </style>
+</head>
+<body>
+
+<div class="topbar">
+    <div class="topbar-left">
+        <span class="casino-name">Midnight Ingenium SUPPORT</span>
+    </div>
+    <a href="index.html" style="color: var(--gold); text-decoration: none;">✕ Salir</a>
+</div>
+
+<main class="chat-wrapper">
+    <div class="chat-window">
+        <div class="chat-header">
+            <div class="status-dot"></div>
+            <div>
+                <div style="font-weight: bold; color: var(--gold);">Soporte Elite</div>
+                <div style="font-size: 0.8rem; color: #888;">Agente en línea (24/7)</div>
+            </div>
+        </div>
+
+        <div class="chat-messages" id="chatBox">
+            <div class="message bot-msg">
+                Bienvenido a <strong>Midnight Ingenium</strong>. Soy el Agente Virtual. ¿En qué podemos ayudarte hoy con tus apuestas o cuenta?
+            </div>
+        </div>
+
+        <form class="chat-input-area" id="chatForm">
+            <input type="text" id="userInput" placeholder="Escribe tu mensaje..." autocomplete="off">
+            <button type="submit" class="send-btn">ENVIAR</button>
+        </form>
+    </div>
+</main>
+
+<footer>
+    © 2026 Midnight Ingenium Casino - Chat Encriptado de Punto a Punto
+</footer>
+
+<script>
+    const chatForm = document.getElementById('chatForm');
+    const chatBox = document.getElementById('chatBox');
+    const userInput = document.getElementById('userInput');
+
+    // Función para añadir mensajes al chat
+    function addMessage(text, type) {
+        const msgDiv = document.createElement('div');
+        msgDiv.classList.add('message');
+        msgDiv.classList.add(type === 'user' ? 'user-msg' : 'bot-msg');
+        msgDiv.innerHTML = text;
+        chatBox.appendChild(msgDiv);
+        
+        // Auto-scroll al final
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    // Lógica del chat
+    chatForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const message = userInput.value.trim();
+        
+        if (message !== "") {
+            // 1. Mensaje del usuario
+            addMessage(message, 'user');
+            userInput.value = "";
+
+            // 2. Respuesta simulada del bot (después de 1 seg)
+            setTimeout(() => {
+                let botResponse = "Estamos procesando tu consulta. Un agente humano se unirá en breve...";
+                
+                // Respuestas "inteligentes" simples
+                const msgLower = message.toLowerCase();
+                if (msgLower.includes("bono") || msgLower.includes("bienvenida")) {
+                    botResponse = "¡Veo que te interesan los bonos! Recuerda que duplicamos tu primer depósito hasta $500.";
+                } else if (msgLower.includes("retiro") || msgLower.includes("pagar")) {
+                    botResponse = "Los retiros se procesan en un máximo de 24h para usuarios VIP Oro.";
+                } else if (msgLower.includes("hola")) {
+                    botResponse = "¡Hola! Suerte en las mesas hoy. ¿Tienes alguna duda técnica?";
+                }
+
+                addMessage(botResponse, 'bot');
+            }, 1000);
+        }
+    });
+</script>
+
+</body>
+</html>

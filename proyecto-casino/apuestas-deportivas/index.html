@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Apuestas Deportivas - Midnight Ingenium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Centro de Apuestas Midnight Ingenium — Las mejores cuotas en Fútbol, NBA, Tenis y eSports">
+    <link rel="icon" type="image/png" href="../logo-casino.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            padding: 20px 40px 40px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .stat-card {
+            background: var(--color-card);
+            border: 1px solid rgba(245,197,24,0.15);
+            border-radius: 16px;
+            padding: 25px 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--color-oro);
+            box-shadow: 0 10px 30px rgba(245,197,24,0.2);
+        }
+        .stat-numero {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--color-oro);
+            text-shadow: 0 0 10px rgba(245,197,24,0.3);
+        }
+        .stat-label {
+            color: var(--color-texto2);
+            font-size: 0.8rem;
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .hub-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 20px 40px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .sport-card {
+            background: var(--color-card);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            text-decoration: none;
+            display: block;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .sport-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--color-oro);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+        }
+        .sport-card img {
+            width: 100%; height: 210px;
+            object-fit: cover;
+            filter: grayscale(30%);
+            transition: 0.5s ease;
+        }
+        .sport-card:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.1);
+        }
+        .live-badge {
+            position: absolute;
+            top: 15px; right: 15px;
+            z-index: 10;
+            background: #ff4444;
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(255,68,68,0.4);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .badge-pulse { animation: pulseBadge 1.5s infinite; }
+        @keyframes pulseBadge {
+            0%   { transform: scale(1);    opacity: 1; }
+            50%  { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1);    opacity: 1; }
+        }
+        .sport-info {
+            padding: 22px;
+            background: linear-gradient(0deg, #0a0a1f 0%, rgba(10,10,31,0.85) 100%);
+            text-align: center;
+            border-top: 1px solid rgba(245,197,24,0.1);
+        }
+        .sport-info h2 {
+            font-family: 'Cinzel', serif;
+            color: var(--color-oro);
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+        .sport-info p {
+            font-family: 'Rajdhani', sans-serif;
+            color: var(--color-texto2);
+            font-size: 0.9rem;
+        }
+        .tabla-wrap { padding: 0 40px 50px; max-width: 1000px; margin: 0 auto; }
+        .tabla-eventos {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--color-card);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        .tabla-eventos th {
+            background: rgba(245,197,24,0.1);
+            color: var(--color-oro);
+            padding: 15px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+        .tabla-eventos td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 500;
+        }
+        .btn-cuota {
+            background: rgba(0,255,174,0.05);
+            color: var(--color-verde);
+            border: 1px solid rgba(0,255,174,0.3);
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 1rem;
+        }
+        .btn-cuota:hover {
+            background: var(--color-verde);
+            color: #000;
+            box-shadow: 0 0 15px rgba(0,255,174,0.4);
+        }
+        @media (max-width: 768px) {
+            .stats-grid, .hub-grid, .tabla-wrap { padding: 20px; }
+            .tabla-wrap { overflow-x: auto; }
+            .tabla-eventos { min-width: 600px; }
+        }
+    </style>
+</head>
+
+<body class="bg-pattern">
+
+<div class="topbar">
+    <div class="topbar-left">
+        <img src="../logo-casino.png" class="logo-small" alt="Logo">
+        <span class="casino-name">Midnight Ingenium</span>
+    </div>
+    <div class="topbar-right">
+        <span class="saldo" id="saldo-display">💰 $0.00</span>
+    </div>
+</div>
+
+<nav class="navbar">
+    <ul class="menu">
+        <li><a href="../index.html">🏠 Inicio</a></li>
+        <li><a href="index.html" style="color: var(--color-oro);">📊 Apuestas</a></li>
+        <li><a href="../juegos/index.html">🎰 Casino</a></li>
+        <li><a href="../promociones/index.html">🎁 Promos</a></li>
+        <li><a href="../afiliados/index.html">🤝 Afiliados</a></li>
+        <li><a href="../cuenta/login.html" class="btn-login" id="btn-sesion">Iniciar Sesión</a></li>
+    </ul>
+</nav>
+
+<header class="page-header">
+    <h1 style="font-family:'Cinzel',serif; letter-spacing:4px;">Arena Deportiva</h1>
+    <p>Cuotas premium actualizadas al <strong style="color:var(--color-verde);">segundo</strong></p>
+</header>
+
+<main>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-numero">342</div>
+            <div class="stat-label">Partidos en Vivo</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-numero">1.97</div>
+            <div class="stat-label">Margen Promedio</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-numero">$5.2M</div>
+            <div class="stat-label">Pagados este mes</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-numero">⚡</div>
+            <div class="stat-label">Cashout Veloz</div>
+        </div>
+    </div>
+
+    <h2 class="section-title">🏆 Selecciona tu Deporte</h2>
+    <div class="hub-grid">
+
+        <a href="futbol.html" class="sport-card">
+            <div class="live-badge badge-pulse">🔴 14 EN VIVO</div>
+            <img src="../assets/images/futbol.jpeg" alt="Fútbol">
+            <div class="sport-info">
+                <h2>Fútbol</h2>
+                <p>Champions, LaLiga y Premier League</p>
+            </div>
+        </a>
+
+        <a href="baloncesto.html" class="sport-card">
+            <div class="live-badge" style="background:#ff9800; box-shadow:0 4px 15px rgba(255,152,0,0.4);">🔥 POPULAR</div>
+            <img src="../assets/images/baloncesto.jpeg" alt="Baloncesto">
+            <div class="sport-info">
+                <h2>Baloncesto</h2>
+                <p>NBA, Euroliga y Liga Endesa</p>
+            </div>
+        </a>
+
+        <a href="tenis.html" class="sport-card">
+            <div class="live-badge" style="background:#c0c0c0; color:#000; box-shadow:0 4px 15px rgba(255,255,255,0.2);">🎾 ATP LIVE</div>
+            <img src="../assets/images/tennis.jpeg" alt="Tenis">
+            <div class="sport-info">
+                <h2>Tenis</h2>
+                <p>Wimbledon, Roland Garros y ATP</p>
+            </div>
+        </a>
+
+        <a href="esports.html" class="sport-card">
+            <div class="live-badge badge-pulse" style="background:#9c27b0; box-shadow:0 4px 15px rgba(156,39,176,0.4);">🎮 ESPORTS</div>
+            <img src="../assets/images/esports.jpeg" alt="eSports">
+            <div class="sport-info">
+                <h2>eSports</h2>
+                <p>CS2, League of Legends y Valorant</p>
+            </div>
+        </a>
+
+        <a href="apuestas-en-vivo.html" class="sport-card" style="border-color:#ff4444;">
+            <div class="live-badge" style="background:#ff4444; border:1px solid #fff;">REC LIVE</div>
+            <img src="../assets/images/en vivo.jpeg" alt="En Vivo">
+            <div class="sport-info">
+                <h2 style="color:#ff4444;">🔴 En Vivo</h2>
+                <p>Todas las apuestas en directo</p>
+            </div>
+        </a>
+
+    </div>
+
+    <h2 class="section-title">📈 Eventos Destacados</h2>
+    <div class="tabla-wrap">
+        <table class="tabla-eventos">
+            <thead>
+                <tr>
+                    <th>Estado</th>
+                    <th>Encuentro</th>
+                    <th>1 (Local)</th>
+                    <th>X (Empate)</th>
+                    <th>2 (Visita)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="live-badge" style="position:relative;top:0;right:0;padding:2px 8px;font-size:0.6rem;">LIVE</span></td>
+                    <td style="font-size:1.1rem;">Liverpool vs Arsenal</td>
+                    <td><button class="btn-cuota">2.15</button></td>
+                    <td><button class="btn-cuota">3.50</button></td>
+                    <td><button class="btn-cuota">2.90</button></td>
+                </tr>
+                <tr>
+                    <td><span style="color:#777;">22:30</span></td>
+                    <td style="font-size:1.1rem;">Heat vs Nuggets</td>
+                    <td><button class="btn-cuota">1.75</button></td>
+                    <td><button class="btn-cuota">—</button></td>
+                    <td><button class="btn-cuota">2.05</button></td>
+                </tr>
+                <tr>
+                    <td><span class="live-badge" style="position:relative;top:0;right:0;padding:2px 8px;font-size:0.6rem;background:#9c27b0;">LIVE</span></td>
+                    <td style="font-size:1.1rem;">FaZe vs MOUZ (CS2)</td>
+                    <td><button class="btn-cuota">1.60</button></td>
+                    <td><button class="btn-cuota">4.20</button></td>
+                    <td><button class="btn-cuota">2.30</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div style="background:linear-gradient(135deg,rgba(245,197,24,0.1),rgba(0,255,174,0.05)); border:1px solid rgba(245,197,24,0.2); border-radius:20px; padding:55px 30px; text-align:center; margin:20px 40px 60px;">
+        <h2 style="font-family:'Cinzel',serif; color:var(--color-oro); font-size:2.2rem; margin-bottom:12px;">💸 ¿Listo para el triunfo?</h2>
+        <p style="color:#ccc; margin-bottom:28px; max-width:600px; margin-left:auto; margin-right:auto;">Regístrate ahora y recibe un bono del 100% en tu primer depósito para usar en cualquier evento deportivo.</p>
+        <a href="../cuenta/registro.html" class="btn-glow" style="padding:15px 40px; font-size:1.1rem;">CREAR MI CUENTA</a>
+    </div>
+
+</main>
+
+<footer>
+    <div style="margin-bottom:20px;">
+        <img src="../logo-casino.png" style="width:60px; opacity:0.8;" alt="Logo">
+    </div>
+    <p>© 2026 Midnight Ingenium Casino · 18+ Juego Responsable</p>
+    <p style="font-size:0.75rem; color:#666; margin-top:10px;">El juego puede ser adictivo. Juega con responsabilidad.</p>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+<script>
+    const _usuario  = JSON.parse(localStorage.getItem('usuario') || 'null');
+    const _token    = localStorage.getItem('token');
+    const _logueado = !!(_usuario && _token);
+
+    if (!_logueado) window.location.href = '../cuenta/login.html';
+
+    if (_usuario) {
+        document.getElementById('saldo-display').textContent =
+            `💰 $${parseFloat(_usuario.saldo || 0).toLocaleString(undefined, {minimumFractionDigits:2})}`;
+
+        const btnSesion = document.getElementById('btn-sesion');
+        if (btnSesion) {
+            btnSesion.textContent = '👤 ' + _usuario.nombre;
+            btnSesion.href = '../cuenta/index.html';
+            btnSesion.style.color = '#00ffae';
+        }
+    }
+
+    if (_token) {
+        fetch('http://localhost:5000/api/usuarios/perfil', {
+            headers: { 'Authorization': `Bearer ${_token}` }
+        })
+        .then(r => r.json())
+        .then(perfil => {
+            if (perfil?.saldo !== undefined) {
+                const u = JSON.parse(localStorage.getItem('usuario'));
+                u.saldo = perfil.saldo;
+                localStorage.setItem('usuario', JSON.stringify(u));
+                document.getElementById('saldo-display').textContent =
+                    `💰 $${perfil.saldo.toLocaleString(undefined, {minimumFractionDigits:2})}`;
+            }
+        }).catch(() => {});
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Crash - Midnight Ingenium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../logo-casino.png">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        :root {
+            --neon-green: #00ffae;
+            --neon-red: #ff4444;
+            --neon-gold: #f5c518;
+            --bg-dark: #050510;
+        }
+        body {
+            background: var(--bg-dark);
+            background-image: radial-gradient(circle at 50% 50%, #1a1a3a 0%, #050510 100%);
+            color: white; margin: 0; overflow-x: hidden;
+            font-family: 'Rajdhani', sans-serif;
+        }
+        .topbar {
+            display: flex; justify-content: space-between;
+            padding: 15px 30px; background: #000;
+            border-bottom: 2px solid #333; align-items: center;
+        }
+        .topbar-left { display: flex; align-items: center; gap: 10px; }
+        .logo-small { width: 30px; }
+        .casino-name { font-family: 'Cinzel', serif; font-size: 1.2rem; color: var(--neon-gold); }
+        .saldo { color: var(--neon-green); font-weight: 700; font-size: 1.2rem; }
+        .navbar { background: #11112a; padding: 12px 0; border-bottom: 1px solid var(--neon-gold); }
+        .navbar .menu { display: flex; list-style: none; gap: 20px; justify-content: center; padding: 0; margin: 0; }
+        .navbar a { text-decoration: none; color: #aaa; font-weight: 600; transition: 0.3s; text-transform: uppercase; font-size: 0.9rem; }
+        .navbar a:hover { color: var(--neon-gold); }
+        .crash-viewport {
+            max-width: 900px; margin: 30px auto; position: relative;
+            background: rgba(0,0,0,0.6); border-radius: 24px; padding: 20px;
+            border: 2px solid rgba(255,255,255,0.05);
+            box-shadow: 0 0 50px rgba(0,0,0,0.8); text-align: center;
+        }
+        #multiplicador-display {
+            position: absolute; top: 40%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 6rem; font-weight: 900;
+            font-family: 'Cinzel', serif; z-index: 10;
+            pointer-events: none;
+            text-shadow: 0 0 40px rgba(0,255,174,0.5);
+            transition: color 0.2s;
+        }
+        #crash-canvas {
+            width: 100%; height: 450px;
+            background: #020208; border-radius: 16px; display: block;
+        }
+        .controls-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px; margin-top: 20px;
+            background: rgba(255,255,255,0.03); padding: 20px;
+            border-radius: 16px; border: 1px solid rgba(255,255,255,0.1);
+            align-items: center;
+        }
+        .input-group { display: flex; flex-direction: column; gap: 8px; align-items: center; }
+        .input-group label { font-size: 0.75rem; text-transform: uppercase; color: #888; letter-spacing: 1px; }
+        .crash-input {
+            background: #0a0a1f; border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 8px; color: white; padding: 10px;
+            font-size: 1.1rem; font-family: 'Rajdhani'; font-weight: bold;
+            outline: none; text-align: center; width: 100%; max-width: 140px;
+        }
+        .crash-input:focus { border-color: var(--neon-green); }
+        .btn-action {
+            width: 100%; height: 60px; border: none; border-radius: 12px;
+            font-size: 1.3rem; font-family: 'Rajdhani'; font-weight: 900;
+            cursor: pointer; transition: 0.3s; text-transform: uppercase;
+        }
+        .btn-bet  { background: linear-gradient(90deg, #00ffae, #00d4ff); color: #000; }
+        .btn-cash { background: linear-gradient(90deg, #f5c518, #ff9a00); color: #000; }
+        .btn-action:disabled { filter: grayscale(1); opacity: 0.3; cursor: not-allowed; }
+        .btn-action:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 5px 20px rgba(0,255,174,0.4); }
+        .historial-bar {
+            display: flex; gap: 10px; overflow-x: auto;
+            padding: 20px; justify-content: center;
+            background: rgba(0,0,0,0.3);
+        }
+        .h-badge {
+            padding: 5px 15px; border-radius: 20px;
+            background: rgba(255,255,255,0.05); font-weight: bold;
+            font-family: 'Rajdhani'; border: 1px solid rgba(255,255,255,0.1);
+            min-width: 60px; text-align: center;
+        }
+        .fase-espera {
+            font-size: 1.4rem; color: var(--neon-gold);
+            font-family: 'Cinzel', serif; padding: 10px 0;
+            animation: pulso 1s ease infinite alternate;
+        }
+        @keyframes pulso { from { opacity: 0.4; } to { opacity: 1; } }
+        .no-sesion {
+            text-align: center; padding: 30px;
+            background: rgba(255,100,100,0.1); border: 1px solid rgba(255,100,100,0.3);
+            border-radius: 10px; margin: 20px auto; max-width: 400px;
+        }
+        footer { text-align: center; padding: 30px; color: #444; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+<div class="topbar">
+    <div class="topbar-left">
+        <img src="../logo-casino.png" class="logo-small" alt="Logo">
+        <span class="casino-name">Midnight Ingenium</span>
+    </div>
+    <div class="topbar-right">
+        <span class="saldo" id="saldo-display">💰 $0</span>
+    </div>
+</div>
+
+<nav class="navbar">
+    <ul class="menu">
+        <li><a href="../index.html">🏠 Inicio</a></li>
+        <li><a href="index.html">🎮 Juegos</a></li>
+        <li><a href="ruleta.html">🎡 Ruleta</a></li>
+        <li><a href="blackjack.html">🃏 Blackjack</a></li>
+        <li><a href="slots.html">🎰 Slots</a></li>
+        <li><a href="crash.html" style="color:var(--neon-gold)">🚀 Crash</a></li>
+    </ul>
+</nav>
+
+<div class="crash-viewport">
+    <div id="multiplicador-display">1.00x</div>
+    <canvas id="crash-canvas" width="800" height="450"></canvas>
+
+    <div class="controls-grid">
+        <div class="input-group">
+            <label>Monto apuesta</label>
+            <input type="number" id="bet-amount" class="crash-input" value="10" min="1">
+        </div>
+        <div class="input-group">
+            <label>Auto-Retiro (x)</label>
+            <input type="number" id="auto-cashout" class="crash-input" value="2.00" step="0.1" min="1.1">
+        </div>
+        <div class="input-group">
+            <button id="btn-bet"  class="btn-action btn-bet"  onclick="placeBet()">🚀 Apostar</button>
+            <button id="btn-cash" class="btn-action btn-cash" onclick="cashOut()" style="display:none; margin-top:8px;">💰 Retirar</button>
+        </div>
+        <div class="input-group">
+            <div id="flight-status" style="font-weight:bold; color:var(--neon-gold); font-size:1.1rem;">ESPERANDO...</div>
+            <div id="profit-preview" style="color:var(--neon-green); font-size:1.2rem; min-height:24px;"></div>
+        </div>
+    </div>
+</div>
+
+<div class="historial-bar" id="history-container"></div>
+
+<footer>
+    <p>© 2026 Midnight Ingenium Casino · Juego Responsable · 18+</p>
+</footer>
+
+<script>
+    // ── Estado de sesión ──────────────────────────────────────────
+    const usuarioData = JSON.parse(localStorage.getItem('usuario') || 'null');
+    const token = localStorage.getItem('token');
+
+    if (!usuarioData || !token) {
+        document.querySelector('.crash-viewport').innerHTML = `
+            <div class="no-sesion">
+                <h2>🔒 Acceso restringido</h2>
+                <p>Debes iniciar sesión para jugar.</p>
+                <a href="../cuenta/login.html" style="color:var(--neon-gold); font-weight:700;">Ir al Login</a>
+            </div>`;
+    }
+
+    function getSaldo() {
+        const u = JSON.parse(localStorage.getItem('usuario') || 'null');
+        return u ? u.saldo : 0;
+    }
+
+    function setSaldo(monto) {
+        const u = JSON.parse(localStorage.getItem('usuario'));
+        if (!u) return;
+        u.saldo = monto;
+        localStorage.setItem('usuario', JSON.stringify(u));
+        document.getElementById('saldo-display').textContent =
+            `💰 $${monto.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+    }
+
+    if (usuarioData) {
+        document.getElementById('saldo-display').textContent =
+            `💰 $${usuarioData.saldo.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+    }
+
+    // ── Variables de juego ────────────────────────────────────────
+    const canvas = document.getElementById('crash-canvas');
+    const ctx    = canvas ? canvas.getContext('2d') : null;
+
+    // FASES: 'waiting' → 'flying' → 'crashed'
+    let fase         = 'waiting';
+    let multiplier   = 1.0;
+    let crashPoint   = 1.0;
+    let betAmount    = 0;
+    let betted       = false;
+    let hasCashedOut = false;
+    let points       = [];
+    let loopId       = null;
+    let waitId       = null;
+    let countDown    = 5;
+
+    // ── Generador de crash point ──────────────────────────────────
+    function generateCrash() {
+        const r = Math.random();
+        if (r < 0.03) return 1.00;
+        return parseFloat(Math.max(1.01, (1 / (1 - Math.random()) * 0.97)).toFixed(2));
+    }
+
+    // ── Dibujo del canvas ─────────────────────────────────────────
+    function draw() {
+        if (!ctx) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Grid
+        ctx.strokeStyle = 'rgba(255,255,255,0.03)';
+        ctx.lineWidth = 1;
+        for (let i = 0; i < canvas.width;  i += 50) { ctx.beginPath(); ctx.moveTo(i,0); ctx.lineTo(i,canvas.height); ctx.stroke(); }
+        for (let i = 0; i < canvas.height; i += 50) { ctx.beginPath(); ctx.moveTo(0,i); ctx.lineTo(canvas.width,i); ctx.stroke(); }
+
+        if (points.length < 2) return;
+
+        const margin  = 50;
+        const maxTime = Math.max(100, points.length);
+        const maxMult = Math.max(2, multiplier * 1.1);
+
+        ctx.beginPath();
+        ctx.lineWidth   = 5;
+        ctx.strokeStyle = fase === 'crashed' ? '#ff4444' : '#00ffae';
+        ctx.shadowBlur  = 15;
+        ctx.shadowColor = ctx.strokeStyle;
+
+        points.forEach((p, i) => {
+            const x = margin + (i / maxTime) * (canvas.width  - margin * 2);
+            const y = (canvas.height - margin) - ((p - 1) / (maxMult - 1)) * (canvas.height - margin * 2);
+            i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+        });
+        ctx.stroke();
+        ctx.shadowBlur = 0;
+
+        // Ícono en la punta
+        const lastX = margin + ((points.length - 1) / maxTime) * (canvas.width  - margin * 2);
+        const lastY = (canvas.height - margin) - ((multiplier - 1) / (maxMult - 1)) * (canvas.height - margin * 2);
+        ctx.font = '36px Arial';
+        ctx.fillText(fase === 'crashed' ? '💥' : '🚀', lastX - 18, lastY + 14);
+    }
+
+    // ── Fase de espera (countdown) ────────────────────────────────
+    function startWaiting() {
+        fase       = 'waiting';
+        multiplier = 1.0;
+        points     = [];
+        betted     = false;
+        hasCashedOut = false;
+        countDown  = 5;
+        crashPoint = generateCrash();
+
+        if (ctx) { ctx.clearRect(0, 0, canvas.width, canvas.height); }
+
+        const display = document.getElementById('multiplicador-display');
+        const status  = document.getElementById('flight-status');
+        const profit  = document.getElementById('profit-preview');
+
+        display.textContent = '🚀';
+        display.style.color = '#f5c518';
+        status.textContent  = `Próxima ronda en ${countDown}s`;
+        status.style.color  = 'var(--neon-gold)';
+        profit.textContent  = '';
+
+        document.getElementById('btn-bet').disabled  = false;
+        document.getElementById('btn-bet').style.display  = 'block';
+        document.getElementById('btn-cash').style.display = 'none';
+
+        waitId = setInterval(() => {
+            countDown--;
+            status.textContent = `Próxima ronda en ${countDown}s`;
+            if (countDown <= 0) {
+                clearInterval(waitId);
+                startFlight();
+            }
+        }, 1000);
+    }
+
+    // ── Vuelo ─────────────────────────────────────────────────────
+    function startFlight() {
+        fase       = 'flying';
+        multiplier = 1.0;
+        points     = [1.0];
+
+        const display = document.getElementById('multiplicador-display');
+        const status  = document.getElementById('flight-status');
+
+        display.textContent = '1.00x';
+        display.style.color = '#00ffae';
+        status.textContent  = '🚀 EN VUELO';
+        status.style.color  = 'var(--neon-green)';
+
+        document.getElementById('btn-bet').disabled = true;
+
+        loopId = setInterval(() => {
+            multiplier += 0.004 * Math.pow(multiplier, 1.1);
+            points.push(multiplier);
+
+            display.textContent = multiplier.toFixed(2) + 'x';
+            display.style.color = multiplier >= 10 ? '#ff4444' : multiplier >= 2 ? '#f5c518' : '#00ffae';
+
+            if (betted && !hasCashedOut) {
+                const ganando = (betAmount * multiplier).toFixed(2);
+                document.getElementById('profit-preview').textContent = `+ $${ganando}`;
+
+                const autoVal = parseFloat(document.getElementById('auto-cashout').value);
+                if (!isNaN(autoVal) && multiplier >= autoVal) cashOut();
+            }
+
+            draw();
+
+            if (multiplier >= crashPoint) {
+                clearInterval(loopId);
+                loopId = null;
+                endFlight();
+            }
+        }, 50);
+    }
+
+    // ── Crash ─────────────────────────────────────────────────────
+    async function endFlight() {
+        fase = 'crashed';
+
+        const display = document.getElementById('multiplicador-display');
+        const status  = document.getElementById('flight-status');
+        const profit  = document.getElementById('profit-preview');
+
+        display.textContent = crashPoint.toFixed(2) + 'x';
+        display.style.color = '#ff4444';
+        status.textContent  = '💥 CRASH!';
+        status.style.color  = 'var(--neon-red)';
+
+        draw(); // dibuja línea roja final
+
+        // Si apostó y NO retiró → registrar pérdida
+        if (betted && !hasCashedOut) {
+            profit.textContent  = '❌ PERDISTE';
+            profit.style.color  = 'var(--neon-red)';
+            await registrarApuesta(false, 0);
+        }
+
+        // Badge de historial
+        const badge = document.createElement('div');
+        badge.className   = 'h-badge';
+        badge.textContent = crashPoint.toFixed(2) + 'x';
+        badge.style.color = crashPoint >= 2 ? '#f5c518' : '#ff4444';
+        const container = document.getElementById('history-container');
+        container.prepend(badge);
+        if (container.children.length > 10) container.lastChild.remove();
+
+        document.getElementById('btn-cash').style.display = 'none';
+
+        // Siguiente ronda tras 4 segundos
+        setTimeout(startWaiting, 4000);
+    }
+
+    // ── Apostar ───────────────────────────────────────────────────
+    function placeBet() {
+        if (fase !== 'waiting') return;
+
+        betAmount = parseFloat(document.getElementById('bet-amount').value);
+        if (isNaN(betAmount) || betAmount <= 0) return alert('Ingresa un monto válido');
+        if (betAmount > getSaldo()) return alert('Saldo insuficiente');
+
+        setSaldo(getSaldo() - betAmount);
+        betted = true;
+
+        document.getElementById('btn-bet').style.display  = 'none';
+        document.getElementById('btn-cash').style.display = 'block';
+        document.getElementById('flight-status').textContent = '✅ Apuesta registrada';
+        document.getElementById('flight-status').style.color = 'var(--neon-green)';
+    }
+
+    // ── Retirar ───────────────────────────────────────────────────
+    async function cashOut() {
+        if (!betted || fase !== 'flying' || hasCashedOut) return;
+        hasCashedOut = true;
+
+        const win      = betAmount * multiplier;
+        const ganancia = win - betAmount;
+        setSaldo(getSaldo() + win);
+
+        document.getElementById('btn-cash').style.display  = 'none';
+        document.getElementById('flight-status').textContent = '✅ RETIRADO';
+        document.getElementById('flight-status').style.color = 'var(--neon-green)';
+        document.getElementById('profit-preview').textContent = `GANASTE $${win.toFixed(2)}`;
+        document.getElementById('profit-preview').style.color  = 'var(--neon-green)';
+
+        await registrarApuesta(true, ganancia);
+    }
+
+    // ── Llamada a la API ──────────────────────────────────────────
+    async function registrarApuesta(gano, ganancia) {
+        try {
+            const res = await fetch('http://localhost:5000/api/apuestas', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify({
+                    juego: 'crash',
+                    monto: betAmount,
+                    resultado: gano ? 'ganó' : 'perdió',
+                    ganancia: ganancia < 0 ? 0 : ganancia
+                })
+            });
+            const data = await res.json();
+            if (res.ok) setSaldo(data.saldoActual);
+        } catch (err) {
+            console.error('Error al registrar apuesta crash:', err);
+        }
+    }
+
+    // ── Arrancar ──────────────────────────────────────────────────
+    startWaiting();
+</script>
+</body>
+</html>

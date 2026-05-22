@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Usuario - Midnight Ingenium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../logo-casino.png">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        body { background: #050510; color: white; margin: 0; font-family: 'Rajdhani', sans-serif; }
+        .topbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background: #000; border-bottom: 2px solid #333; }
+        .topbar-left { display: flex; align-items: center; gap: 10px; }
+        .logo-small { width: 30px; }
+        .casino-name { font-family: 'Cinzel', serif; font-size: 1.2rem; color: #f5c518; }
+        .navbar { background: #11112a; padding: 12px 0; border-bottom: 1px solid #f5c518; }
+        .navbar .menu { display: flex; list-style: none; gap: 20px; justify-content: center; padding: 0; margin: 0; }
+        .navbar a { text-decoration: none; color: #aaa; font-weight: 600; transition: 0.3s; text-transform: uppercase; font-size: 0.9rem; }
+        .navbar a:hover { color: #f5c518; }
+        .page-header { text-align: center; padding: 40px 20px 30px; background: linear-gradient(rgba(10,10,31,0.95), rgba(10,10,31,0.98)); border-bottom: 2px solid rgba(245,197,24,0.3); }
+        .page-header h1 { font-family: 'Cinzel', serif; font-size: 2rem; margin: 0; }
+        .page-header p { color: #aaa; margin: 8px 0 0; }
+
+        .dashboard-container {
+            max-width: 1100px; margin: 40px auto; padding: 0 20px 80px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .dashboard-card {
+            background: #11112b; border: 1px solid rgba(245,197,24,0.15);
+            border-radius: 20px; padding: 30px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            transition: transform 0.3s, border-color 0.3s;
+            position: relative; overflow: hidden;
+        }
+        .dashboard-card:hover { transform: translateY(-5px); border-color: #f5c518; }
+        .dashboard-card h2 {
+            font-family: 'Cinzel', serif; font-size: 1rem; color: #aaa;
+            margin: 0 0 20px; text-transform: uppercase; letter-spacing: 2px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .big-number { font-size: 2.8rem; font-weight: 700; color: #fff; margin: 10px 0; }
+        .card-footer { margin-top: 15px; font-size: 0.85rem; color: #666; display: flex; justify-content: space-between; }
+
+        .progress-container { background: rgba(255,255,255,0.05); height: 10px; border-radius: 5px; margin-top: 15px; overflow: hidden; }
+        .progress-bar { height: 100%; border-radius: 5px; background: linear-gradient(90deg, #f5c518, #ffdb58); box-shadow: 0 0 10px rgba(245,197,24,0.5); width: 0%; transition: width 1.5s cubic-bezier(0.19,1,0.22,1); }
+
+        /* Stats grid */
+        .stats-row { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4,1fr); gap: 15px; }
+        .stat-mini { background: #11112b; border-radius: 14px; padding: 20px; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
+        .stat-mini .val { font-family: 'Cinzel', serif; font-size: 1.8rem; font-weight: 900; margin: 5px 0; }
+        .stat-mini .lbl { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Juegos recientes */
+        .recent-list { list-style: none; padding: 0; margin: 0; }
+        .recent-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.95rem; }
+        .recent-item:last-child { border-bottom: none; }
+        .badge-win  { color: #00ffae; font-weight: 700; }
+        .badge-lose { color: #ff4444; font-weight: 700; }
+
+        /* Acciones */
+        .quick-actions { grid-column: 1 / -1; display: flex; gap: 15px; flex-wrap: wrap; }
+        .action-btn { flex: 1; padding: 18px; border-radius: 12px; border: none; font-family: 'Rajdhani', sans-serif; font-weight: 800; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 2px; font-size: 1rem; }
+        .btn-jugar    { background: linear-gradient(90deg, #00ffae, #00d4ff); color: #000; }
+        .btn-historial{ background: rgba(255,255,255,0.04); color: #fff; border: 1px solid #333; }
+        .btn-salir    { background: rgba(255,68,68,0.1); color: #ff4444; border: 1px solid rgba(255,68,68,0.3); }
+        .action-btn:hover { filter: brightness(1.15); transform: scale(1.02); }
+
+        .no-sesion { text-align: center; padding: 60px 20px; }
+        .no-sesion a { color: #f5c518; font-weight: 700; font-size: 1.1rem; }
+
+        .loading-inline { color: #888; font-size: 0.9rem; }
+
+        @media (max-width: 700px) { .stats-row { grid-template-columns: repeat(2,1fr); } }
+
+        footer { text-align: center; padding: 40px; color: #444; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+<div class="topbar">
+    <div class="topbar-left">
+        <img src="../logo-casino.png" class="logo-small" alt="Logo">
+        <span class="casino-name">Midnight Ingenium</span>
+    </div>
+    <div class="topbar-right">
+        <span style="color:#f5c518; font-weight:700;" id="topbar-nombre">👤 Mi Cuenta</span>
+    </div>
+</div>
+
+<nav class="navbar">
+    <ul class="menu">
+        <li><a href="../index.html">🏠 Inicio</a></li>
+        <li><a href="index.html" style="color:#f5c518;">📊 Dashboard</a></li>
+        <li><a href="historial.html">📜 Historial</a></li>
+        <li><a href="../juegos/index.html">🎮 Juegos</a></li>
+    </ul>
+</nav>
+
+<header class="page-header">
+    <h1 id="welcome-user">Bienvenido</h1>
+    <p>Gestiona tu capital y revisa tus estadísticas</p>
+</header>
+
+<main class="dashboard-container" id="dashboard-main">
+    <div style="grid-column:1/-1; text-align:center; padding:60px; color:#888;">⏳ Cargando tu panel...</div>
+</main>
+
+<footer>
+    <p>© 2026 Midnight Ingenium Casino · Panel en tiempo real</p>
+</footer>
+
+<script>
+    const usuarioData = JSON.parse(localStorage.getItem('usuario') || 'null');
+    const token = localStorage.getItem('token');
+
+    if (!usuarioData || !token) {
+        document.getElementById('dashboard-main').innerHTML = `
+            <div class="no-sesion" style="grid-column:1/-1;">
+                <h2>🔒 Debes iniciar sesión</h2>
+                <p style="color:#888; margin:15px 0 25px;">Para acceder a tu panel necesitas una cuenta.</p>
+                <a href="login.html">→ Ir al Login</a>
+            </div>`;
+    } else {
+        document.getElementById('welcome-user').textContent  = `Bienvenido, ${usuarioData.nombre}`;
+        document.getElementById('topbar-nombre').textContent = `👤 ${usuarioData.nombre}`;
+        cargarDashboard();
+    }
+
+    const ICONOS = { ruleta:'🎡', blackjack:'🃏', slots:'🎰', crash:'🚀', dados:'🎲', baccarat:'🎴', poker:'♠️' };
+
+    async function cargarDashboard() {
+        try {
+            // Traer perfil actualizado y historial en paralelo
+            const [resPerfil, resHistorial] = await Promise.all([
+                fetch('http://localhost:5000/api/usuarios/perfil', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                }),
+                fetch('http://localhost:5000/api/apuestas/historial', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                })
+            ]);
+
+            const perfil    = await resPerfil.json();
+            const historial = resHistorial.ok ? await resHistorial.json() : [];
+
+            // Actualizar saldo en localStorage
+            const u = JSON.parse(localStorage.getItem('usuario'));
+            u.saldo = perfil.saldo;
+            localStorage.setItem('usuario', JSON.stringify(u));
+
+            // Calcular stats
+            const total    = historial.length;
+            const ganadas  = historial.filter(a => a.resultado === 'ganó').length;
+            const perdidas = historial.filter(a => a.resultado === 'perdió').length;
+            const neta     = historial.reduce((acc, a) => a.resultado === 'ganó' ? acc + a.ganancia : acc - a.monto, 0);
+            const winRate  = total > 0 ? Math.round((ganadas / total) * 100) : 0;
+
+            // Últimas 5 apuestas
+            const recientes = historial.slice(0, 5);
+
+            // Juego favorito
+            const freq = {};
+            historial.forEach(a => freq[a.juego] = (freq[a.juego] || 0) + 1);
+            const favorito = Object.keys(freq).sort((a,b) => freq[b]-freq[a])[0] || '—';
+
+            renderDashboard(perfil, total, ganadas, perdidas, neta, winRate, recientes, favorito);
+
+        } catch(err) {
+            document.getElementById('dashboard-main').innerHTML = `
+                <div style="grid-column:1/-1; text-align:center; padding:40px; color:#ff4444;">
+                    ❌ Error al cargar el panel. Verifica que el servidor esté corriendo.
+                </div>`;
+            console.error(err);
+        }
+    }
+
+    function renderDashboard(perfil, total, ganadas, perdidas, neta, winRate, recientes, favorito) {
+        const netaColor = neta >= 0 ? '#00ffae' : '#ff4444';
+        const netaStr   = (neta >= 0 ? '+' : '') + '$' + neta.toLocaleString();
+
+        const recentHTML = recientes.length
+            ? recientes.map(a => {
+                const gano = a.resultado === 'ganó';
+                const icono = ICONOS[a.juego] || '🎮';
+                const fecha = new Date(a.createdAt).toLocaleDateString('es-CO');
+                return `<li class="recent-item">
+                    <span>${icono} ${a.juego.charAt(0).toUpperCase()+a.juego.slice(1)} <span style="color:#555; font-size:0.8rem;">· ${fecha}</span></span>
+                    <span class="${gano ? 'badge-win' : 'badge-lose'}">${gano ? '+$'+a.ganancia : '-$'+a.monto}</span>
+                </li>`;
+            }).join('')
+            : `<li class="recent-item" style="color:#555; justify-content:center;">Sin apuestas aún</li>`;
+
+        document.getElementById('dashboard-main').innerHTML = `
+
+            <!-- Saldo -->
+            <section class="dashboard-card" style="border-left: 4px solid #00ffae;">
+                <h2>💰 Saldo Disponible</h2>
+                <p class="big-number" style="color:#00ffae;">$${perfil.saldo.toLocaleString()}</p>
+                <div class="card-footer">
+                    <span>Rol: <b style="color:#f5c518; text-transform:uppercase;">${perfil.rol}</b></span>
+                    <span>ID: <b style="color:#555; font-size:0.8rem;">${perfil._id.slice(-6).toUpperCase()}</b></span>
+                </div>
+            </section>
+
+            <!-- Win Rate -->
+            <section class="dashboard-card">
+                <h2>🎯 Tasa de Victoria</h2>
+                <p class="big-number" style="color:#f5c518;">${winRate}%</p>
+                <div class="progress-container">
+                    <div class="progress-bar" id="winrate-bar"></div>
+                </div>
+                <div class="card-footer">
+                    <span>${ganadas} ganadas</span>
+                    <span>${perdidas} perdidas</span>
+                </div>
+            </section>
+
+            <!-- Ganancia neta -->
+            <section class="dashboard-card" style="border-left: 4px solid ${netaColor};">
+                <h2>📈 Ganancia Neta</h2>
+                <p class="big-number" style="color:${netaColor};">${netaStr}</p>
+                <div class="card-footer">
+                    <span>Juego favorito: <b style="color:#f5c518;">${ICONOS[favorito] || '🎮'} ${favorito.charAt(0).toUpperCase()+favorito.slice(1)}</b></span>
+                </div>
+            </section>
+
+            <!-- Stats row -->
+            <div class="stats-row">
+                <div class="stat-mini">
+                    <div class="val" style="color:#00d4ff;">${total}</div>
+                    <div class="lbl">Total Apuestas</div>
+                </div>
+                <div class="stat-mini">
+                    <div class="val" style="color:#00ffae;">${ganadas}</div>
+                    <div class="lbl">Ganadas</div>
+                </div>
+                <div class="stat-mini">
+                    <div class="val" style="color:#ff4444;">${perdidas}</div>
+                    <div class="lbl">Perdidas</div>
+                </div>
+                <div class="stat-mini">
+                    <div class="val" style="color:#f5c518;">${winRate}%</div>
+                    <div class="lbl">Win Rate</div>
+                </div>
+            </div>
+
+            <!-- Apuestas recientes -->
+            <section class="dashboard-card" style="grid-column: 1 / -1;">
+                <h2>🕐 Últimas Apuestas</h2>
+                <ul class="recent-list">${recentHTML}</ul>
+                <div style="text-align:right; margin-top:15px;">
+                    <a href="historial.html" style="color:#f5c518; font-size:0.9rem; font-weight:700;">Ver historial completo →</a>
+                </div>
+            </section>
+
+            <!-- Acciones rápidas -->
+            <div class="quick-actions">
+                <button class="action-btn btn-jugar"     onclick="location.href='../juegos/index.html'">🎮 Ir a Jugar</button>
+                <button class="action-btn btn-historial" onclick="location.href='historial.html'">📜 Ver Historial</button>
+                <button class="action-btn btn-salir"     onclick="cerrarSesion()">🚪 Cerrar Sesión</button>
+            </div>
+        `;
+
+        // Animar barra win rate
+        setTimeout(() => {
+            const bar = document.getElementById('winrate-bar');
+            if (bar) bar.style.width = winRate + '%';
+        }, 300);
+    }
+
+    function cerrarSesion() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('usuario');
+        window.location.href = 'login.html';
+    }
+</script>
+</body>
+</html>

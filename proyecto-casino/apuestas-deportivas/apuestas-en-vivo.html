@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Apuestas en Vivo - Midnight Ingenium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Apuestas deportivas en vivo — Cuotas en tiempo real">
+
+    <link rel="icon" type="image/png" href="../logo-casino.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+
+    <style>
+        .vivo-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,50,50,0.2);
+            border: 1px solid rgba(255,50,50,0.4);
+            color: #ff6666;
+            padding: 5px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+        }
+
+        .vivo-dot {
+            width: 8px; height: 8px;
+            background: #ff4444;
+            border-radius: 50%;
+            animation: parpadeoDot 1s infinite;
+        }
+
+        @keyframes parpadeoDot {
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0.2; }
+        }
+
+        .eventos-wrap {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 40px 40px;
+        }
+
+        .evento-vivo {
+            background: var(--color-card);
+            border: 1px solid rgba(245,197,24,0.12);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .evento-vivo:hover {
+            box-shadow: 0 10px 35px rgba(245,197,24,0.15);
+            border-color: rgba(245,197,24,0.3);
+        }
+
+        .evento-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .evento-titulo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            color: var(--color-texto);
+        }
+
+        .evento-meta {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .minuto {
+            background: rgba(255,50,50,0.15);
+            border: 1px solid rgba(255,50,50,0.3);
+            color: #ff8888;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 700;
+        }
+
+        .marcador {
+            background: rgba(245,197,24,0.15);
+            border: 1px solid rgba(245,197,24,0.3);
+            color: var(--color-oro);
+            padding: 3px 14px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 900;
+            font-family: 'Cinzel', serif;
+        }
+
+        .cuotas-labels {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+
+        .cuotas-labels span {
+            font-size: 0.75rem;
+            color: var(--color-texto2);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            width: 90px;
+            text-align: center;
+        }
+
+        .cuotas {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .cuota {
+            background: linear-gradient(135deg, rgba(0,255,174,0.1), rgba(0,212,255,0.08));
+            border: 1px solid rgba(0,255,174,0.25);
+            color: var(--color-verde);
+            padding: 12px 0;
+            width: 90px;
+            border-radius: 10px;
+            font-weight: 900;
+            font-size: 1.1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .cuota:hover, .cuota.seleccionada {
+            background: linear-gradient(135deg, var(--color-verde), var(--color-azul));
+            color: #000;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,255,174,0.4);
+            border-color: transparent;
+        }
+
+        .cuota.subio   { border-color: rgba(0,255,100,0.6); color: #00ff88; }
+        .cuota.bajo    { border-color: rgba(255,80,80,0.6);  color: #ff6666; }
+
+        /* Betslip flotante */
+        .betslip {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 300px;
+            background: var(--color-card);
+            border: 1px solid rgba(245,197,24,0.3);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            z-index: 500;
+            display: none;
+        }
+
+        .betslip h3 {
+            color: var(--color-oro);
+            margin-bottom: 15px;
+            font-size: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .betslip-item {
+            background: rgba(255,255,255,0.04);
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+            color: var(--color-texto2);
+        }
+
+        .betslip-item strong { color: var(--color-verde); }
+
+        .betslip input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            outline: none;
+        }
+
+        .betslip input:focus {
+            border-color: var(--color-oro);
+        }
+
+        .ganancia-potencial {
+            text-align: center;
+            color: var(--color-verde);
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .eventos-wrap { padding: 20px; }
+            .betslip { width: calc(100% - 40px); right: 20px; }
+            .cuotas-labels span, .cuota { width: 80px; }
+        }
+    </style>
+</head>
+
+<body class="bg-pattern">
+
+<div class="topbar">
+    <div class="topbar-left">
+        <img src="../logo-casino.png" class="logo-small" alt="Logo Midnight Ingenium">
+        <span class="casino-name">Midnight Ingenium</span>
+    </div>
+    <div class="topbar-right">
+        <span class="saldo" id="saldo-display">💰 Saldo: $1,250</span>
+        <span class="notificaciones">🔔 3</span>
+    </div>
+</div>
+
+<nav class="navbar" role="navigation" aria-label="Menú principal">
+    <ul class="menu">
+        <li><a href="../index.html">🏠 Inicio</a></li>
+        <li class="dropdown">
+            <a href="../juegos/index.html">🎮 Juegos ▾</a>
+            <ul class="submenu">
+                <li><a href="../juegos/slots.html">🎰 Slots</a></li>
+                <li><a href="../juegos/ruleta.html">🎡 Ruleta</a></li>
+                <li><a href="../juegos/blackjack.html">🃏 Blackjack</a></li>
+                <li><a href="../juegos/crash.html">🚀 Crash</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="index.html" style="color: var(--color-oro);">⚽ Apuestas ▾</a>
+            <ul class="submenu">
+                <li><a href="futbol.html">⚽ Fútbol</a></li>
+                <li><a href="baloncesto.html">🏀 Baloncesto</a></li>
+                <li><a href="tenis.html">🎾 Tenis</a></li>
+                <li><a href="esports.html">🎮 eSports</a></li>
+                <li><a href="apuestas-en-vivo.html" style="color:#ff6666;">🔴 En Vivo</a></li>
+            </ul>
+        </li>
+        <li><a href="../torneos/index.html">🏆 Torneos</a></li>
+        <li><a href="../cuenta/login.html" class="btn-login">Iniciar Sesión</a></li>
+    </ul>
+</nav>
+
+<div class="page-header">
+    <div class="vivo-badge">
+        <div class="vivo-dot"></div>
+        EN VIVO AHORA
+    </div>
+    <h1>🔴 Apuestas en Vivo</h1>
+    <p>Cuotas actualizadas en tiempo real — <span id="eventos-count">8</span> eventos activos</p>
+</div>
+
+<main>
+    <div class="eventos-wrap">
+
+        <!-- Evento 1 -->
+        <div class="evento-vivo">
+            <div class="evento-header">
+                <div>
+                    <div class="vivo-badge" style="margin-bottom:5px;">
+                        <div class="vivo-dot"></div> ⚽ Fútbol · Champions League
+                    </div>
+                    <div class="evento-titulo">🇫🇷 PSG vs Bayern Munich 🇩🇪</div>
+                </div>
+                <div class="evento-meta">
+                    <span class="minuto">⏱ Min 67'</span>
+                    <span class="marcador">1 — 1</span>
+                </div>
+            </div>
+            <div class="cuotas-labels">
+                <span>PSG Gana</span>
+                <span>Empate</span>
+                <span>Bayern Gana</span>
+            </div>
+            <div class="cuotas">
+                <div class="cuota" onclick="seleccionarApuesta(this, 'PSG Gana', 2.10)">2.10</div>
+                <div class="cuota" onclick="seleccionarApuesta(this, 'Empate PSG-Bayern', 3.40)">3.40</div>
+                <div class="cuota" onclick="seleccionarApuesta(this, 'Bayern Gana', 1.75)">1.75</div>
+            </div>
+        </div>
+
+        <!-- Evento 2 -->
+        <div class="evento-vivo">
+            <div class="evento-header">
+                <div>
+                    <div class="vivo-badge" style="margin-bottom:5px;">
+                        <div class="vivo-dot"></div> ⚽ Fútbol · Premier League
+                    </div>
+                    <div class="evento-titulo">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Liverpool vs Chelsea 🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+                </div>
+                <div class="evento-meta">
+                    <span class="minuto">⏱ Min 45'</span>
+                    <span class="marcador">0 — 0</span>
+                </div>
+            </div>
+            <div class="cuotas-labels">
+                <span>Liverpool</span>
+                <span>Empate</span>
+                <span>Chelsea</span>
+            </div>
+            <div class="cuotas">
+                <div class="cuota" onclick="seleccionarApuesta(this, 'Liverpool Gana', 1.95)">1.95</div>
+                <div class="cuota" onclick="seleccionarApuesta(this, 'Empate Liverpool-Chelsea', 3.10)">3.10</div>
+                <div class="cuota" onclick="seleccionarApuesta(this, 'Chelsea Gana', 2.30)">2.30</div>
+            </div>
+        </div>
+
+        <!-- Evento 3 -->
+        <div class="evento-vivo">
+            <div class="evento-header">
+                <div>
+                    <div class="vivo-badge" style="margin-bottom:5px;">
+                        <div class="vivo-dot"></div> 🏀 Baloncesto · NBA
+                    </div>
+                    <div class="evento-titulo">🏀 Lakers vs Golden State Warriors</div>
+                </div>
+                <div class="evento-meta">
+                    <span class="minuto">⏱ Q3 · 5:22</span>
+                    <span class="marcador">88 — 91</span>
+                </div>
+            </div>
+            <div class="cuotas-labels">
+                <span>Lakers</span>
+                <span>+5.5 Pts</span>
+                <span>Warriors</span>
+            </div>
+            <div class="cuotas">
+                <div class="cuota" onclick="seleccionarApuesta(this, 'Lakers Ganan', 2.45)">2.45</div>
+                <div class="cuota" onclick="seleccionarApuesta(this, 'Lakers +5.5', 1.85)">1.85</div>
+                <div class="cuota" onclick="seleccionarApuesta(this, 'Warriors Ganan', 1.60)">1.60</div>
+            </div>
+        </div>
+
+        <!-- Evento 4 -->
+        <div class="evento-vivo">
+            <div class="evento-header">
+                <div>
+                    <div class="vivo-badge" style="margin-bottom:5px;">
+                        <div class="vivo-dot"></div> 🎮 eSports · CS2
+                    </div>
+                    <div class="evento-titulo">🎮 NAVI vs Team Vitality</div>
+                </div>
+                <div class="evento-meta">
+                    <span class="minuto">🗺 Mapa 2 · 14-11</span>
+                    <span class="marcador">1 — 0</span>
+                </div>
+            </div>
+            <div class="cuotas-labels">
+                <span>NAVI</span>
+                <span>Empate Maps</span>
+                <span>Vitality</span>
+            </div>
+            <div class="cuotas">
+                <div class="cuota" onclick="seleccionarApuesta(this, 'NAVI Gana', 1.70)">1.70</div>
+                <div class="cuota" onclick="seleccionarApuesta(this, 'Empate Maps', 4.50)">4.50</div>
+                <div class="cuota" onclick="seleccionarApuesta(this, 'Vitality Gana', 2.20)">2.20</div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- Betslip flotante -->
+<div class="betslip" id="betslip">
+    <h3>
+        🎯 Mi Apuesta
+        <span onclick="cerrarBetslip()" style="cursor:pointer; color:#aaa; font-size:1.2rem;">✕</span>
+    </h3>
+    <div class="betslip-item">
+        <div id="betslip-seleccion">—</div>
+        <strong id="betslip-cuota">—</strong>
+    </div>
+    <input type="number" id="betslip-monto" placeholder="Monto a apostar ($)" min="1" value="10"
+           oninput="calcularGanancia()">
+    <div class="ganancia-potencial" id="ganancia-potencial">Ganancia potencial: $0</div>
+    <button class="btn-glow" style="width:100%; padding:12px;" onclick="confirmarApuesta()">
+        ✅ Confirmar Apuesta
+    </button>
+</div>
+
+<footer>
+    <div style="display:flex; justify-content:center; gap:25px; flex-wrap:wrap; margin-bottom:15px;">
+        <a href="../index.html">🏠 Inicio</a>
+        <a href="index.html">⚽ Apuestas</a>
+        <a href="../juegos/index.html">🎮 Juegos</a>
+        <a href="../soporte/index.html">💬 Soporte</a>
+    </div>
+    <p>© 2026 Midnight Ingenium Casino · Juego Responsable · 18+</p>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+<script>
+    // ── Sesión ────────────────────────────────────────────────
+    const _usuario  = JSON.parse(localStorage.getItem('usuario') || 'null');
+    const _token    = localStorage.getItem('token');
+    const _logueado = !!(_usuario && _token);
+
+    if (!_logueado) {
+        window.location.href = '../cuenta/login.html';
+    }
+
+    if (_usuario) {
+        document.getElementById('saldo-display').textContent =
+            `💰 $${parseFloat(_usuario.saldo || 0).toLocaleString(undefined, {minimumFractionDigits:2})}`;
+
+        const btnLogin = document.querySelector('.btn-login');
+        if (btnLogin) {
+            btnLogin.textContent = '👤 ' + _usuario.nombre;
+            btnLogin.href = '../cuenta/index.html';
+            btnLogin.style.color = '#00ffae';
+        }
+    }
+
+    // Sincronizar saldo real
+    if (_token) {
+        fetch('http://localhost:5000/api/usuarios/perfil', {
+            headers: { 'Authorization': `Bearer ${_token}` }
+        })
+        .then(r => r.json())
+        .then(perfil => {
+            if (perfil && perfil.saldo !== undefined) {
+                const u = JSON.parse(localStorage.getItem('usuario'));
+                u.saldo = perfil.saldo;
+                localStorage.setItem('usuario', JSON.stringify(u));
+                document.getElementById('saldo-display').textContent =
+                    `💰 $${perfil.saldo.toLocaleString(undefined, {minimumFractionDigits:2})}`;
+            }
+        })
+        .catch(() => {});
+    }
+
+    // ── Betslip ───────────────────────────────────────────────
+    let cuotaActual = 0;
+    let seleccionActual = '';
+
+    function seleccionarApuesta(el, nombre, cuota) {
+        document.querySelectorAll('.cuota').forEach(c => c.classList.remove('seleccionada'));
+        el.classList.add('seleccionada');
+        cuotaActual     = cuota;
+        seleccionActual = nombre;
+        document.getElementById('betslip-seleccion').textContent = nombre;
+        document.getElementById('betslip-cuota').textContent     = 'Cuota: ' + cuota;
+        document.getElementById('betslip').style.display         = 'block';
+        calcularGanancia();
+        mostrarToast(`🎯 ${nombre} seleccionado (${cuota})`, 'aviso');
+    }
+
+    function calcularGanancia() {
+        const monto    = parseFloat(document.getElementById('betslip-monto').value) || 0;
+        const ganancia = (monto * cuotaActual).toFixed(2);
+        document.getElementById('ganancia-potencial').textContent =
+            `Ganancia potencial: $${ganancia}`;
+    }
+
+    async function confirmarApuesta() {
+        const monto   = parseFloat(document.getElementById('betslip-monto').value) || 0;
+        const usuario = JSON.parse(localStorage.getItem('usuario') || 'null');
+        const token   = localStorage.getItem('token');
+
+        if (monto <= 0)       { mostrarToast('❌ Ingresa un monto válido', 'error'); return; }
+        if (!seleccionActual) { mostrarToast('❌ Selecciona una apuesta', 'error'); return; }
+        if (!usuario || !token) { mostrarToast('❌ Debes iniciar sesión', 'error'); return; }
+        if (monto > usuario.saldo) { mostrarToast('❌ Saldo insuficiente', 'error'); return; }
+
+        const gananciaNetaPotencial = parseFloat((monto * cuotaActual - monto).toFixed(2));
+
+        try {
+            const res = await fetch('http://localhost:5000/api/apuestas', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    juego: 'deportes',
+                    monto,
+                    resultado: 'perdió', // las apuestas deportivas se resuelven después
+                    ganancia: 0,
+                    descripcion: seleccionActual
+                })
+            });
+
+            const data = await res.json();
+
+            if (res.ok && data.saldoActual !== undefined) {
+                usuario.saldo = data.saldoActual;
+                localStorage.setItem('usuario', JSON.stringify(usuario));
+                document.getElementById('saldo-display').textContent =
+                    `💰 $${data.saldoActual.toLocaleString(undefined, {minimumFractionDigits:2})}`;
+                mostrarToast(`✅ Apuesta de $${monto} en "${seleccionActual}" confirmada`, 'exito');
+            } else {
+                // Fallback local si la API no tiene el campo saldoActual
+                usuario.saldo = Math.max(0, usuario.saldo - monto);
+                localStorage.setItem('usuario', JSON.stringify(usuario));
+                document.getElementById('saldo-display').textContent =
+                    `💰 $${usuario.saldo.toLocaleString(undefined, {minimumFractionDigits:2})}`;
+                mostrarToast(`✅ Apuesta de $${monto} en "${seleccionActual}" confirmada`, 'exito');
+            }
+
+            cerrarBetslip();
+
+        } catch (err) {
+            mostrarToast('❌ Error al conectar con el servidor', 'error');
+        }
+    }
+
+    function cerrarBetslip() {
+        document.getElementById('betslip').style.display = 'none';
+        document.querySelectorAll('.cuota').forEach(c => c.classList.remove('seleccionada'));
+        seleccionActual = '';
+        cuotaActual     = 0;
+    }
+
+    // Simular cambio de cuotas en tiempo real
+    function fluctuarCuotas() {
+        document.querySelectorAll('.cuota').forEach(cuota => {
+            if (cuota.classList.contains('seleccionada')) return;
+            const val    = parseFloat(cuota.textContent);
+            const cambio = (Math.random() - 0.5) * 0.1;
+            const nuevo  = Math.max(1.01, val + cambio).toFixed(2);
+            cuota.textContent = nuevo;
+            cuota.classList.remove('subio', 'bajo');
+            cuota.classList.add(nuevo > val ? 'subio' : 'bajo');
+            setTimeout(() => cuota.classList.remove('subio', 'bajo'), 1500);
+        });
+    }
+
+    setInterval(fluctuarCuotas, 4000);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Contacto y Perfil | Midnight Ingenium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../logo-casino.png">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #f5c518;
+            --gold-glow: rgba(245, 197, 24, 0.3);
+            --dark-bg: #050510;
+            --glass: rgba(20, 20, 40, 0.7);
+            --input-bg: rgba(255, 255, 255, 0.05);
+        }
+        body { 
+            background: var(--dark-bg); color: #e0e0e0; margin: 0; 
+            font-family: 'Rajdhani', sans-serif; 
+            background-image: radial-gradient(circle at top right, #1a1a3a, transparent);
+        }
+        .topbar { 
+            display: flex; justify-content: flex-start; align-items: center; 
+            padding: 15px 30px; background: #0a0a1a; border-bottom: 1px solid #1a1a3a; gap: 12px;
+        }
+        .logo-small { width: 35px; height: 35px; filter: drop-shadow(0 0 5px var(--gold-glow)); }
+        .casino-name { font-family: 'Cinzel', serif; color: var(--gold); font-weight: 900; font-size: 1.4rem; letter-spacing: 1px; }
+        .navbar { background: #11112a; padding: 12px 0; border-bottom: 1px solid var(--gold); position: sticky; top: 0; z-index: 100; }
+        .menu { list-style: none; display: flex; justify-content: center; gap: 25px; margin: 0; padding: 0; }
+        .menu a { color: white; text-decoration: none; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; display: flex; align-items: center; gap: 8px; transition: 0.3s; }
+        .menu a:hover { color: var(--gold); text-shadow: 0 0 8px var(--gold-glow); transform: translateY(-2px); }
+        .hero-section { text-align: center; padding: 60px 20px; }
+        .hero-section h1 { font-family: 'Cinzel', serif; font-size: 2.5rem; color: var(--gold); text-shadow: 0 0 15px var(--gold-glow); margin-bottom: 10px; }
+        .main-wrapper { max-width: 800px; margin: 0 auto 100px; padding: 0 20px; }
+        .form-section { background: var(--glass); border: 1px solid rgba(245, 197, 24, 0.1); padding: 40px; border-radius: 20px; backdrop-filter: blur(10px); margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        h3 { font-family: 'Cinzel', serif; color: var(--gold); border-bottom: 1px solid var(--gold-glow); padding-bottom: 10px; margin-top: 30px; font-size: 1.4rem; }
+        label { display: block; margin: 20px 0 8px; font-weight: 700; color: #ccc; text-transform: uppercase; font-size: 0.9rem; }
+        input[type="text"], input[type="email"], input[type="number"], select, textarea {
+            width: 100%; padding: 12px; background: var(--input-bg); border: 1px solid #333;
+            border-radius: 8px; color: white; font-family: 'Rajdhani', sans-serif;
+            font-size: 1rem; box-sizing: border-box; transition: 0.3s;
+        }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 10px var(--gold-glow); background: rgba(255,255,255,0.1); }
+        .option-group { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 15px 0; }
+        .check-container { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 8px; background: rgba(255,255,255,0.03); border-radius: 5px; transition: 0.2s; }
+        .check-container:hover { background: rgba(245, 197, 24, 0.1); }
+        .btn-glow { width: 100%; background: linear-gradient(45deg, var(--gold), #ffecb3); color: #000; padding: 18px; border: none; border-radius: 10px; font-family: 'Rajdhani', sans-serif; font-weight: 900; font-size: 1.2rem; text-transform: uppercase; cursor: pointer; margin-top: 30px; box-shadow: 0 0 20px var(--gold-glow); transition: 0.3s; }
+        .btn-glow:hover { transform: translateY(-3px); box-shadow: 0 0 40px var(--gold); }
+        footer { text-align: center; padding: 40px; color: #444; }
+
+        /* Toast */
+        .toast { position: fixed; top: 80px; right: 20px; padding: 14px 22px; border-radius: 10px; font-weight: 700; font-size: 0.95rem; z-index: 99999; box-shadow: 0 10px 30px rgba(0,0,0,0.4); display: flex; align-items: center; gap: 12px; cursor: pointer; opacity: 0; transform: translateX(50px); transition: opacity 0.4s ease, transform 0.4s ease; pointer-events: none; font-family: 'Rajdhani', sans-serif; }
+        .toast.show { opacity: 1; transform: translateX(0); pointer-events: all; }
+        .toast-exito { background: linear-gradient(90deg, #00ffae, #00d4ff); color: #000; }
+    </style>
+</head>
+<body>
+
+<div class="topbar">
+    <img src="../logo-casino.png" class="logo-small" alt="Logo">
+    <span class="casino-name">Midnight Ingenium</span>
+</div>
+
+<nav class="navbar">
+    <ul class="menu">
+        <li><a href="../index.html">🏠 Inicio</a></li>
+        <li><a href="../soporte/index.html">🛠 Soporte</a></li>
+        <li><a href="../soporte/faq.html">❓ FAQ</a></li>
+        <li><a href="../quienes-somos/index.html">🏴‍☠️ Nosotros</a></li>
+    </ul>   
+</nav>
+
+<header class="hero-section">
+    <h1>👤 Perfil VIP & Contacto</h1>
+    <p style="color:#888;">Personaliza tu experiencia y forma parte de nuestra élite.</p>
+</header>
+
+<div class="main-wrapper">
+
+    <!-- CONTACTO -->
+    <section class="form-section">
+        <h3>Mensaje Directo</h3>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+            <div>
+                <label>Nombre</label>
+                <input type="text" id="campo-nombre" placeholder="Ej: Juan Pérez">
+            </div>
+            <div>
+                <label>Email</label>
+                <input type="email" id="campo-email" placeholder="tu@correo.com">
+            </div>
+        </div>
+        <label>Tu Mensaje</label>
+        <textarea id="campo-mensaje" rows="3" placeholder="¿En qué podemos ayudarte?"></textarea>
+    </section>
+
+    <!-- CARACTERIZACIÓN -->
+    <section class="form-section">
+        <h3>Información General</h3>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:15px;">
+            <div>
+                <label>Edad</label>
+                <input type="number" id="campo-edad" min="18" placeholder="18+">
+            </div>
+            <div>
+                <label>Ocupación</label>
+                <input type="text" id="campo-ocupacion" placeholder="Tu profesión">
+            </div>
+            <div>
+                <label>País</label>
+                <input type="text" id="campo-pais" placeholder="Ej: Colombia">
+            </div>
+        </div>
+
+        <label>Nivel educativo</label>
+        <select id="campo-educacion">
+            <option>Secundaria</option>
+            <option>Técnico / Tecnólogo</option>
+            <option>Universitario</option>
+            <option>Posgrado</option>
+        </select>
+
+        <h3>Experiencia & Hábitos</h3>
+        <label>¿Has jugado antes en casinos?</label>
+        <select id="campo-experiencia">
+            <option>Sí, soy veterano</option>
+            <option>He jugado pocas veces</option>
+            <option>No, soy nuevo</option>
+        </select>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+            <div>
+                <label>Frecuencia de juego</label>
+                <select id="campo-frecuencia">
+                    <option>Ocasionalmente</option>
+                    <option>Semanalmente</option>
+                    <option>Diario</option>
+                </select>
+            </div>
+            <div>
+                <label>Tiempo por sesión</label>
+                <select id="campo-tiempo">
+                    <option>30 min - 1 hora</option>
+                    <option>1 - 2 horas</option>
+                    <option>Más de 2 horas</option>
+                </select>
+            </div>
+        </div>
+
+        <h3>Preferencias de Juego</h3>
+        <label>Selecciona tus favoritos:</label>
+        <div class="option-group">
+            <label class="check-container"><input type="checkbox" value="slots"> Slots</label>
+            <label class="check-container"><input type="checkbox" value="ruleta"> Ruleta</label>
+            <label class="check-container"><input type="checkbox" value="poker"> Poker</label>
+            <label class="check-container"><input type="checkbox" value="blackjack"> Blackjack</label>
+            <label class="check-container"><input type="checkbox" value="deportes"> Deportes</label>
+        </div>
+
+        <label>Estilo de juego preferido:</label>
+        <div class="option-group">
+            <label class="check-container"><input type="radio" name="estilo" value="suerte"> Suerte Pura</label>
+            <label class="check-container"><input type="radio" name="estilo" value="estrategia"> Estrategia</label>
+            <label class="check-container"><input type="radio" name="estilo" value="mixto" checked> Mixto</label>
+        </div>
+
+        <h3>Perfil de Apuestas</h3>
+        <label>Monto promedio por ronda</label>
+        <select id="campo-monto">
+            <option>$1 - $10</option>
+            <option>$10 - $50</option>
+            <option>$50 - $100</option>
+            <option>High Roller ($100+)</option>
+        </select>
+
+        <label>¿Qué te motiva más?</label>
+        <select id="campo-motivacion">
+            <option>Entretenimiento / Relax</option>
+            <option>Ganar Dinero</option>
+            <option>Desafío Mental</option>
+        </select>
+
+        <h3>Opinión Crítica</h3>
+        <label>¿Qué mejorarías en Midnight Ingenium?</label>
+        <textarea id="campo-mejora" rows="4" placeholder="Dinos la verdad, queremos mejorar..."></textarea>
+
+        <label>¿Recomendarías el casino?</label>
+        <div style="display:flex; gap:20px; margin-top:10px;">
+            <label class="check-container"><input type="radio" name="rec" value="si"> Sí, claro</label>
+            <label class="check-container"><input type="radio" name="rec" value="no"> No por ahora</label>
+        </div>
+
+        <button type="button" class="btn-glow" id="btn-enviar" onclick="guardarPerfil()">
+            Guardar Perfil y Enviar
+        </button>
+    </section>
+</div>
+
+<footer>
+    <p>© 2026 Midnight Ingenium Casino · Tu información está protegida por cifrado SSL.</p>
+</footer>
+
+<!-- Toast -->
+<div class="toast toast-exito" id="toast">
+    <span>✅</span>
+    <span id="toast-msg">¡Perfil guardado correctamente!</span>
+    <span style="margin-left:8px; opacity:0.6; font-weight:900;">✕</span>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+    emailjs.init('28Z05YMWBycZ9Qxa2');
+
+    // Pre-llenar con datos del usuario logueado
+    const _usuario = JSON.parse(localStorage.getItem('usuario') || 'null');
+
+    if (_usuario) {
+        if (_usuario.nombre) document.getElementById('campo-nombre').value = _usuario.nombre;
+        if (_usuario.email)  document.getElementById('campo-email').value  = _usuario.email;
+        if (_usuario.pais)   document.getElementById('campo-pais').value   = _usuario.pais;
+
+        // Cargar datos guardados previamente
+        const perfilGuardado = JSON.parse(localStorage.getItem('perfil_contacto') || 'null');
+        if (perfilGuardado) {
+            if (perfilGuardado.edad)        document.getElementById('campo-edad').value        = perfilGuardado.edad;
+            if (perfilGuardado.ocupacion)   document.getElementById('campo-ocupacion').value   = perfilGuardado.ocupacion;
+            if (perfilGuardado.educacion)   document.getElementById('campo-educacion').value   = perfilGuardado.educacion;
+            if (perfilGuardado.experiencia) document.getElementById('campo-experiencia').value = perfilGuardado.experiencia;
+            if (perfilGuardado.frecuencia)  document.getElementById('campo-frecuencia').value  = perfilGuardado.frecuencia;
+            if (perfilGuardado.tiempo)      document.getElementById('campo-tiempo').value      = perfilGuardado.tiempo;
+            if (perfilGuardado.monto)       document.getElementById('campo-monto').value       = perfilGuardado.monto;
+            if (perfilGuardado.motivacion)  document.getElementById('campo-motivacion').value  = perfilGuardado.motivacion;
+            if (perfilGuardado.mejora)      document.getElementById('campo-mejora').value      = perfilGuardado.mejora;
+        }
+    }
+
+    function mostrarToast(msg, exito = true) {
+        const toast = document.getElementById('toast');
+        document.getElementById('toast-msg').textContent = msg;
+        toast.style.background = exito
+            ? 'linear-gradient(90deg, #00ffae, #00d4ff)'
+            : 'linear-gradient(90deg, #ff4444, #ff0000)';
+        toast.querySelector('span').textContent = exito ? '✅' : '❌';
+        toast.classList.add('show');
+        toast.onclick = () => toast.classList.remove('show');
+        setTimeout(() => toast.classList.remove('show'), 4000);
+    }
+
+    async function guardarPerfil() {
+        const btn = document.getElementById('btn-enviar');
+        btn.disabled = true;
+        btn.textContent = '⏳ Enviando...';
+
+        const perfil = {
+            nombre:      document.getElementById('campo-nombre').value,
+            email:       document.getElementById('campo-email').value,
+            mensaje:     document.getElementById('campo-mensaje').value,
+            edad:        document.getElementById('campo-edad').value,
+            ocupacion:   document.getElementById('campo-ocupacion').value,
+            pais:        document.getElementById('campo-pais').value,
+            educacion:   document.getElementById('campo-educacion').value,
+            experiencia: document.getElementById('campo-experiencia').value,
+            frecuencia:  document.getElementById('campo-frecuencia').value,
+            tiempo:      document.getElementById('campo-tiempo').value,
+            monto:       document.getElementById('campo-monto').value,
+            motivacion:  document.getElementById('campo-motivacion').value,
+            mejora:      document.getElementById('campo-mejora').value,
+            juegos:      [...document.querySelectorAll('input[type="checkbox"]:checked')].map(c => c.value).join(', '),
+            estilo:      document.querySelector('input[name="estilo"]:checked')?.value || '—',
+            recomienda:  document.querySelector('input[name="rec"]:checked')?.value || '—',
+            fecha:       new Date().toLocaleString('es-CO')
+        };
+
+        // Guardar en localStorage
+        localStorage.setItem('perfil_contacto', JSON.stringify(perfil));
+
+        try {
+            await emailjs.send('service_t9vp39h', 'template_12xl5dt', {
+                name:       perfil.nombre || 'Sin nombre',
+                email:      perfil.email  || 'Sin email',
+                message:    perfil.mensaje || 'Sin mensaje',
+                pais:       perfil.pais,
+                ocupacion:  perfil.ocupacion,
+                edad:       perfil.edad,
+                juegos:     perfil.juegos,
+                estilo:     perfil.estilo,
+                frecuencia: perfil.frecuencia,
+                motivacion: perfil.motivacion,
+                recomienda: perfil.recomienda,
+                mejora:     perfil.mejora,
+                time:       perfil.fecha
+            });
+
+            mostrarToast('¡Perfil enviado correctamente a Midnight Ingenium!');
+            btn.textContent = '✅ Enviado';
+        } catch (err) {
+            console.error('EmailJS error:', err);
+            mostrarToast('Error al enviar. Intenta de nuevo.', false);
+            btn.disabled = false;
+            btn.textContent = 'Guardar Perfil y Enviar';
+        }
+    }
+</script>
+</body>
+</html>

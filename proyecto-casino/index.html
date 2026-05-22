@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Midnight Ingenium Casino | Elite Gaming</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Casino online premium - Ruleta, Blackjack, Slots, Poker y más">
+    <meta name="author" content="Midnight Ingenium">
+    <link rel="icon" type="image/png" sizes="32x32" href="logo-casino.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .tour-video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 1000px;
+            margin: 0 auto 40px;
+            border-radius: 20px;
+            border: 2px solid var(--color-oro);
+            box-shadow: 0 0 30px rgba(245, 197, 24, 0.2);
+        }
+        .tour-video-wrapper iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+        }
+        @keyframes modalIn {
+            from { opacity:0; transform:scale(0.85) translateY(20px); }
+            to   { opacity:1; transform:scale(1) translateY(0); }
+        }
+        #modal-registro {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(6px);
+            align-items: center;
+            justify-content: center;
+        }
+        #modal-registro .modal-box {
+            background: linear-gradient(135deg,#11112b,#1a1a3a);
+            border: 2px solid #f5c518;
+            border-radius: 24px;
+            padding: 50px 40px;
+            max-width: 480px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 0 60px rgba(245,197,24,0.3);
+            animation: modalIn 0.4s ease;
+        }
+        #modal-registro .modal-close {
+            position: absolute; top: 15px; right: 20px;
+            background: none; border: none; color: #666;
+            font-size: 1.5rem; cursor: pointer;
+            transition: color 0.2s;
+        }
+        #modal-registro .modal-close:hover { color: #fff; }
+        #modal-registro .modal-btn-primary {
+            display: block;
+            background: linear-gradient(90deg,#f5c518,#ff9a00);
+            color: #000; font-weight: 900;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem; padding: 16px;
+            border-radius: 12px; text-decoration: none;
+            text-transform: uppercase; letter-spacing: 1px;
+            margin-bottom: 12px; transition: 0.3s;
+        }
+        #modal-registro .modal-btn-primary:hover { filter: brightness(1.1); transform: scale(1.02); }
+        #modal-registro .modal-btn-secondary {
+            display: block;
+            background: rgba(255,255,255,0.04);
+            color: #aaa; font-family: 'Rajdhani', sans-serif;
+            font-size: 0.95rem; padding: 12px;
+            border-radius: 12px; text-decoration: none;
+            border: 1px solid #333; transition: 0.3s;
+        }
+        #modal-registro .modal-btn-secondary:hover { border-color: #f5c518; color: #f5c518; }
+        #toast-login {
+            display: none;
+            position: fixed;
+            bottom: 30px; left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg,#1a1a3a,#11112b);
+            border: 1px solid #f5c518;
+            border-radius: 12px;
+            padding: 16px 28px;
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            z-index: 9998;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.5);
+            white-space: nowrap;
+            animation: modalIn 0.3s ease;
+        }
+    </style>
+</head>
+
+<body class="bg-pattern">
+
+<div class="topbar">
+    <div class="topbar-left">
+        <img src="logo-casino.png" class="logo-small" alt="Logo Midnight Ingenium">
+        <span class="casino-name">Midnight Ingenium</span>
+    </div>
+    <div class="topbar-right">
+        <span class="saldo" id="saldo-display">💰 $0.00</span>
+        <span class="notificaciones">🔔 3</span>
+        <span style="font-size:0.85rem; color:#aaa;">🕐 <span id="hora-actual"></span></span>
+    </div>
+</div>
+
+<header class="hero">
+    <div class="video-container">
+        <iframe
+            class="video-bg"
+            src="https://www.youtube.com/embed/BFIeduBQZsQ?autoplay=1&mute=1&controls=0&loop=1&playlist=BFIeduBQZsQ&playsinline=1"
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            allowfullscreen>
+        </iframe>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <img src="logo-casino.png" class="logo" style="width:90px;margin-bottom:15px;" alt="Logo">
+        <h1 class="anim-flicker">🎰 MIDNIGHT INGENIUM</h1>
+        <p>El casino online más exclusivo de Latinoamérica</p>
+        <div style="margin-top: 25px;">
+            <a href="cuenta/login.html" class="btn-glow">Jugar Ahora →</a>
+            &nbsp;
+            <a href="juegos/index.html" class="btn-oro">Ver Juegos</a>
+        </div>
+    </div>
+</header>
+
+<nav class="navbar" role="navigation" aria-label="Menú principal">
+    <ul class="menu">
+        <li><a href="index.html">🏠 Inicio</a></li>
+        <li class="dropdown">
+            <a href="juegos/index.html">🎮 Juegos ▾</a>
+            <ul class="submenu">
+                <li><a href="juegos/slots.html"     class="link-protegido">🎰 Slots</a></li>
+                <li><a href="juegos/ruleta.html"    class="link-protegido">🎡 Ruleta</a></li>
+                <li><a href="juegos/blackjack.html" class="link-protegido">🃏 Blackjack</a></li>
+                <li><a href="juegos/poker.html"     class="link-protegido">♠️ Poker</a></li>
+                <li><a href="juegos/baccarat.html"  class="link-protegido">🎴 Baccarat</a></li>
+                <li><a href="juegos/crash.html"     class="link-protegido">🚀 Crash</a></li>
+                <li><a href="juegos/dados.html"     class="link-protegido">🎲 Dados</a></li>
+                <li><a href="juegos/en-vivo.html"   class="link-protegido">📺 En Vivo</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="apuestas-deportivas/index.html">⚽ Apuestas ▾</a>
+            <ul class="submenu">
+                <li><a href="apuestas-deportivas/futbol.html"           class="link-protegido">⚽ Fútbol</a></li>
+                <li><a href="apuestas-deportivas/baloncesto.html"       class="link-protegido">🏀 Baloncesto</a></li>
+                <li><a href="apuestas-deportivas/tenis.html"            class="link-protegido">🎾 Tenis</a></li>
+                <li><a href="apuestas-deportivas/esports.html"          class="link-protegido">🎮 eSports</a></li>
+                <li><a href="apuestas-deportivas/apuestas-en-vivo.html" class="link-protegido">🔴 En Vivo</a></li>
+            </ul>
+        </li>
+        <li><a href="torneos/index.html" class="link-protegido">🏆 Torneos</a></li>
+        <li class="dropdown">
+            <a href="promociones/index.html">🎁 Promos ▾</a>
+            <ul class="submenu">
+                <li><a href="promociones/bono-bienvenida.html">🎁 Bono</a></li>
+                <li><a href="promociones/cashback.html"     class="link-protegido">💸 Cashback</a></li>
+                <li><a href="promociones/programa-vip.html" class="link-protegido">👑 VIP</a></li>
+            </ul>
+        </li>
+        <li><a href="tienda/index.html"     class="link-protegido">🛒 Tienda</a></li>
+        <li><a href="afiliados/index.html">🤝 Afiliados</a></li>
+        <li><a href="soporte/index.html">💬 Soporte</a></li>
+        <li><a href="quienes-somos/index.html">ℹ️ Nosotros</a></li>
+        <li><a href="cuenta/login.html" class="btn-login" id="btn-sesion">Iniciar Sesión</a></li>
+    </ul>
+</nav>
+
+<main>
+
+    <h2 class="section-title">🎮 Juegos Destacados</h2>
+    <p class="section-subtitle">Los mejores títulos con gráficos de última generación</p>
+
+    <section class="cards" aria-label="Juegos destacados">
+        <article class="card">
+            <img src="assets/images/ruleta.png" alt="Ruleta Midnight">
+            <div class="card-body">
+                <h2>🎡 Ruleta Midnight</h2>
+                <p>Vive la emoción del azar con diseño premium y gráficos 3D.</p>
+                <a href="juegos/ruleta.html" class="btn-glow link-protegido">Jugar Ahora</a>
+            </div>
+        </article>
+        <article class="card">
+            <img src="assets/images/blackjack.png" alt="Blackjack Ingenium">
+            <div class="card-body">
+                <h2>🃏 Blackjack 21</h2>
+                <p>Alcanza 21 y vence al dealer en tiempo real.</p>
+                <a href="juegos/blackjack.html" class="btn-glow link-protegido">Jugar Ahora</a>
+            </div>
+        </article>
+        <article class="card">
+            <img src="assets/images/slots.png" alt="Slots Mágicos">
+            <div class="card-body">
+                <h2>🎰 Slots Épicos</h2>
+                <p>Gira y gana con más de 200 máquinas temáticas.</p>
+                <a href="juegos/slots.html" class="btn-glow link-protegido">Jugar Ahora</a>
+            </div>
+        </article>
+        <article class="card">
+            <img src="assets/images/poker.png" alt="Poker Texas">
+            <div class="card-body">
+                <h2>♠️ Poker Texas</h2>
+                <p>Estrategia y bluff en la mesa más emocionante.</p>
+                <a href="juegos/poker.html" class="btn-glow link-protegido">Jugar Ahora</a>
+            </div>
+        </article>
+        <article class="card">
+            <img src="assets/images/crash.jpeg" alt="Crash Game">
+            <div class="card-body">
+                <h2>🚀 Crash Game</h2>
+                <p>¿Hasta cuándo aguantas? Retira antes que explote.</p>
+                <a href="juegos/crash.html" class="btn-glow link-protegido">Jugar Ahora</a>
+            </div>
+        </article>
+        <article class="card">
+            <img src="assets/images/apuestas-deportivas.png" alt="Apuestas Deportivas">
+            <div class="card-body">
+                <h2>⚽ Deportivas</h2>
+                <p>Las mejores cuotas del mercado en tiempo real.</p>
+                <a href="apuestas-deportivas/index.html" class="btn-glow link-protegido">Apostar</a>
+            </div>
+        </article>
+    </section>
+
+    <section style="padding: 40px 20px; background: rgba(22,22,58,0.4); margin: 20px 40px; border-radius: 16px;">
+        <h2 class="section-title" style="padding-top:10px;">📜 Sobre Midnight Ingenium</h2>
+        <div class="columnas-texto">
+            <p>Midnight Ingenium Casino es la plataforma de entretenimiento en línea más prestigiosa de Latinoamérica. Fundada en 2024, hemos construido un ecosistema digital donde la emoción, la seguridad y la tecnología de vanguardia se fusionan para ofrecer la experiencia definitiva del juego responsable.</p>
+            <p>Nuestro catálogo incluye más de 500 juegos de casino, desde los clásicos como ruleta, blackjack y baccarat hasta los más modernos como el Crash Game y las slots temáticas. Cada juego ha sido desarrollado con algoritmos de justicia certificados por laboratorios internacionales.</p>
+            <p>La seguridad de nuestros jugadores es nuestra prioridad número uno. Utilizamos encriptación SSL de 256 bits para todas las transacciones, y nuestros sistemas de verificación de identidad garantizan un ambiente libre de fraudes.</p>
+            <p>Nuestro programa VIP Midnight ofrece beneficios exclusivos: bonos personalizados, atención 24/7 con agentes dedicados, acceso prioritario a torneos privados y cashback semanal.</p>
+            <p>Aceptamos tarjetas Visa y Mastercard, transferencias bancarias, criptomonedas como Bitcoin, Ethereum y USDT, y múltiples billeteras electrónicas disponibles en toda la región latinoamericana.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-title">🎬 Tour de Slots en Vivo</h2>
+        <p class="section-subtitle">Explora nuestras máquinas más populares (Autoplay Activo)</p>
+        <div class="tour-video-wrapper">
+            <iframe
+                src="https://www.youtube.com/embed/ZktUgnBPIwQ?autoplay=1&mute=1&controls=0&loop=1&playlist=ZktUgnBPIwQ&rel=0&showinfo=0"
+                title="Midnight Ingenium Gameplay Tour"
+                frameborder="0"
+                allow="autoplay; encrypted-media"
+                allowfullscreen>
+            </iframe>
+        </div>
+    </section>
+
+    <section style="padding: 20px 40px; background: rgba(11,11,20,0.5);">
+        <h2 class="section-title" style="padding-top:10px;">🎵 Ambiente del Casino</h2>
+        <div class="audio-container">
+            <p style="margin-bottom:15px; color:#aaa; text-align:center;">Activa la música de ambiente para una experiencia inmersiva:</p>
+            <div style="display:flex; justify-content:center;">
+                <audio id="audio-casino" controls loop>
+                    <source src="assets/musica/musica-casino (2).mp3" type="audio/mpeg">
+                    Tu navegador no soporta audio HTML5.
+                </audio>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA: solo visible si NO hay sesión -->
+    <section id="seccion-cta" style="margin: 40px; border-radius: 20px; overflow: hidden;">
+        <div style="background: linear-gradient(135deg, rgba(245,197,24,0.15), rgba(0,255,174,0.1), rgba(0,212,255,0.15)); padding: 50px; text-align: center; border: 1px solid rgba(245,197,24,0.2);">
+            <h2 style="font-size:2rem; color: var(--color-oro); margin-bottom:15px;">🏆 ¿Listo para ganar?</h2>
+            <p style="color:#ccc; margin-bottom:25px; font-size:1.1rem;">Regístrate ahora y recibe hasta <strong style="color:var(--color-verde);">$500 USD</strong> en bono de bienvenida</p>
+            <a href="cuenta/registro.html" class="btn-glow" style="margin-right:15px;">Crear Cuenta Gratis</a>
+            <a href="cuenta/login.html" class="btn-oro">Iniciar Sesión</a>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <div style="display:flex; justify-content:center; gap:30px; flex-wrap:wrap; margin-bottom:20px;">
+        <a href="juegos/index.html">🎮 Juegos</a>
+        <a href="apuestas-deportivas/index.html">⚽ Apuestas</a>
+        <a href="cuenta/registro.html">📝 Registro</a>
+        <a href="soporte/index.html">💬 Soporte</a>
+        <a href="legal/terminos.html">📄 Términos</a>
+        <a href="quienes-somos/index.html">ℹ️ Nosotros</a>
+    </div>
+    <p>© 2026 Midnight Ingenium Casino · Juego Responsable · 18+ · Licencia #MIC-2026</p>
+    <p style="margin-top:8px; font-size:0.8rem;">El juego puede ser adictivo. Juega responsablemente.</p>
+</footer>
+
+<!-- MODAL -->
+<div id="modal-registro">
+    <div class="modal-box">
+        <button class="modal-close" onclick="cerrarModal()">✕</button>
+        <div style="font-size:3.5rem; margin-bottom:15px;">🎰</div>
+        <h2 style="font-family:'Cinzel',serif; color:#f5c518; font-size:1.6rem; margin:0 0 12px;">¡No te lo pierdas!</h2>
+        <p style="color:#ccc; margin:0 0 8px; font-size:1rem;">Crea tu cuenta gratis y recibe</p>
+        <p style="color:#00ffae; font-size:2rem; font-weight:900; font-family:'Cinzel',serif; margin:10px 0;">$500 USD</p>
+        <p style="color:#aaa; font-size:0.85rem; margin:0 0 30px;">en bono de bienvenida · Sin depósito mínimo</p>
+        <a href="cuenta/registro.html" class="modal-btn-primary">🎁 Crear Cuenta Gratis</a>
+        <a href="cuenta/login.html"    class="modal-btn-secondary">Ya tengo cuenta → Iniciar Sesión</a>
+        <p style="margin-top:18px; font-size:0.75rem; color:#444; cursor:pointer;" onclick="cerrarModal()">No por ahora, seguir navegando</p>
+    </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast-login">🔒 Debes iniciar sesión para acceder · <a href="cuenta/login.html" style="color:#f5c518; text-decoration:none;">Entrar →</a></div>
+
+<!-- main.js PRIMERO para que el DOMContentLoaded registre el reloj antes del script inline -->
+<script src="assets/js/main.js"></script>
+
+<script>
+// ── Sesión ────────────────────────────────────────────────────────
+const _usuario  = JSON.parse(localStorage.getItem('usuario') || 'null');
+const _token    = localStorage.getItem('token');
+const _logueado = !!(_usuario && _token);
+
+if (_logueado) {
+    // Saldo real desde la API
+    fetch('http://localhost:5000/api/usuarios/perfil', {
+        headers: { 'Authorization': `Bearer ${_token}` }
+    })
+    .then(r => r.json())
+    .then(perfil => {
+        if (perfil && perfil.saldo !== undefined) {
+            const u = JSON.parse(localStorage.getItem('usuario'));
+            u.saldo = perfil.saldo;
+            localStorage.setItem('usuario', JSON.stringify(u));
+            document.getElementById('saldo-display').textContent =
+                `💰 $${perfil.saldo.toLocaleString(undefined, {minimumFractionDigits:2})}`;
+        }
+    })
+    .catch(() => {
+        document.getElementById('saldo-display').textContent =
+            `💰 $${_usuario.saldo.toLocaleString(undefined, {minimumFractionDigits:2})}`;
+    });
+
+    // Botón sesión → nombre de usuario
+    const btnSesion = document.getElementById('btn-sesion');
+    if (btnSesion) {
+        btnSesion.textContent = '👤 ' + _usuario.nombre;
+        btnSesion.href = 'cuenta/index.html';
+        btnSesion.style.background   = 'rgba(0,255,174,0.1)';
+        btnSesion.style.borderColor  = '#00ffae';
+        btnSesion.style.color        = '#00ffae';
+    }
+
+    // Ocultar CTA si ya hay sesión
+    const cta = document.getElementById('seccion-cta');
+    if (cta) cta.style.display = 'none';
+
+} else {
+    document.getElementById('saldo-display').textContent = '💰 $0.00';
+}
+
+// ── Modal de registro ─────────────────────────────────────────────
+function cerrarModal() {
+    const m = document.getElementById('modal-registro');
+    m.style.opacity = '0';
+    m.style.transition = 'opacity 0.3s';
+    setTimeout(() => m.style.display = 'none', 300);
+    sessionStorage.setItem('modal_visto', '1');
+}
+
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') cerrarModal();
+});
+
+document.getElementById('modal-registro').addEventListener('click', function(e) {
+    if (e.target === this) cerrarModal();
+});
+
+if (!_logueado && !sessionStorage.getItem('modal_visto')) {
+    setTimeout(() => {
+        document.getElementById('modal-registro').style.display = 'flex';
+    }, 15000);
+
+    window.addEventListener('scroll', function onScroll() {
+        const pct = (window.scrollY + window.innerHeight) / document.body.scrollHeight;
+        if (pct > 0.85 && !sessionStorage.getItem('modal_visto')) {
+            document.getElementById('modal-registro').style.display = 'flex';
+            window.removeEventListener('scroll', onScroll);
+        }
+    });
+}
+
+// ── Toast ─────────────────────────────────────────────────────────
+let toastTimeout;
+function mostrarToastLogin() {
+    const t = document.getElementById('toast-login');
+    t.style.display = 'block';
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => t.style.display = 'none', 3500);
+}
+
+// ── Intercepción de links protegidos ─────────────────────────────
+const RUTAS_PROTEGIDAS = [
+    'juegos/ruleta.html',
+    'juegos/blackjack.html',
+    'juegos/slots.html',
+    'juegos/crash.html',
+    'juegos/dados.html',
+    'juegos/baccarat.html',
+    'juegos/poker.html',
+    'juegos/en-vivo.html',
+    'apuestas-deportivas/futbol.html',
+    'apuestas-deportivas/baloncesto.html',
+    'apuestas-deportivas/tenis.html',
+    'apuestas-deportivas/esports.html',
+    'apuestas-deportivas/apuestas-en-vivo.html',
+    'torneos/index.html',
+    'promociones/cashback.html',
+    'promociones/programa-vip.html',
+    'tienda/index.html',
+    'cuenta/index.html',
+    'cuenta/historial.html'
+];
+
+document.querySelectorAll('a.link-protegido').forEach(link => {
+    link.addEventListener('click', function(e) {
+        if (!_logueado) {
+            e.preventDefault();
+            mostrarToastLogin();
+            if (!sessionStorage.getItem('modal_visto')) {
+                document.getElementById('modal-registro').style.display = 'flex';
+            }
+        }
+    });
+});
+
+document.querySelectorAll('a[href]').forEach(link => {
+    link.addEventListener('click', function(e) {
+        const href = this.getAttribute('href') || '';
+        const esProtegida = RUTAS_PROTEGIDAS.some(r => href.includes(r));
+        if (!_logueado && esProtegida && !this.classList.contains('link-protegido')) {
+            e.preventDefault();
+            mostrarToastLogin();
+            if (!sessionStorage.getItem('modal_visto')) {
+                document.getElementById('modal-registro').style.display = 'flex';
+            }
+        }
+    });
+});
+</script>
+
+</body>
+</html>

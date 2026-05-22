@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dice 7 - Midnight Ingenium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../logo-casino.png">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        body { background: #050510; color: white; margin: 0; font-family: 'Rajdhani', sans-serif; }
+        .topbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background: #000; border-bottom: 2px solid #333; }
+        .topbar-left { display: flex; align-items: center; gap: 10px; }
+        .logo-small { width: 30px; }
+        .casino-name { font-family: 'Cinzel', serif; font-size: 1.2rem; color: #f5c518; }
+        .saldo { color: #00ff88; font-weight: 700; font-size: 1.2rem; }
+        .navbar { background: #11112a; padding: 12px 0; border-bottom: 1px solid #f5c518; }
+        .navbar .menu { display: flex; list-style: none; gap: 20px; justify-content: center; padding: 0; margin: 0; }
+        .navbar a { text-decoration: none; color: #aaa; font-weight: 600; transition: 0.3s; text-transform: uppercase; font-size: 0.9rem; }
+        .navbar a:hover { color: #f5c518; }
+        .page-header { text-align: center; padding: 30px 20px 10px; }
+        .page-header h1 { font-family: 'Cinzel', serif; font-size: 2.2rem; margin: 0; }
+        .page-header p { color: #aaa; margin: 8px 0 0; }
+
+        .apuesta-bj {
+            display: flex; align-items: center; gap: 12px;
+            justify-content: center; flex-wrap: wrap;
+            background: rgba(0,0,0,0.4); padding: 20px; border-radius: 15px;
+            max-width: 500px; margin: 20px auto;
+        }
+        .chip-bj {
+            width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 900; font-size: 0.8rem; cursor: pointer;
+            border: 3px dashed rgba(255,255,255,0.4); transition: 0.2s;
+        }
+        .chip-bj:hover { transform: scale(1.1); border-color: #fff; }
+
+        .dice-mesa {
+            background: radial-gradient(ellipse at center, #1a5e1a 0%, #0d3d0d 60%, #07280a 100%);
+            border-radius: 50% 50% 15% 15% / 20% 20% 10% 10%;
+            padding: 60px 30px; margin: 30px auto; max-width: 750px;
+            border: 6px solid #8B4513;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8), inset 0 0 30px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        .dice-container {
+            display: flex; justify-content: center;
+            gap: 25px; margin: 30px 0;
+        }
+        .dado-svg {
+            width: 90px; height: 90px;
+            filter: drop-shadow(2px 4px 8px rgba(0,0,0,0.6));
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .rolling { animation: shake-dice 0.1s infinite; }
+        @keyframes shake-dice {
+            0%   { transform: rotate(0deg)   translate(2px, 2px);  }
+            50%  { transform: rotate(10deg)  translate(-2px,-2px); }
+            100% { transform: rotate(-10deg) translate(2px, 2px);  }
+        }
+        .dice-controles {
+            display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;
+            padding: 25px; background: rgba(0,0,0,0.3); border-radius: 15px;
+            max-width: 600px; margin: 20px auto;
+        }
+        .dice-btn { padding: 14px 28px; border: none; border-radius: 10px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: all 0.25s; font-family: 'Rajdhani', sans-serif; text-transform: uppercase; }
+        .btn-lanzar { background: linear-gradient(90deg,#00ffae,#00d4ff); color:#000; width: 200px; }
+        .btn-lanzar:disabled { opacity: 0.4; cursor: not-allowed; }
+        #resultado-texto { font-family: 'Cinzel', serif; font-size: 2rem; font-weight: 900; min-height: 50px; margin: 15px 0; text-shadow: 0 0 15px rgba(255,255,255,0.3); }
+        .no-sesion { text-align: center; padding: 30px; background: rgba(255,100,100,0.1); border: 1px solid rgba(255,100,100,0.3); border-radius: 10px; margin: 20px auto; max-width: 400px; }
+        footer { text-align: center; padding: 30px; color: #444; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+<div class="topbar">
+    <div class="topbar-left">
+        <img src="../logo-casino.png" class="logo-small" alt="Logo">
+        <span class="casino-name">Midnight Ingenium</span>
+    </div>
+    <div class="topbar-right">
+        <span class="saldo" id="saldo-display">💰 $0</span>
+    </div>
+</div>
+
+<nav class="navbar">
+    <ul class="menu">
+        <li><a href="../index.html">🏠 Inicio</a></li>
+        <li><a href="index.html">🎮 Juegos</a></li>
+        <li><a href="ruleta.html">🎡 Ruleta</a></li>
+        <li><a href="blackjack.html">🃏 Blackjack</a></li>
+        <li><a href="slots.html">🎰 Slots</a></li>
+        <li><a href="crash.html">🚀 Crash</a></li>
+        <li><a href="dados.html" style="color:#f5c518;">🎲 Dados</a></li>
+    </ul>
+</nav>
+
+<div class="page-header">
+    <h1>🎲 Dados Under/Over</h1>
+    <p>Apuesta al total de los dados — Apuesta mínima $5</p>
+</div>
+
+<div class="apuesta-bj">
+    <span style="color:#aaa; font-size:0.9rem;">Apuesta:</span>
+    <div class="chip-bj" style="background:linear-gradient(135deg,#e0e0e0,#888);color:#000;" onclick="seleccionarApuesta(5)">$5</div>
+    <div class="chip-bj" style="background:linear-gradient(135deg,#ff4444,#cc0000);color:#fff;" onclick="seleccionarApuesta(10)">$10</div>
+    <div class="chip-bj" style="background:linear-gradient(135deg,#4488ff,#0044cc);color:#fff;" onclick="seleccionarApuesta(25)">$25</div>
+    <div class="chip-bj" style="background:linear-gradient(135deg,#f5c518,#cc8800);color:#000;" onclick="seleccionarApuesta(50)">$50</div>
+    <div style="background:rgba(245,197,24,0.1); border:1px solid rgba(245,197,24,0.3); border-radius:8px; padding:8px 16px; color:#f5c518; font-weight:700;">
+        Apostando: $<span id="monto-apuesta">10</span>
+    </div>
+</div>
+
+<div class="dice-mesa">
+    <h3 style="color:rgba(255,255,255,0.6); letter-spacing:3px; font-size:0.8rem; margin-bottom:20px;">LANZAMIENTO MAESTRO</h3>
+    <div class="dice-container">
+        <svg id="d1" class="dado-svg" viewBox="0 0 100 100">
+            <rect width="100" height="100" rx="15" fill="white" stroke="#ccc" stroke-width="2"/>
+            <circle cx="50" cy="50" r="8" fill="#111"/>
+        </svg>
+        <svg id="d2" class="dado-svg" viewBox="0 0 100 100">
+            <rect width="100" height="100" rx="15" fill="white" stroke="#ccc" stroke-width="2"/>
+            <circle cx="50" cy="50" r="8" fill="#111"/>
+        </svg>
+    </div>
+    <div id="resultado-texto">¿LISTO PARA GANAR?</div>
+    <div style="margin-top:20px;">
+        <span style="color:#aaa;">Predicción:</span>
+        <select id="prediccion" style="background:#0a0a1f; color:#f5c518; border:1px solid #f5c518; padding:8px; border-radius:5px; font-family:'Rajdhani'; font-weight:700;">
+            <option value="over">MÁS DE 7 (X2)</option>
+            <option value="under">MENOS DE 7 (X2)</option>
+            <option value="exact">7 EXACTO (X5)</option>
+        </select>
+    </div>
+</div>
+
+<div class="dice-controles">
+    <button class="dice-btn btn-lanzar" id="btn-roll" onclick="lanzar()">🎲 Lanzar Dados</button>
+</div>
+
+<footer>
+    <p>© 2026 Midnight Ingenium Casino · Transparencia vía Blockchain</p>
+</footer>
+
+<script>
+    const usuarioData = JSON.parse(localStorage.getItem('usuario') || 'null');
+    const token = localStorage.getItem('token');
+
+    if (!usuarioData || !token) {
+        document.querySelector('.dice-mesa').innerHTML = `
+            <div class="no-sesion">
+                <h2>🔒 Acceso restringido</h2>
+                <p>Debes iniciar sesión para jugar.</p>
+                <a href="../cuenta/login.html" style="color:#f5c518; font-weight:700;">Ir al Login</a>
+            </div>`;
+        document.querySelector('.apuesta-bj').style.display = 'none';
+        document.querySelector('.dice-controles').style.display = 'none';
+    } else {
+        document.getElementById('saldo-display').textContent = `💰 $${usuarioData.saldo.toLocaleString()}`;
+    }
+
+    let apuesta = 10;
+
+    function getSaldo() {
+        const u = JSON.parse(localStorage.getItem('usuario') || 'null');
+        return u ? u.saldo : 0;
+    }
+
+    function setSaldo(monto) {
+        const u = JSON.parse(localStorage.getItem('usuario'));
+        if (!u) return;
+        u.saldo = monto;
+        localStorage.setItem('usuario', JSON.stringify(u));
+        document.getElementById('saldo-display').textContent = `💰 $${monto.toLocaleString()}`;
+    }
+
+    function seleccionarApuesta(val) {
+        apuesta = val;
+        document.getElementById('monto-apuesta').textContent = val;
+    }
+
+    const DOTS = {
+        1: [[50,50]],
+        2: [[28,28],[72,72]],
+        3: [[28,28],[50,50],[72,72]],
+        4: [[28,28],[28,72],[72,28],[72,72]],
+        5: [[28,28],[28,72],[50,50],[72,28],[72,72]],
+        6: [[28,28],[28,50],[28,72],[72,28],[72,50],[72,72]]
+    };
+
+    function drawDice(id, val) {
+        const svg = document.getElementById(id);
+        const circles = DOTS[val].map(d =>
+            `<circle cx="${d[0]}" cy="${d[1]}" r="8" fill="#111"/>`
+        ).join('');
+        svg.innerHTML = `<rect width="100" height="100" rx="15" fill="white" stroke="#ccc" stroke-width="2"/>` + circles;
+    }
+
+    async function lanzar() {
+        if (apuesta > getSaldo()) return alert('Saldo insuficiente');
+
+        const btn = document.getElementById('btn-roll');
+        const d1  = document.getElementById('d1');
+        const d2  = document.getElementById('d2');
+        const txt = document.getElementById('resultado-texto');
+
+        btn.disabled = true;
+        d1.classList.add('rolling');
+        d2.classList.add('rolling');
+        txt.textContent  = 'LANZANDO...';
+        txt.style.color  = '#fff';
+
+        setTimeout(async () => {
+            d1.classList.remove('rolling');
+            d2.classList.remove('rolling');
+
+            const v1    = Math.floor(Math.random() * 6) + 1;
+            const v2    = Math.floor(Math.random() * 6) + 1;
+            const total = v1 + v2;
+            const pred  = document.getElementById('prediccion').value;
+
+            drawDice('d1', v1);
+            drawDice('d2', v2);
+
+            let gano = false;
+            let mult = 0;
+            if (pred === 'over'  && total > 7) { gano = true; mult = 2; }
+            if (pred === 'under' && total < 7) { gano = true; mult = 2; }
+            if (pred === 'exact' && total === 7) { gano = true; mult = 5; }
+
+            const ganancia = gano ? apuesta * mult - apuesta : 0;
+
+            if (gano) {
+                txt.textContent = `¡GANASTE $${apuesta * mult}! (Total: ${total})`;
+                txt.style.color = '#00ffae';
+            } else {
+                txt.textContent = `PERDISTE (Total: ${total})`;
+                txt.style.color = '#ff4444';
+            }
+
+            // Registrar en la API
+            try {
+                const res = await fetch('http://localhost:5000/api/apuestas', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify({
+                        juego: 'dados',
+                        monto: apuesta,
+                        resultado: gano ? 'ganó' : 'perdió',
+                        ganancia: ganancia
+                    })
+                });
+                const data = await res.json();
+                if (res.ok) setSaldo(data.saldoActual);
+            } catch(err) {
+                console.error('Error al registrar apuesta dados:', err);
+            }
+
+            btn.disabled = false;
+        }, 1000);
+    }
+</script>
+</body>
+</html>

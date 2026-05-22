@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Fútbol - Midnight Ingenium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Apuestas de Fútbol — LaLiga, Premier League, Champions — Midnight Ingenium">
+
+    <link rel="icon" type="image/png" href="../logo-casino.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+
+    <style>
+        /* Estilos específicos para la sección de Fútbol */
+        .vivo-dot {
+            width: 8px; height: 8px;
+            background: #ff4444;
+            border-radius: 50%;
+            animation: parpadeoDot 1s infinite;
+            display: inline-block;
+        }
+
+        @keyframes parpadeoDot {
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0.2; }
+        }
+
+        .video-partido {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid rgba(245,197,24,0.3); /* Dorado para fútbol */
+            box-shadow: 0 0 40px rgba(0,0,0,0.6);
+            margin: 0 auto 20px;
+            max-width: 860px;
+        }
+
+        .video-partido iframe {
+            width: 100%;
+            height: 420px;
+            display: block;
+            border: none;
+        }
+
+        .video-overlay-badge {
+            position: absolute;
+            top: 15px; left: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0,0,0,0.75);
+            border: 1px solid var(--color-oro);
+            color: var(--color-oro);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            backdrop-filter: blur(6px);
+        }
+
+        .eventos-wrap {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+
+        .evento-card {
+            background: var(--color-card);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 22px 25px;
+            margin-bottom: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .evento-card:hover {
+            border-color: var(--color-oro);
+            transform: translateY(-2px);
+        }
+
+        .evento-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .liga-tag {
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            background: rgba(245,197,24,0.1);
+            color: var(--color-oro);
+            border: 1px solid rgba(245,197,24,0.3);
+        }
+
+        .cuotas-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            text-align: center;
+        }
+
+        .cuota-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .cuota-label {
+            font-size: 0.7rem;
+            color: var(--color-texto2);
+            text-transform: uppercase;
+        }
+
+        .cuota-btn {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--color-verde);
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .cuota-btn:hover, .cuota-btn.seleccionada {
+            background: var(--color-oro);
+            color: #000;
+            border-color: transparent;
+            box-shadow: 0 0 15px rgba(245,197,24,0.4);
+        }
+
+        /* Betslip (Igual que eSports) */
+        .betslip {
+            position: fixed;
+            bottom: 80px; right: 20px;
+            width: 290px;
+            background: var(--color-card);
+            border: 1px solid var(--color-oro);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            z-index: 500;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .video-partido iframe { height: 220px; }
+            .cuotas-grid { grid-template-columns: 1fr 1fr 1fr; }
+            .betslip { width: calc(100% - 40px); bottom: 20px; }
+        }
+    </style>
+</head>
+
+<body class="bg-pattern">
+
+<div class="topbar">
+    <div class="topbar-left">
+        <img src="../logo-casino.png" class="logo-small" alt="Logo">
+        <span class="casino-name">Midnight Ingenium</span>
+    </div>
+    <div class="topbar-right">
+        <span class="saldo" id="saldo-display">💰 Saldo: $1,250</span>
+    </div>
+</div>
+
+<nav class="navbar">
+    <ul class="menu">
+        <li><a href="../index.html">🏠 Inicio</a></li>
+        <li><a href="index.html" style="color: var(--color-oro);">⚽ Fútbol</a></li>
+        <li><a href="esports.html">🎮 eSports</a></li>
+        <li><a href="apuestas-en-vivo.html">🔴 En Vivo</a></li>
+    </ul>
+</nav>
+
+<div class="page-header">
+    <h1>⚽ Apuestas de Fútbol</h1>
+    <p>LaLiga · Premier League · Champions League · Copa Libertadores</p>
+</div>
+
+<main>
+<h2 class="section-title" style="padding-top: 20px;">📺 Transmisión Destacada</h2>
+    <div style="padding: 0 20px;">
+        <div class="video-partido">
+            <iframe 
+                src="https://www.youtube.com/embed/5q6kvASyanE?autoplay=1&mute=1&controls=1&loop=1&playlist=5q6kvASyanE" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen
+                title="Highlights Fútbol Champions League">
+            </iframe>
+            <div class="video-overlay-badge">
+                <div class="vivo-dot"></div>
+                🏆 UEFA Champions League — Highlights
+            </div>
+        </div>
+    </div>
+
+    <div class="eventos-wrap">
+
+        <!-- Partido 1 -->
+        <div class="evento-card">
+            <div class="evento-header">
+                <h3>Real Madrid vs Barcelona</h3>
+                <span class="liga-tag">🇪🇸 LALIGA</span>
+            </div>
+            <div class="cuotas-grid">
+                <div class="cuota-item">
+                    <span class="cuota-label">Local</span>
+                    <button class="cuota-btn" onclick="seleccionarApuesta(this, 'Real Madrid', 1.85)">1.85</button>
+                </div>
+                <div class="cuota-item">
+                    <span class="cuota-label">Empate</span>
+                    <button class="cuota-btn" onclick="seleccionarApuesta(this, 'Empate RM-FCB', 3.20)">3.20</button>
+                </div>
+                <div class="cuota-item">
+                    <span class="cuota-label">Visitante</span>
+                    <button class="cuota-btn" onclick="seleccionarApuesta(this, 'Barcelona', 2.10)">2.10</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Partido 2 -->
+        <div class="evento-card">
+            <div class="evento-header">
+                <h3>Manchester City vs Arsenal</h3>
+                <span class="liga-tag">🏴󠁧󠁢󠁥󠁮󠁧󠁿 PREMIER LEAGUE</span>
+            </div>
+            <div class="cuotas-grid">
+                <div class="cuota-item">
+                    <span class="cuota-label">Local</span>
+                    <button class="cuota-btn" onclick="seleccionarApuesta(this, 'Man. City', 1.60)">1.60</button>
+                </div>
+                <div class="cuota-item">
+                    <span class="cuota-label">Empate</span>
+                    <button class="cuota-btn" onclick="seleccionarApuesta(this, 'Empate MC-ARS', 3.80)">3.80</button>
+                </div>
+                <div class="cuota-item">
+                    <span class="cuota-label">Visitante</span>
+                    <button class="cuota-btn" onclick="seleccionarApuesta(this, 'Arsenal', 2.50)">2.50</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Partido 3 (En vivo) -->
+        <div class="evento-card" style="border-left: 4px solid #ff4444;">
+            <div class="evento-header">
+                <h3>AC Milan vs Inter <span style="color:#ff4444; font-size:0.8rem; margin-left:10px;">(75')</span></h3>
+                <span class="liga-tag" style="background:rgba(255,68,68,0.1); color:#ff6666; border-color:#ff4444;">🇮🇹 SERIE A</span>
+            </div>
+            <div class="cuotas-grid">
+                <div class="cuota-item">
+                    <span class="cuota-label">Milán</span>
+                    <button class="cuota-btn" onclick="seleccionarApuesta(this, 'AC Milan', 4.50)">4.50</button>
+                </div>
+                <div class="cuota-item">
+                    <span class="cuota-label">Empate</span>
+                    <button class="cuota-btn" onclick="seleccionarApuesta(this, 'Empate MIL-INT', 2.10)">2.10</button>
+                </div>
+                <div class="cuota-item">
+                    <span class="cuota-label">Inter</span>
+                    <button class="cuota-btn" onclick="seleccionarApuesta(this, 'Inter', 1.95)">1.95</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- Betslip Flotante -->
+<div class="betslip" id="betslip">
+    <h3 style="color:var(--color-oro); margin-bottom:15px; font-size:1rem; display:flex; justify-content:space-between;">
+        🎫 Boleto de Apuesta
+        <span onclick="cerrarBetslip()" style="cursor:pointer; color:#aaa;">✕</span>
+    </h3>
+    <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:8px; margin-bottom:15px;">
+        <div id="betslip-seleccion" style="font-size:0.9rem; margin-bottom:5px;">—</div>
+        <div id="betslip-cuota" style="color:var(--color-verde); font-weight:bold;">—</div>
+    </div>
+    <input type="number" id="betslip-monto" placeholder="Monto $" value="10" style="width:100%; padding:10px; border-radius:8px; border:none; margin-bottom:10px;" oninput="calcularGanancia()">
+    <div id="ganancia-potencial" style="color:var(--color-verde); text-align:center; font-size:0.85rem; margin-bottom:15px;">Ganancia: $0.00</div>
+    <button class="btn-glow" style="width:100%; padding:12px;" onclick="confirmarApuesta()">APUESTA SEGURA</button>
+</div>
+
+<footer>
+    <p>© 2026 Midnight Ingenium Casino · 18+ Juego Responsable</p>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+<script>
+    const _usuario  = JSON.parse(localStorage.getItem('usuario') || 'null');
+    const _token    = localStorage.getItem('token');
+    const _logueado = !!(_usuario && _token);
+
+    if (!_logueado) window.location.href = '../cuenta/login.html';
+
+    if (_usuario) {
+        document.getElementById('saldo-display').textContent =
+            `💰 $${parseFloat(_usuario.saldo || 0).toLocaleString(undefined, {minimumFractionDigits:2})}`;
+    }
+
+    if (_token) {
+        fetch('http://localhost:5000/api/usuarios/perfil', {
+            headers: { 'Authorization': `Bearer ${_token}` }
+        })
+        .then(r => r.json())
+        .then(perfil => {
+            if (perfil?.saldo !== undefined) {
+                const u = JSON.parse(localStorage.getItem('usuario'));
+                u.saldo = perfil.saldo;
+                localStorage.setItem('usuario', JSON.stringify(u));
+                document.getElementById('saldo-display').textContent =
+                    `💰 $${perfil.saldo.toLocaleString(undefined, {minimumFractionDigits:2})}`;
+            }
+        }).catch(() => {});
+    }
+
+    let cuotaActual = 0;
+    let seleccionActual = '';
+
+    function seleccionarApuesta(btn, nombre, cuota) {
+        document.querySelectorAll('.cuota-btn').forEach(b => b.classList.remove('seleccionada'));
+        btn.classList.add('seleccionada');
+        cuotaActual     = cuota;
+        seleccionActual = nombre;
+        document.getElementById('betslip-seleccion').textContent = nombre;
+        document.getElementById('betslip-cuota').textContent     = 'Cuota: ' + cuota;
+        document.getElementById('betslip').style.display         = 'block';
+        calcularGanancia();
+    }
+
+    function calcularGanancia() {
+        const monto = parseFloat(document.getElementById('betslip-monto').value) || 0;
+        const total = (monto * cuotaActual).toFixed(2);
+        document.getElementById('ganancia-potencial').textContent = `Ganancia potencial: $${total}`;
+    }
+
+    function cerrarBetslip() {
+        document.getElementById('betslip').style.display = 'none';
+        document.querySelectorAll('.cuota-btn').forEach(b => b.classList.remove('seleccionada'));
+    }
+
+    async function confirmarApuesta() {
+        const monto   = parseFloat(document.getElementById('betslip-monto').value) || 0;
+        const usuario = JSON.parse(localStorage.getItem('usuario') || 'null');
+        const token   = localStorage.getItem('token');
+
+        if (monto <= 0)            { mostrarToast('❌ Monto inválido', 'error'); return; }
+        if (!usuario || !token)    { mostrarToast('❌ Debes iniciar sesión', 'error'); return; }
+        if (monto > usuario.saldo) { mostrarToast('❌ Saldo insuficiente', 'error'); return; }
+
+        try {
+            const res = await fetch('http://localhost:5000/api/apuestas', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    juego: 'deportes',
+                    monto,
+                    resultado: 'perdió',
+                    ganancia: 0,
+                    descripcion: seleccionActual
+                })
+            });
+
+            const data = await res.json();
+            const nuevoSaldo = data.saldoActual ?? Math.max(0, usuario.saldo - monto);
+            usuario.saldo = nuevoSaldo;
+            localStorage.setItem('usuario', JSON.stringify(usuario));
+            document.getElementById('saldo-display').textContent =
+                `💰 $${nuevoSaldo.toLocaleString(undefined, {minimumFractionDigits:2})}`;
+            mostrarToast(`✅ Apuesta de $${monto} en "${seleccionActual}" confirmada`, 'exito');
+            cerrarBetslip();
+        } catch (err) {
+            mostrarToast('❌ Error al conectar con el servidor', 'error');
+        }
+    }
+</script>
+
+</body>
+</html>

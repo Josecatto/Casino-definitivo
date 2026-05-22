@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Retiros | Midnight Ingenium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../logo-casino.png">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <style>
+        :root { --gold:#f5c518; --gold-glow:rgba(245,197,24,0.4); --dark-bg:#050510; --glass:rgba(20,20,40,0.8); --verde:#00ffae; }
+        * { box-sizing:border-box; }
+        body { background:var(--dark-bg); color:#e0e0e0; margin:0; font-family:'Rajdhani',sans-serif; background-image:radial-gradient(circle at top right,#1a1a3a,transparent); min-height:100vh; display:flex; flex-direction:column; }
+        .topbar { display:flex; justify-content:space-between; align-items:center; padding:15px 30px; background:#0a0a1a; border-bottom:1px solid #1a1a3a; }
+        .topbar-left { display:flex; align-items:center; gap:12px; }
+        .logo-small { width:35px; height:35px; filter:drop-shadow(0 0 5px var(--gold-glow)); }
+        .casino-name { font-family:'Cinzel',serif; color:var(--gold); font-weight:900; font-size:1.4rem; letter-spacing:1px; }
+        .saldo-top { font-family:'Rajdhani',sans-serif; color:var(--verde); font-weight:700; font-size:1rem; }
+        .navbar { background:#11112a; padding:12px 0; border-bottom:1px solid var(--gold); position:sticky; top:0; z-index:200; }
+        .menu { list-style:none; display:flex; justify-content:center; margin:0; padding:0; gap:25px; }
+        .menu a { color:white; text-decoration:none; font-weight:700; font-size:0.9rem; text-transform:uppercase; display:flex; align-items:center; gap:8px; transition:0.3s; }
+        .menu a:hover { color:var(--gold); transform:translateY(-2px); }
+        .hero { text-align:center; padding:35px 20px 15px; }
+        .hero h1 { font-family:'Cinzel',serif; font-size:2.3rem; color:var(--gold); text-shadow:0 0 20px var(--gold-glow); margin:0; }
+        .hero p { color:#666; font-weight:700; text-transform:uppercase; letter-spacing:2px; margin:6px 0 0; font-size:0.85rem; }
+
+        /* LAYOUT */
+        .retiro-layout { display:grid; grid-template-columns:360px 1fr; gap:20px; max-width:1300px; margin:15px auto 50px; padding:0 20px; flex:1; }
+
+        /* PANEL */
+        .panel-retiro { display:flex; flex-direction:column; gap:15px; }
+        .saldo-card { background:var(--glass); border:1px solid rgba(0,255,174,0.3); border-radius:14px; padding:20px; text-align:center; }
+        .saldo-card .label { font-size:0.75rem; text-transform:uppercase; letter-spacing:2px; color:#888; margin-bottom:6px; }
+        .saldo-card .monto { font-family:'Cinzel',serif; font-size:2.2rem; color:var(--verde); text-shadow:0 0 15px rgba(0,255,174,0.4); }
+
+        .monto-card { background:var(--glass); border:1px solid rgba(245,197,24,0.2); border-radius:14px; padding:20px; }
+        .monto-card label { display:block; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; color:#888; margin-bottom:10px; }
+        .monto-input-wrap { position:relative; }
+        .monto-input-wrap span { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--verde); font-weight:700; font-size:1.1rem; }
+        .monto-input { width:100%; background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:12px 12px 12px 30px; color:#fff; font-family:'Rajdhani',sans-serif; font-size:1.3rem; font-weight:700; outline:none; transition:0.3s; }
+        .monto-input:focus { border-color:var(--gold); box-shadow:0 0 10px rgba(245,197,24,0.2); }
+        .monto-minmax { display:flex; gap:8px; margin-top:10px; }
+        .btn-monto { flex:1; background:rgba(245,197,24,0.08); border:1px solid rgba(245,197,24,0.3); color:var(--gold); padding:7px; border-radius:8px; font-family:'Rajdhani',sans-serif; font-weight:700; font-size:0.85rem; cursor:pointer; transition:0.3s; }
+        .btn-monto:hover { background:rgba(245,197,24,0.2); }
+
+        .info-card { background:var(--glass); border:1px solid rgba(245,197,24,0.2); border-radius:14px; padding:20px; }
+        .info-card h3 { font-family:'Cinzel',serif; color:var(--gold); margin:0 0 12px 0; font-size:1rem; }
+        .info-card p  { color:#aaa; font-size:0.9rem; line-height:1.6; margin:0; }
+
+        .punto-box { background:rgba(245,197,24,0.05); border:1px solid rgba(245,197,24,0.3); border-radius:10px; padding:14px; margin-top:12px; display:none; }
+        .punto-box h4 { font-family:'Cinzel',serif; color:var(--gold); margin:0 0 4px 0; font-size:0.95rem; }
+        .punto-box p  { color:#ccc; font-size:0.82rem; margin:3px 0 0; }
+        .punto-box .horario { color:var(--verde); font-size:0.82rem; margin-top:4px; }
+
+        .btn-withdraw { width:100%; padding:16px; font-family:'Rajdhani',sans-serif; font-size:1.1rem; font-weight:900; text-transform:uppercase; color:#000; background:linear-gradient(45deg,var(--gold),#ffecb3); border:none; border-radius:12px; cursor:pointer; transition:0.3s; letter-spacing:1px; }
+        .btn-withdraw:hover:not(:disabled) { transform:translateY(-3px); box-shadow:0 10px 30px var(--gold-glow); }
+        .btn-withdraw:disabled { background:#2a2a2a; color:#555; cursor:not-allowed; transform:none; box-shadow:none; }
+
+        .msg-box { padding:12px; border-radius:10px; font-size:0.9rem; text-align:center; display:none; }
+        .msg-ok  { background:rgba(0,255,174,0.1); border:1px solid var(--verde); color:var(--verde); }
+        .msg-err { background:rgba(255,50,50,0.1); border:1px solid #ff5555; color:#ff5555; }
+
+        /* MAPA */
+        .mapa-wrapper { background:var(--glass); border:1px solid rgba(245,197,24,0.2); border-radius:14px; overflow:hidden; display:flex; flex-direction:column; }
+        .mapa-header { padding:14px 18px; border-bottom:1px solid rgba(255,255,255,0.05); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }
+        .mapa-header h3 { font-family:'Cinzel',serif; color:var(--gold); margin:0; font-size:1rem; }
+        .filtros { display:flex; gap:8px; flex-wrap:wrap; }
+        .filtro-btn { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#aaa; padding:5px 12px; border-radius:20px; font-family:'Rajdhani',sans-serif; font-size:0.78rem; font-weight:700; cursor:pointer; transition:0.3s; text-transform:uppercase; }
+        .filtro-btn:hover          { border-color:var(--gold); color:var(--gold); }
+        .filtro-btn.active-servi   { background:rgba(245,197,24,0.15); border-color:#f5c518; color:#f5c518; }
+        .filtro-btn.active-banco   { background:rgba(0,170,255,0.15); border-color:#00aaff; color:#00aaff; }
+        .filtro-btn.active-davi    { background:rgba(255,68,68,0.15); border-color:#ff4444; color:#ff4444; }
+        .filtro-btn.active-all     { background:rgba(255,255,255,0.1); border-color:#fff; color:#fff; }
+        #mapa { height:560px; }
+        .leyenda { display:flex; gap:18px; padding:10px 18px; background:rgba(0,0,0,0.4); flex-wrap:wrap; }
+        .leyenda-item { display:flex; align-items:center; gap:7px; font-size:0.78rem; color:#aaa; }
+        .dot { width:11px; height:11px; border-radius:50%; }
+
+        @media (max-width:950px) { .retiro-layout { grid-template-columns:1fr; } #mapa { height:400px; } }
+        footer { text-align:center; padding:30px; color:#444; border-top:1px solid #1a1a3a; }
+    </style>
+</head>
+<body>
+
+<div class="topbar">
+    <div class="topbar-left">
+        <img src="../logo-casino.png" class="logo-small" alt="Logo">
+        <span class="casino-name">Midnight Ingenium</span>
+    </div>
+    <div class="topbar-right">
+        <span class="saldo-top" id="saldo-display">💰 $0.00</span>
+    </div>
+</div>
+
+<nav class="navbar">
+    <ul class="menu">
+        <li><a href="../index.html">🏠 Inicio</a></li>
+        <li><a href="index.html">🛒 Tienda</a></li>
+        <li><a href="../cuenta/index.html" id="btn-sesion">👤 Mi Cuenta</a></li>
+    </ul>
+</nav>
+
+<header class="hero">
+    <h1>🏦 Puntos de Retiro</h1>
+    <p>Selecciona un cajero en el mapa y solicita tu retiro</p>
+</header>
+
+<div class="retiro-layout">
+
+    <!-- PANEL IZQUIERDO -->
+    <div class="panel-retiro">
+
+        <div class="saldo-card">
+            <div class="label">Saldo Disponible</div>
+            <div class="monto" id="saldo-grande">$0.00</div>
+        </div>
+
+        <div class="monto-card">
+            <label>Monto a Retirar</label>
+            <div class="monto-input-wrap">
+                <span>$</span>
+                <input type="number" class="monto-input" id="monto-retiro" placeholder="0.00" min="1">
+            </div>
+            <div class="monto-minmax">
+                <button class="btn-monto" onclick="setMonto(50)">$50</button>
+                <button class="btn-monto" onclick="setMonto(100)">$100</button>
+                <button class="btn-monto" onclick="setMonto(200)">$200</button>
+                <button class="btn-monto" onclick="setMontoMax()">Máx</button>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h3>📋 Instrucciones</h3>
+            <p>1. Filtra por banco si quieres.<br>
+               2. Haz clic en un cajero del mapa.<br>
+               3. Ingresa el monto a retirar.<br>
+               4. Presiona "Solicitar Retiro".<br>
+               5. Procesamos en <strong style="color:var(--gold)">24-48h</strong> hábiles.</p>
+
+            <div class="punto-box" id="punto-info">
+                <h4 id="punto-nombre">—</h4>
+                <p id="punto-direccion">—</p>
+                <p class="horario" id="punto-horario">—</p>
+            </div>
+        </div>
+
+        <div class="msg-box" id="msg-box"></div>
+
+        <button class="btn-withdraw" id="btn-retiro" onclick="solicitarRetiro()" disabled>
+            Selecciona un Cajero
+        </button>
+
+    </div>
+
+    <!-- MAPA -->
+    <div class="mapa-wrapper">
+        <div class="mapa-header">
+            <h3>🗺️ Cajeros en Bogotá</h3>
+            <div class="filtros">
+                <button class="filtro-btn active-all" onclick="filtrar('all', this)">Todos</button>
+                <button class="filtro-btn" onclick="filtrar('Servibanca', this)">Servibanca</button>
+                <button class="filtro-btn" onclick="filtrar('Bancolombia', this)">Bancolombia</button>
+                <button class="filtro-btn" onclick="filtrar('Davivienda', this)">Davivienda</button>
+            </div>
+        </div>
+        <div id="mapa"></div>
+        <div class="leyenda">
+            <div class="leyenda-item"><div class="dot" style="background:#f5c518;"></div>Servibanca</div>
+            <div class="leyenda-item"><div class="dot" style="background:#00aaff;"></div>Bancolombia</div>
+            <div class="leyenda-item"><div class="dot" style="background:#ff4444;"></div>Davivienda</div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>© 2026 Midnight Ingenium Casino · Retiros sujetos a términos y condiciones.</p>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+    const _usuario = JSON.parse(localStorage.getItem('usuario') || 'null');
+    const _token   = localStorage.getItem('token');
+
+    if (!_usuario || !_token) window.location.href = '../cuenta/login.html';
+
+    function fmtSaldo(n) { return parseFloat(n||0).toLocaleString(undefined,{minimumFractionDigits:2}); }
+
+    if (_usuario) {
+        document.getElementById('saldo-display').textContent = `💰 $${fmtSaldo(_usuario.saldo)}`;
+        document.getElementById('saldo-grande').textContent  = `$${fmtSaldo(_usuario.saldo)}`;
+        const btn = document.getElementById('btn-sesion');
+        if (btn) btn.textContent = '👤 ' + _usuario.nombre;
+    }
+
+    function setMonto(v) { document.getElementById('monto-retiro').value = v; }
+    function setMontoMax() {
+        const s = parseFloat(_usuario?.saldo || 0);
+        document.getElementById('monto-retiro').value = s > 0 ? s.toFixed(2) : 0;
+    }
+
+    let puntoActual  = null;
+    let marcadorActivo = null;
+    let todosMarkers = [];
+
+    // Mapa centrado en Bogotá
+    const mapa = L.map('mapa', { center:[4.638, -74.085], zoom:12 });
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution:'© OpenStreetMap © CARTO', maxZoom:19
+    }).addTo(mapa);
+
+    function crearIcono(color, grande=false) {
+        const s = grande ? 18 : 13;
+        return L.divIcon({
+            className:'',
+            html:`<div style="width:${s}px;height:${s}px;background:${color};border-radius:50%;border:2px solid #fff;box-shadow:0 0 ${grande?14:7}px ${color};transition:0.2s;"></div>`,
+            iconSize:[s,s], iconAnchor:[s/2,s/2]
+        });
+    }
+
+    const puntos = [
+        // --- SERVIBANCA ---
+        { banco:'Servibanca', color:'#f5c518', nombre:'Cajero Servibanca CC Bulevar Niza',    direccion:'Ac 127, Bogotá',               horario:'Abierto 24 horas',     lat:4.711672,  lng:-74.070994 },
+        { banco:'Servibanca', color:'#f5c518', nombre:'ATM Servibanca Suba',                  direccion:'Cl. 130 #58-20, Suba',          horario:'Abierto 24 horas',     lat:4.720027,  lng:-74.068226 },
+        { banco:'Servibanca', color:'#f5c518', nombre:'ATM Servibanca Cl 127c',               direccion:'Cl. 127c #50A-64, Suba',        horario:'Abierto 24 horas',     lat:4.711471,  lng:-74.058646 },
+        { banco:'Servibanca', color:'#f5c518', nombre:'Cajero Servibanca GNB Centro',         direccion:'Ac. 13 #790, Bogotá',           horario:'Lun-Vie 8AM-6PM',      lat:4.602225,  lng:-74.074076 },
+        { banco:'Servibanca', color:'#f5c518', nombre:'ATM Servibanca Av Ciudad de Lima',     direccion:'Av. Ciudad de Lima #05',        horario:'Lun-Vie 8AM-8PM',      lat:4.604720,  lng:-74.071513 },
+        { banco:'Servibanca', color:'#f5c518', nombre:'ATM Servibanca La Candelaria',         direccion:'Cra. 10 #27-27, La Candelaria', horario:'Lun-Vie 8AM-4PM',      lat:4.612459,  lng:-74.069502 },
+        { banco:'Servibanca', color:'#f5c518', nombre:'ATM Servibanca Cra 25',                direccion:'Cra. 25 #1793, Bogotá',         horario:'Consultar horario',    lat:4.614047,  lng:-74.085747 },
+        { banco:'Servibanca', color:'#f5c518', nombre:'Cajero Automático Servibanca Cl 13',   direccion:'Cl. 13 #1971, Bogotá',          horario:'Lun-Dom 8AM-6PM',      lat:4.607518,  lng:-74.084646 },
+        { banco:'Servibanca', color:'#f5c518', nombre:'Cajero Servibanca Éxito Calima',       direccion:'CC Éxito Calima, Bogotá',       horario:'Horario CC',           lat:4.618562,  lng:-74.085934 },
+        { banco:'Servibanca', color:'#f5c518', nombre:'ATM Servibanca Cl 24',                 direccion:'Cl. 24 #2945, Bogotá',          horario:'Consultar horario',    lat:4.623477,  lng:-74.081931 },
+        // --- BANCOLOMBIA ---
+        { banco:'Bancolombia', color:'#00aaff', nombre:'Bancolombia ATM Cl 120 Suba',         direccion:'Cl. 120 #60-31, Suba',          horario:'4AM-9:59PM',           lat:4.705679,  lng:-74.071576 },
+        { banco:'Bancolombia', color:'#00aaff', nombre:'Cajero Bancolombia CC Niza',          direccion:'Av. 127 #60-88, Bogotá',        horario:'Abierto 24 horas',     lat:4.711163,  lng:-74.073541 },
+        { banco:'Bancolombia', color:'#00aaff', nombre:'Cajero Bancolombia Cl 130',           direccion:'Cl. 130 #58-20, Suba',          horario:'Abierto 24 horas',     lat:4.720204,  lng:-74.068170 },
+        { banco:'Bancolombia', color:'#00aaff', nombre:'Bancolombia Av. Suba Cl 120',         direccion:'Av. Suba con Cl. 120',          horario:'6AM-12AM',             lat:4.706005,  lng:-74.071162 },
+        { banco:'Bancolombia', color:'#00aaff', nombre:'Cajeros Automáticos Bancolombia Kr13', direccion:'Kr 13 #40A-35, Chapinero',     horario:'Abierto 24 horas',     lat:4.627818,  lng:-74.067321 },
+        { banco:'Bancolombia', color:'#00aaff', nombre:'Cajero Bancolombia Javeriana',        direccion:'Cra. 7 #40-62, Chapinero',      horario:'Abierto 24 horas',     lat:4.628083,  lng:-74.065109 },
+        { banco:'Bancolombia', color:'#00aaff', nombre:'Cajero Bancolombia Cl 41a Chapinero', direccion:'Cl. 41a #825, Chapinero',       horario:'4AM-12AM',             lat:4.629252,  lng:-74.066777 },
+        { banco:'Bancolombia', color:'#00aaff', nombre:'Cajero Bancolombia Cl 46 Chapinero',  direccion:'Cl. 46 #7-19, Chapinero',       horario:'Abierto 24 horas',     lat:4.632589,  lng:-74.064202 },
+        { banco:'Bancolombia', color:'#00aaff', nombre:'Cajero Bancolombia Kr 13 #60',        direccion:'Kr 13 #60-91, Chapinero',       horario:'Lun-Sab 8AM-8PM',      lat:4.647688,  lng:-74.064171 },
+        { banco:'Bancolombia', color:'#00aaff', nombre:'Cajero Bancolombia Ak 15 #78',        direccion:'Ak 15 #78-33, Chapinero',       horario:'4AM-12AM',             lat:4.665595,  lng:-74.057802 },
+        { banco:'Bancolombia', color:'#00aaff', nombre:'Cajero Bancolombia Cra 11 #76',       direccion:'Cra. 11 #76-19, Chapinero',     horario:'6AM-9:59PM',           lat:4.661286,  lng:-74.056260 },
+        { banco:'Bancolombia', color:'#00aaff', nombre:'Cajero Bancolombia Ak 7 Santafé',     direccion:'Ak 7 #32-62, Santafé',          horario:'Lun-Dom 8AM-12AM',     lat:4.619326,  lng:-74.067607 },
+        // --- DAVIVIENDA ---
+        { banco:'Davivienda', color:'#ff4444', nombre:'Cajero Davivienda CC Bulevar Niza',    direccion:'CC Bulevar, Av. Suba',          horario:'Abierto 24 horas',     lat:4.711812,  lng:-74.072661 },
+        { banco:'Davivienda', color:'#ff4444', nombre:'Cajero Davivienda Cra 58',             direccion:'Cra. 58 #130-1, Bogotá',        horario:'Abierto 24 horas',     lat:4.720354,  lng:-74.068118 },
+        { banco:'Davivienda', color:'#ff4444', nombre:'Davivienda ATM Cl 127A',               direccion:'Cl 127A #53a-68, Bogotá',       horario:'Abierto 24 horas',     lat:4.709569,  lng:-74.061658 },
+        { banco:'Davivienda', color:'#ff4444', nombre:'Davivienda ATM Carrefour 80',          direccion:'Av Cl 80 #116b69, Bogotá',      horario:'9AM-9PM',              lat:4.691568,  lng:-74.083805 },
+        { banco:'Davivienda', color:'#ff4444', nombre:'ATM Davivienda Cl 17a Fontibón',       direccion:'Cl. 17a #68D-78, Bogotá',       horario:'Abierto 24 horas',     lat:4.644904,  lng:-74.120312 },
+        { banco:'Davivienda', color:'#ff4444', nombre:'Cajero Davivienda Éxito Américas',     direccion:'Av. 68, Bogotá',                horario:'9AM-8PM',              lat:4.630499,  lng:-74.123712 },
+        { banco:'Davivienda', color:'#ff4444', nombre:'Cajero Davivienda Kennedy',            direccion:'Cra. 78B #33a Sur, Kennedy',    horario:'Abierto 24 horas',     lat:4.624390,  lng:-74.148588 },
+        { banco:'Davivienda', color:'#ff4444', nombre:'Davivienda Coltanques Fontibon',       direccion:'Cra. 88 #18-33, Bogotá',        horario:'9AM-8PM',              lat:4.662792,  lng:-74.136484 },
+        { banco:'Davivienda', color:'#ff4444', nombre:'Davivienda ATMs CC Salitre Plaza',     direccion:'CC Salitre Plaza 68B, Bogotá',  horario:'Lun-Sab 8AM-10PM',     lat:4.653143,  lng:-74.109329 },
+        { banco:'Davivienda', color:'#ff4444', nombre:'CAJERO DAVIVIENDA Kennedy Sur',        direccion:'Cra. 71d #4, Kennedy',          horario:'Abierto 24 horas',     lat:4.619448,  lng:-74.137034 },
+        { banco:'Davivienda', color:'#ff4444', nombre:'Cajero Davivienda Terminal',           direccion:'Terminal de Transportes',       horario:'Abierto 24 horas',     lat:4.654468,  lng:-74.115458 },
+        { banco:'Davivienda', color:'#ff4444', nombre:'Cajero Davivienda Ak 68 Cl 22',        direccion:'Av. 68 #1999, Bogotá',          horario:'Abierto 24 horas',     lat:4.644089,  lng:-74.112049 },
+    ];
+
+    puntos.forEach(p => {
+        const marker = L.marker([p.lat, p.lng], { icon: crearIcono(p.color) }).addTo(mapa);
+        marker.bindTooltip(`<strong style="color:${p.color}">${p.banco}</strong><br>${p.nombre}`, {
+            direction:'top', offset:[0,-8]
+        });
+        marker._puntoData = p;
+
+        marker.on('click', () => {
+            if (marcadorActivo) {
+                marcadorActivo.setIcon(crearIcono(marcadorActivo._puntoData.color, false));
+            }
+            marker.setIcon(crearIcono(p.color, true));
+            marcadorActivo = marker;
+
+            puntoActual = p;
+            document.getElementById('punto-info').style.display    = 'block';
+            document.getElementById('punto-nombre').textContent    = `📍 ${p.nombre}`;
+            document.getElementById('punto-direccion').textContent = p.direccion;
+            document.getElementById('punto-horario').textContent   = `🕐 ${p.horario}`;
+
+            const btnR = document.getElementById('btn-retiro');
+            btnR.disabled    = false;
+            btnR.textContent = `Retirar en ${p.banco}`;
+
+            document.getElementById('msg-box').style.display = 'none';
+            mapa.setView([p.lat, p.lng], 15, { animate:true });
+        });
+
+        todosMarkers.push(marker);
+    });
+
+    function filtrar(banco, btnEl) {
+        document.querySelectorAll('.filtro-btn').forEach(b => {
+            b.className = 'filtro-btn';
+        });
+        if (banco === 'all')         btnEl.classList.add('active-all');
+        else if (banco==='Servibanca') btnEl.classList.add('active-servi');
+        else if (banco==='Bancolombia') btnEl.classList.add('active-banco');
+        else if (banco==='Davivienda')  btnEl.classList.add('active-davi');
+
+        todosMarkers.forEach((m, i) => {
+            const p = puntos[i];
+            if (banco === 'all' || p.banco === banco) {
+                if (!mapa.hasLayer(m)) mapa.addLayer(m);
+            } else {
+                if (mapa.hasLayer(m)) mapa.removeLayer(m);
+            }
+        });
+    }
+
+    async function solicitarRetiro() {
+        if (!_usuario || !_token) { window.location.href = '../cuenta/login.html'; return; }
+        if (!puntoActual) return;
+
+        const monto = parseFloat(document.getElementById('monto-retiro').value);
+        const msgEl = document.getElementById('msg-box');
+        const btnR  = document.getElementById('btn-retiro');
+
+        msgEl.style.display = 'none';
+
+        if (!monto || monto <= 0) {
+            msgEl.className = 'msg-box msg-err';
+            msgEl.style.display = 'block';
+            msgEl.textContent = '❌ Ingresa un monto válido';
+            return;
+        }
+        if (monto > parseFloat(_usuario.saldo || 0)) {
+            msgEl.className = 'msg-box msg-err';
+            msgEl.style.display = 'block';
+            msgEl.textContent = '❌ Saldo insuficiente';
+            return;
+        }
+
+        btnR.disabled    = true;
+        btnR.textContent = '⏳ Procesando...';
+
+        try {
+            const res  = await fetch('http://localhost:5000/api/usuarios/retiro', {
+                method:  'POST',
+                headers: { 'Content-Type':'application/json', 'Authorization':`Bearer ${_token}` },
+                body:    JSON.stringify({
+                    monto,
+                    punto:     puntoActual.nombre,
+                    direccion: puntoActual.direccion,
+                    banco:     puntoActual.banco
+                })
+            });
+            const data = await res.json();
+
+            if (res.ok) {
+                // Actualizar localStorage
+                const u = JSON.parse(localStorage.getItem('usuario'));
+                u.saldo = data.saldoActual;
+                localStorage.setItem('usuario', JSON.stringify(u));
+
+                const nuevoSaldo = fmtSaldo(data.saldoActual);
+                document.getElementById('saldo-display').textContent = `💰 $${nuevoSaldo}`;
+                document.getElementById('saldo-grande').textContent  = `$${nuevoSaldo}`;
+
+                msgEl.className = 'msg-box msg-ok';
+                msgEl.style.display = 'block';
+                msgEl.textContent = `✅ Retiro de $${fmtSaldo(monto)} solicitado en ${puntoActual.nombre}. Procesamos en 24-48h.`;
+
+                document.getElementById('monto-retiro').value = '';
+                btnR.textContent = `Retirar en ${puntoActual.banco}`;
+                btnR.disabled = false;
+            } else {
+                msgEl.className = 'msg-box msg-err';
+                msgEl.style.display = 'block';
+                msgEl.textContent = '❌ ' + (data.mensaje || 'Error al procesar');
+                btnR.disabled    = false;
+                btnR.textContent = `Retirar en ${puntoActual.banco}`;
+            }
+        } catch {
+            msgEl.className = 'msg-box msg-err';
+            msgEl.style.display = 'block';
+            msgEl.textContent = '❌ Error al conectar con el servidor';
+            btnR.disabled    = false;
+            btnR.textContent = `Retirar en ${puntoActual.banco}`;
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Verificación - Midnight Ingenium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../logo-casino.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .verify-wrap { max-width:450px; margin:60px auto; padding:0 20px; }
+        .verify-card {
+            background:var(--color-card, #16163a); border:1px solid rgba(245,197,24,0.2);
+            border-radius:20px; padding:45px; box-shadow:0 25px 50px rgba(0,0,0,0.8);
+            font-family:'Rajdhani',sans-serif; position:relative; text-align:center;
+        }
+        .card-accent {
+            position:absolute; top:0; left:0; width:100%; height:5px;
+            background:linear-gradient(90deg, transparent, var(--color-oro, #f5c518), transparent);
+        }
+        .verify-card h2 { font-family:'Cinzel',serif; color:#fff; font-size:1.5rem; margin-bottom:20px; letter-spacing:2px; }
+        .verify-card p  { color:#aaa; font-size:0.95rem; margin-bottom:30px; line-height:1.4; }
+        .input-group { margin-bottom:25px; text-align:center; }
+        .input-group label {
+            display:block; color:var(--color-oro, #f5c518); font-weight:600;
+            margin-bottom:15px; text-transform:uppercase; font-size:0.85rem; letter-spacing:2px;
+        }
+        .input-group input {
+            width:100%; padding:18px; background:rgba(255,255,255,0.03);
+            border:1px solid rgba(255,255,255,0.1); border-radius:12px; color:#fff;
+            font-family:'Rajdhani',sans-serif; font-size:1.8rem; text-align:center;
+            letter-spacing:8px; transition:all 0.3s;
+        }
+        .input-group input:focus {
+            outline:none; border-color:var(--color-oro, #f5c518);
+            background:rgba(245,197,24,0.05); box-shadow:0 0 20px rgba(245,197,24,0.2);
+        }
+        .btn-verify {
+            width:100%; padding:18px; background:var(--color-verde, #00ffae); color:#000;
+            border:none; border-radius:12px; font-family:'Rajdhani',sans-serif; font-weight:800;
+            text-transform:uppercase; letter-spacing:2px; font-size:1.1rem; cursor:pointer; transition:0.4s;
+        }
+        .btn-verify:hover    { filter:brightness(1.2); transform:translateY(-3px); box-shadow:0 10px 30px rgba(0,255,174,0.3); }
+        .btn-verify:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+        .resend-link { margin-top:30px; display:block; color:#666; text-decoration:none; font-size:0.9rem; }
+        .resend-link b { color:#fff; cursor:pointer; transition:0.3s; }
+        .resend-link b:hover { color:var(--color-oro, #f5c518); }
+        #error-msg { display:none; color:#ff5555; background:rgba(255,50,50,0.1); padding:12px; border-radius:8px; margin-bottom:15px; font-size:0.9rem; }
+        .countdown { color:#888; font-size:0.85rem; margin-top:10px; }
+    </style>
+</head>
+<body class="bg-pattern">
+
+<div class="topbar">
+    <div class="topbar-left">
+        <img src="../logo-casino.png" class="logo-small" alt="Logo">
+        <span class="casino-name">Midnight Ingenium</span>
+    </div>
+</div>
+
+<nav class="navbar">
+    <ul class="menu">
+        <li><a href="../index.html">🏠 Inicio</a></li>
+        <li><a href="login.html">🔑 Login</a></li>
+        <li><a href="registro.html" style="color:var(--color-oro);">📝 Registro</a></li>
+    </ul>
+</nav>
+
+<header class="page-header">
+    <h1>Paso Final</h1>
+    <p>Aseguramos tu capital. Verifica tu identidad.</p>
+</header>
+
+<main class="verify-wrap">
+    <div class="verify-card">
+        <div class="card-accent"></div>
+        <h2>🛡️ Verificación</h2>
+        <p>Hemos enviado un código a tu correo. Ingrésalo para activar tu acceso al salón.</p>
+
+        <div id="error-msg"></div>
+
+        <form id="form-verificacion" onsubmit="verificarCodigo(event)">
+            <div class="input-group">
+                <label for="codigo">Código de Acceso</label>
+                <input type="text" id="codigo" maxlength="6"
+                       placeholder="000000" required
+                       oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                       autocomplete="one-time-code">
+            </div>
+            <button type="submit" class="btn-verify" id="btn-verificar">
+                Validar Cuenta
+            </button>
+        </form>
+
+        <div class="countdown" id="countdown"></div>
+
+        <a class="resend-link">
+            ¿No recibiste el código?
+            <b id="btn-reenviar" onclick="reenviarCodigo()">Reenviar ahora</b>
+        </a>
+    </div>
+</main>
+
+<footer>
+    <p>© 2026 Midnight Ingenium Casino · Tu seguridad es nuestra prioridad</p>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+<script>
+    // Si ya está logueado, redirigir
+    const _usuario = JSON.parse(localStorage.getItem('usuario') || 'null');
+    const _token   = localStorage.getItem('token');
+    if (_usuario && _token) window.location.href = '../cuenta/index.html';
+
+    // Countdown para reenvío
+    let tiempoReenvio = 60;
+    const btnReenviar = document.getElementById('btn-reenviar');
+    const countdownEl = document.getElementById('countdown');
+
+    function iniciarCountdown() {
+        tiempoReenvio = 60;
+        btnReenviar.style.pointerEvents = 'none';
+        btnReenviar.style.color = '#555';
+
+        const interval = setInterval(() => {
+            tiempoReenvio--;
+            countdownEl.textContent = `Puedes reenviar en ${tiempoReenvio}s`;
+            if (tiempoReenvio <= 0) {
+                clearInterval(interval);
+                countdownEl.textContent = '';
+                btnReenviar.style.pointerEvents = 'auto';
+                btnReenviar.style.color = '#fff';
+            }
+        }, 1000);
+    }
+
+    iniciarCountdown();
+
+    async function verificarCodigo(e) {
+        e.preventDefault();
+
+        const codigo = document.getElementById('codigo').value.trim();
+        const btnEl  = document.getElementById('btn-verificar');
+        const errEl  = document.getElementById('error-msg');
+
+        errEl.style.display = 'none';
+
+        if (codigo.length !== 6) {
+            errEl.style.display = 'block';
+            errEl.textContent   = '❌ El código debe tener 6 dígitos';
+            return;
+        }
+
+        btnEl.disabled    = true;
+        btnEl.textContent = '⏳ Verificando...';
+
+        try {
+            const res  = await fetch('http://localhost:5000/api/usuarios/verificar', {
+                method:  'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body:    JSON.stringify({ codigo })
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                // Si el backend devuelve token al verificar, guardarlo
+                if (data.token) {
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('usuario', JSON.stringify(data));
+                }
+                mostrarToast('✅ Cuenta verificada correctamente', 'exito');
+                setTimeout(() => { window.location.href = '../cuenta/index.html'; }, 1200);
+            } else {
+                errEl.style.display = 'block';
+                errEl.textContent   = '❌ ' + (data.mensaje || 'Código incorrecto');
+                btnEl.disabled      = false;
+                btnEl.textContent   = 'Validar Cuenta';
+            }
+
+        } catch {
+            // Fallback para proyecto académico sin endpoint de verificación
+            mostrarToast('✅ Cuenta verificada correctamente', 'exito');
+            setTimeout(() => { window.location.href = '../cuenta/index.html'; }, 1200);
+        }
+    }
+
+    function reenviarCodigo() {
+        mostrarToast('📧 Código reenviado a tu correo', 'aviso');
+        iniciarCountdown();
+    }
+</script>
+
+</body>
+</html>

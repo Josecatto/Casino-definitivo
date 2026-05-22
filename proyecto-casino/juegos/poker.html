@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Poker Ingenium - Midnight Ingenium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../logo-casino.png">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        body { background: #050510; color: white; margin: 0; font-family: 'Rajdhani', sans-serif; }
+        .topbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background: #000; border-bottom: 2px solid #333; }
+        .topbar-left { display: flex; align-items: center; gap: 10px; }
+        .logo-small { width: 30px; }
+        .casino-name { font-family: 'Cinzel', serif; font-size: 1.2rem; color: #f5c518; }
+        .saldo { color: #00ff88; font-weight: 700; font-size: 1.2rem; }
+        .navbar { background: #11112a; padding: 12px 0; border-bottom: 1px solid #f5c518; }
+        .navbar .menu { display: flex; list-style: none; gap: 20px; justify-content: center; padding: 0; margin: 0; }
+        .navbar a { text-decoration: none; color: #aaa; font-weight: 600; transition: 0.3s; text-transform: uppercase; font-size: 0.9rem; }
+        .navbar a:hover { color: #f5c518; }
+        .page-header { text-align: center; padding: 30px 20px 10px; }
+        .page-header h1 { font-family: 'Cinzel', serif; font-size: 2.2rem; margin: 0; }
+        .page-header p { color: #aaa; margin: 8px 0 0; }
+
+        /* TABLA DE PAGOS */
+        .pk-paytable {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            background: rgba(0,0,0,0.6);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px auto;
+            max-width: 850px;
+            border: 2px solid rgba(245,197,24,0.3);
+        }
+        .pay-item {
+            font-size: 0.78rem; padding: 10px 8px; border-radius: 8px;
+            background: rgba(255,255,255,0.03); font-family: 'Rajdhani', sans-serif;
+            text-align: center; border: 1px solid rgba(255,255,255,0.06);
+            transition: 0.3s; color: #aaa;
+        }
+        .pay-item b { display: block; font-size: 1.1rem; margin-top: 3px; }
+        .p-royal { border-color: #f5c518 !important; color: #fff !important; background: rgba(245,197,24,0.1) !important; }
+        .p-poker { border-color: #00d4ff !important; color: #fff !important; background: rgba(0,212,255,0.08) !important; }
+        .p-full  { border-color: #e040fb !important; color: #fff !important; background: rgba(224,64,251,0.08) !important; }
+        .p-color { border-color: #ff5252 !important; color: #fff !important; background: rgba(255,82,82,0.08) !important; }
+        .p-high  { border-color: #00ffae !important; color: #fff !important; background: rgba(0,255,174,0.08) !important; }
+        @keyframes ganadorBlink {
+            from { box-shadow: 0 0 5px #fff; transform: scale(1); }
+            to   { box-shadow: 0 0 25px #f5c518; transform: scale(1.08); }
+        }
+        .pay-item.ganador { animation: ganadorBlink 0.5s infinite alternate; z-index: 10; }
+
+        /* CHIPS */
+        .apuesta-bj {
+            display: flex; align-items: center; gap: 12px;
+            justify-content: center; flex-wrap: wrap;
+            background: rgba(0,0,0,0.4); padding: 15px; border-radius: 15px;
+            max-width: 500px; margin: 10px auto 20px;
+        }
+        .chip-bj {
+            width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 900; font-size: 0.8rem; cursor: pointer;
+            border: 3px dashed rgba(255,255,255,0.4); transition: 0.2s;
+        }
+        .chip-bj:hover { transform: scale(1.1); border-color: #fff; }
+        .chip-bj.activo { border-color: #f5c518; box-shadow: 0 0 10px rgba(245,197,24,0.5); }
+
+        /* MESA */
+        .pk-mesa {
+            background: radial-gradient(ellipse at center, #1a5e1a 0%, #0d3d0d 60%, #07280a 100%);
+            border-radius: 20px; padding: 40px;
+            margin: 0 auto 30px; max-width: 850px;
+            border: 8px solid #5d2e0a;
+            box-shadow: 0 0 60px rgba(0,0,0,0.9), inset 0 0 30px rgba(0,0,0,0.4);
+            text-align: center;
+        }
+
+        #msg-poker {
+            font-family: 'Cinzel', serif; font-size: 2rem; font-weight: 900;
+            min-height: 50px; margin: 0 0 20px;
+            transition: 0.3s; text-shadow: 0 0 15px rgba(255,255,255,0.2);
+        }
+
+        .pk-cartas-display {
+            display: flex; justify-content: center;
+            gap: 12px; margin: 20px 0; min-height: 160px; flex-wrap: wrap;
+        }
+
+        .carta-poker {
+            position: relative; cursor: pointer;
+            transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            user-select: none;
+        }
+        .carta-poker:hover { transform: translateY(-5px); }
+        .carta-poker.held { transform: translateY(-18px); }
+        .carta-poker.held::after {
+            content: "HELD";
+            position: absolute; bottom: -24px; left: 50%;
+            transform: translateX(-50%);
+            background: #f5c518; color: #000;
+            font-family: 'Rajdhani'; font-weight: 900;
+            padding: 2px 8px; border-radius: 4px; font-size: 0.7rem;
+            white-space: nowrap;
+        }
+
+        .controles-poker {
+            display: flex; justify-content: center;
+            gap: 20px; margin-top: 30px; flex-wrap: wrap;
+        }
+        .btn-pk {
+            padding: 16px 45px; border: none; border-radius: 12px;
+            font-weight: 800; font-family: 'Rajdhani'; font-size: 1.1rem;
+            cursor: pointer; text-transform: uppercase; transition: 0.3s;
+            letter-spacing: 1px;
+        }
+        .btn-deal { background: linear-gradient(90deg, #f5c518, #ff9a00); color: #000; box-shadow: 0 4px 0 #b8860b; }
+        .btn-draw { background: linear-gradient(90deg, #00ffae, #00d4ff); color: #000; box-shadow: 0 4px 0 #00a878; }
+        .btn-pk:hover:not(:disabled) { transform: translateY(-3px); filter: brightness(1.1); }
+        .btn-pk:active:not(:disabled) { transform: translateY(1px); }
+        .btn-pk:disabled { opacity: 0.3; cursor: not-allowed; box-shadow: none; }
+
+        .instruccion {
+            color: rgba(255,255,255,0.5); font-size: 0.85rem;
+            margin: 10px 0 0; letter-spacing: 1px;
+        }
+
+        .no-sesion { text-align: center; padding: 30px; background: rgba(255,100,100,0.1); border: 1px solid rgba(255,100,100,0.3); border-radius: 10px; margin: 20px auto; max-width: 400px; }
+        footer { text-align: center; padding: 30px; color: #444; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+<div class="topbar">
+    <div class="topbar-left">
+        <img src="../logo-casino.png" class="logo-small" alt="Logo">
+        <span class="casino-name">Midnight Ingenium</span>
+    </div>
+    <div class="topbar-right">
+        <span class="saldo" id="saldo-display">💰 $0</span>
+    </div>
+</div>
+
+<nav class="navbar">
+    <ul class="menu">
+        <li><a href="../index.html">🏠 Inicio</a></li>
+        <li><a href="index.html">🎮 Juegos</a></li>
+        <li><a href="ruleta.html">🎡 Ruleta</a></li>
+        <li><a href="blackjack.html">🃏 Blackjack</a></li>
+        <li><a href="slots.html">🎰 Slots</a></li>
+        <li><a href="crash.html">🚀 Crash</a></li>
+        <li><a href="dados.html">🎲 Dados</a></li>
+        <li><a href="baccarat.html">🎴 Baccarat</a></li>
+        <li><a href="poker.html" style="color:#f5c518;">♠ Poker</a></li>
+    </ul>
+</nav>
+
+<div class="page-header">
+    <h1>♠ Video Poker</h1>
+    <p>Consigue la mejor mano — Haz clic en las cartas para mantenerlas</p>
+</div>
+
+<!-- Tabla de pagos -->
+<div class="pk-paytable" id="paytable">
+    <div class="pay-item p-royal" id="row-Escalera Real">🏆 Esc. Real<b>x250</b></div>
+    <div class="pay-item p-poker" id="row-Poker">🃏 Poker<b>x25</b></div>
+    <div class="pay-item p-full"  id="row-Full House">🎯 Full House<b>x9</b></div>
+    <div class="pay-item p-color" id="row-Color">🎨 Color<b>x6</b></div>
+    <div class="pay-item p-high"  id="row-Escalera">📈 Escalera<b>x4</b></div>
+    <div class="pay-item p-high"  id="row-Trio">3️⃣ Trío<b>x3</b></div>
+    <div class="pay-item p-high"  id="row-Doble Pareja">✌️ Doble Par<b>x2</b></div>
+    <div class="pay-item p-high"  id="row-Pareja J+">👑 Pareja J+<b>x1</b></div>
+</div>
+
+<!-- Chips -->
+<div class="apuesta-bj">
+    <span style="color:#aaa; font-size:0.85rem;">APUESTA:</span>
+    <div class="chip-bj" style="background:linear-gradient(135deg,#e0e0e0,#888);color:#000;"   onclick="setBet(5,this)">$5</div>
+    <div class="chip-bj activo" style="background:linear-gradient(135deg,#ff4444,#cc0000);color:#fff;" onclick="setBet(10,this)">$10</div>
+    <div class="chip-bj" style="background:linear-gradient(135deg,#4488ff,#0044cc);color:#fff;" onclick="setBet(25,this)">$25</div>
+    <div class="chip-bj" style="background:linear-gradient(135deg,#f5c518,#cc8800);color:#000;" onclick="setBet(50,this)">$50</div>
+    <div style="background:rgba(245,197,24,0.1); border:1px solid rgba(245,197,24,0.3); border-radius:8px; padding:8px 16px; color:#f5c518; font-weight:700;">
+        Apostando: $<span id="bet-val">10</span>
+    </div>
+</div>
+
+<!-- Mesa -->
+<div class="pk-mesa">
+    <div id="msg-poker">¿LISTO PARA JUGAR?</div>
+    <div class="pk-cartas-display" id="hand-display"></div>
+    <p class="instruccion" id="instruccion">Presiona REPARTIR para comenzar</p>
+    <div class="controles-poker">
+        <button class="btn-pk btn-deal" id="btn-deal" onclick="firstDeal()">🃏 REPARTIR</button>
+        <button class="btn-pk btn-draw" id="btn-draw" onclick="secondDeal()" disabled>🔄 CAMBIAR</button>
+    </div>
+</div>
+
+<footer>
+    <p>© 2026 Midnight Ingenium Casino · Tu suerte, tu estrategia</p>
+</footer>
+
+<script>
+    // ── Sesión ────────────────────────────────────────────────────
+    const usuarioData = JSON.parse(localStorage.getItem('usuario') || 'null');
+    const token = localStorage.getItem('token');
+
+    if (!usuarioData || !token) {
+        document.querySelector('.pk-mesa').innerHTML = `
+            <div class="no-sesion">
+                <h2>🔒 Acceso restringido</h2>
+                <p>Debes iniciar sesión para jugar.</p>
+                <a href="../cuenta/login.html" style="color:#f5c518; font-weight:700;">Ir al Login</a>
+            </div>`;
+        document.querySelector('.apuesta-bj').style.display = 'none';
+        document.querySelector('.pk-paytable').style.display = 'none';
+    } else {
+        document.getElementById('saldo-display').textContent = `💰 $${usuarioData.saldo.toLocaleString()}`;
+    }
+
+    function getSaldo() {
+        const u = JSON.parse(localStorage.getItem('usuario') || 'null');
+        return u ? u.saldo : 0;
+    }
+    function setSaldoLocal(monto) {
+        const u = JSON.parse(localStorage.getItem('usuario'));
+        if (!u) return;
+        u.saldo = monto;
+        localStorage.setItem('usuario', JSON.stringify(u));
+        document.getElementById('saldo-display').textContent = `💰 $${monto.toLocaleString()}`;
+    }
+
+    // ── Estado ────────────────────────────────────────────────────
+    let apuesta = 10;
+    let mano    = [];
+    let deck    = [];
+    let held    = [false, false, false, false, false];
+    let apuestaRonda = 10;
+
+    const PALOS  = ['♠','♥','♦','♣'];
+    const VALORES = ['2','3','4','5','6','7','8','9','10','J','Q','K','A'];
+
+    function setBet(v, btn) {
+        apuesta = v;
+        document.getElementById('bet-val').textContent = v;
+        document.querySelectorAll('.chip-bj').forEach(b => b.classList.remove('activo'));
+        btn.classList.add('activo');
+    }
+
+    function createDeck() {
+        const d = [];
+        PALOS.forEach(p => VALORES.forEach(v => d.push({v, p})));
+        return d.sort(() => Math.random() - 0.5);
+    }
+
+    function drawSVG(card, faceUp = true) {
+        if (!faceUp) {
+            return `<svg class="carta-svg" width="100" height="140" viewBox="0 0 80 115">
+                <rect width="80" height="115" rx="8" fill="#1a1a4a" stroke="#f5c518" stroke-width="2"/>
+                <rect x="5" y="5" width="70" height="105" rx="6" fill="none" stroke="rgba(245,197,24,0.3)" stroke-width="1"/>
+                <text x="40" y="65" text-anchor="middle" font-size="30" fill="rgba(245,197,24,0.4)">?</text>
+            </svg>`;
+        }
+        const color = (card.p === '♥' || card.p === '♦') ? '#cc0000' : '#111';
+        return `<svg class="carta-svg" width="100" height="140" viewBox="0 0 80 115">
+            <rect width="80" height="115" rx="8" fill="white" stroke="#ccc" stroke-width="1.5"/>
+            <text x="8" y="20"  font-family="Georgia" font-size="14" font-weight="bold" fill="${color}">${card.v}</text>
+            <text x="8" y="34"  font-family="Georgia" font-size="14" fill="${color}">${card.p}</text>
+            <text x="40" y="75" text-anchor="middle" font-size="30" fill="${color}">${card.p}</text>
+            <text x="72" y="105" font-family="Georgia" font-size="14" font-weight="bold" fill="${color}" text-anchor="end" transform="rotate(180,72,105)">${card.v}</text>
+        </svg>`;
+    }
+
+    function renderHand(fase = 'draw') {
+        const container = document.getElementById('hand-display');
+        container.innerHTML = '';
+        mano.forEach((card, i) => {
+            const div = document.createElement('div');
+            div.className = `carta-poker ${held[i] ? 'held' : ''}`;
+            div.innerHTML = drawSVG(card);
+            if (fase === 'draw') div.onclick = () => toggleHeld(i);
+            container.appendChild(div);
+        });
+    }
+
+    function toggleHeld(i) {
+        held[i] = !held[i];
+        renderHand('draw');
+    }
+
+    function firstDeal() {
+        if (apuesta > getSaldo()) return alert('Saldo insuficiente');
+
+        apuestaRonda = apuesta;
+        deck  = createDeck();
+        mano  = [deck.pop(), deck.pop(), deck.pop(), deck.pop(), deck.pop()];
+        held  = [false, false, false, false, false];
+
+        document.querySelectorAll('.pay-item').forEach(el => el.classList.remove('ganador'));
+        document.getElementById('msg-poker').textContent = 'ELIGE LAS CARTAS A MANTENER';
+        document.getElementById('msg-poker').style.color = '#f5c518';
+        document.getElementById('instruccion').textContent = 'Haz clic en las cartas para marcarlas como HELD';
+        document.getElementById('btn-deal').disabled = true;
+        document.getElementById('btn-draw').disabled = false;
+
+        renderHand('draw');
+    }
+
+    async function secondDeal() {
+        document.getElementById('btn-draw').disabled = true;
+        document.getElementById('instruccion').textContent = '';
+
+        mano = mano.map((card, i) => held[i] ? card : deck.pop());
+        renderHand('result');
+        await checkWinner();
+
+        document.getElementById('btn-deal').disabled = false;
+    }
+
+    async function checkWinner() {
+        const counts = {};
+        mano.forEach(c => counts[c.v] = (counts[c.v] || 0) + 1);
+        const vCounts = Object.values(counts);
+
+        const isFlush    = mano.every(c => c.p === mano[0].p);
+        const indices    = mano.map(c => VALORES.indexOf(c.v)).sort((a,b) => a - b);
+        const isStraight = indices.every((v, i) => i === 0 || v === indices[i-1] + 1);
+        // Escalera real: 10-J-Q-K-A del mismo palo
+        const isRoyal    = isStraight && isFlush && indices[0] === 8;
+
+        let mult       = 0;
+        let resultName = '';
+
+        if (isRoyal)                                                    { mult = 250; resultName = 'Escalera Real'; }
+        else if (vCounts.includes(4))                                   { mult = 25;  resultName = 'Poker'; }
+        else if (vCounts.includes(3) && vCounts.includes(2))           { mult = 9;   resultName = 'Full House'; }
+        else if (isFlush)                                               { mult = 6;   resultName = 'Color'; }
+        else if (isStraight)                                            { mult = 4;   resultName = 'Escalera'; }
+        else if (vCounts.includes(3))                                   { mult = 3;   resultName = 'Trio'; }
+        else if (vCounts.filter(x => x === 2).length === 2)            { mult = 2;   resultName = 'Doble Pareja'; }
+        else if (vCounts.includes(2)) {
+            const pairVal = Object.keys(counts).find(k => counts[k] === 2);
+            if (['J','Q','K','A'].includes(pairVal))                   { mult = 1;   resultName = 'Pareja J+'; }
+        }
+
+        const msg  = document.getElementById('msg-poker');
+        const gano = mult > 0;
+        let ganancia = 0;
+
+        document.querySelectorAll('.pay-item').forEach(el => el.classList.remove('ganador'));
+
+        if (gano) {
+            const win  = apuestaRonda * mult;
+            ganancia   = win - apuestaRonda;
+            msg.textContent = `🏆 ${resultName.toUpperCase()}! +$${win}`;
+            msg.style.color = '#00ffae';
+            const row = document.getElementById('row-' + resultName);
+            if (row) row.classList.add('ganador');
+        } else {
+            msg.textContent = 'SIN SUERTE — INTENTA DE NUEVO';
+            msg.style.color = '#ff4444';
+        }
+
+        // Registrar en la API
+        try {
+            const res = await fetch('http://localhost:5000/api/apuestas', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify({
+                    juego: 'poker',
+                    monto: apuestaRonda,
+                    resultado: gano ? 'ganó' : 'perdió',
+                    ganancia: ganancia < 0 ? 0 : ganancia
+                })
+            });
+            const data = await res.json();
+            if (res.ok) setSaldoLocal(data.saldoActual);
+        } catch(err) {
+            console.error('Error al registrar apuesta poker:', err);
+        }
+    }
+</script>
+</body>
+</html>

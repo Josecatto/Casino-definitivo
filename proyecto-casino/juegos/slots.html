@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Slots - Midnight Ingenium</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="../logo-casino.png">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<style>
+    body { background: #050510; color: white; font-family: 'Rajdhani', sans-serif; margin: 0; }
+    .topbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background: #000; border-bottom: 2px solid #333; }
+    .topbar-left { display: flex; align-items: center; gap: 10px; }
+    .logo-small { width: 30px; }
+    .casino-name { font-family: 'Cinzel', serif; font-size: 1.2rem; color: #f5c518; }
+    .saldo { color: #00ff88; font-weight: 700; font-size: 1.2rem; }
+    .navbar { background: #11112a; padding: 12px 0; border-bottom: 1px solid #f5c518; }
+    .navbar .menu { display: flex; list-style: none; gap: 20px; justify-content: center; padding: 0; margin: 0; }
+    .navbar a { text-decoration: none; color: #aaa; font-weight: 600; transition: 0.3s; text-transform: uppercase; font-size: 0.9rem; }
+    .navbar a:hover { color: #f5c518; }
+    .page-header { text-align: center; padding: 30px 20px 10px; }
+    .page-header h1 { font-family: 'Cinzel', serif; font-size: 2.2rem; margin: 0; }
+    .page-header p { color: #aaa; margin: 8px 0 0; }
+    .maquina {
+        background: linear-gradient(160deg, #1a1a2e, #0f0f1f);
+        border: 4px solid;
+        border-image: linear-gradient(135deg, #f5c518, #ff9a00, #f5c518) 1;
+        border-radius: 20px;
+        padding: 35px 30px;
+        max-width: 600px;
+        margin: 30px auto;
+        box-shadow: 0 0 60px rgba(245,197,24,0.2), inset 0 0 30px rgba(0,0,0,0.4);
+        text-align: center;
+    }
+    .maquina h2 { color: #f5c518; margin-bottom: 25px; font-size: 1.8rem; text-shadow: 0 0 15px rgba(245,197,24,0.8); font-family: 'Cinzel', serif; }
+    .rodillos { display: flex; justify-content: center; gap: 12px; margin: 25px 0; }
+    .rodillo {
+        width: 110px; height: 110px;
+        background: #0a0a14;
+        border: 3px solid rgba(245,197,24,0.3);
+        border-radius: 12px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 4rem;
+        box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
+        position: relative; overflow: hidden; transition: border-color 0.3s;
+    }
+    .rodillo.girando { animation: rodilloSpin 0.1s linear infinite; border-color: rgba(245,197,24,0.8); }
+    @keyframes rodilloSpin {
+        0%   { transform: translateY(0); }
+        25%  { transform: translateY(-5px); }
+        75%  { transform: translateY(5px); }
+        100% { transform: translateY(0); }
+    }
+    .rodillo.ganador { animation: ganadorBrillo 0.5s ease infinite alternate; border-color: #f5c518; }
+    @keyframes ganadorBrillo {
+        from { box-shadow: inset 0 0 20px rgba(0,0,0,0.6), 0 0 20px rgba(245,197,24,0.4); }
+        to   { box-shadow: inset 0 0 20px rgba(0,0,0,0.6), 0 0 40px rgba(245,197,24,0.9); }
+    }
+    .linea-pago { width: 100%; height: 3px; background: linear-gradient(90deg, transparent, #f5c518, transparent); margin: -5px 0 15px; opacity: 0; transition: opacity 0.3s; }
+    .linea-pago.activa { opacity: 1; }
+    #resultado-slots {
+        font-size: 1.4rem; font-weight: 700; padding: 15px; border-radius: 12px;
+        min-height: 60px; margin: 15px 0;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        font-family: 'Cinzel', serif; transition: 0.3s;
+    }
+    .apuestas-slots { display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap; }
+    .apuesta-slot-btn {
+        padding: 8px 16px; border: 2px solid rgba(245,197,24,0.3);
+        background: rgba(22,22,58,0.5); color: white; border-radius: 8px;
+        cursor: pointer; font-weight: 700; transition: all 0.2s; font-family: 'Rajdhani', sans-serif;
+    }
+    .apuesta-slot-btn:hover, .apuesta-slot-btn.activo { border-color: #f5c518; background: rgba(245,197,24,0.15); color: #f5c518; }
+    .tabla-pagos { background: rgba(0,0,0,0.3); border-radius: 12px; padding: 20px; margin-top: 25px; text-align: left; }
+    .tabla-pagos h3 { color: #f5c518; text-align: center; margin-bottom: 15px; font-family: 'Cinzel', serif; }
+    .pago-item { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem; }
+    .jackpot-display {
+        background: linear-gradient(135deg, rgba(245,197,24,0.2), rgba(255,154,0,0.1));
+        border: 2px solid rgba(245,197,24,0.4); border-radius: 12px;
+        padding: 15px; margin-bottom: 20px; font-family: 'Cinzel', serif; text-align: center;
+    }
+    .jackpot-display span { font-size: 2.5rem; font-weight: 900; color: #f5c518; text-shadow: 0 0 20px rgba(245,197,24,0.9); }
+    .no-sesion {
+        text-align: center; padding: 30px;
+        background: rgba(255,100,100,0.1); border: 1px solid rgba(255,100,100,0.3);
+        border-radius: 10px; margin: 20px auto; max-width: 400px;
+    }
+    footer { text-align: center; padding: 40px; color: #555; font-size: 0.8rem; }
+    .btn-girar {
+        width: 100%; padding: 18px; margin-top: 10px;
+        background: linear-gradient(135deg, #f5c518, #ff9a00);
+        border: none; border-radius: 12px; font-family: 'Cinzel', serif;
+        font-weight: 900; font-size: 1.3rem; cursor: pointer;
+        transition: 0.3s; box-shadow: 0 5px 0 #b8860b; color: #000;
+    }
+    .btn-girar:hover { filter: brightness(1.1); transform: translateY(-2px); }
+    .btn-girar:disabled { background: #444; box-shadow: none; cursor: not-allowed; color: #888; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+    <div class="topbar-left">
+        <img src="../logo-casino.png" class="logo-small" alt="Logo">
+        <span class="casino-name">Midnight Ingenium</span>
+    </div>
+    <div class="topbar-right">
+        <span class="saldo" id="saldo-display">💰 $0</span>
+    </div>
+</div>
+
+<nav class="navbar">
+    <ul class="menu">
+        <li><a href="../index.html">🏠 Inicio</a></li>
+        <li><a href="index.html">🎮 Juegos</a></li>
+        <li><a href="ruleta.html">🎡 Ruleta</a></li>
+        <li><a href="blackjack.html">🃏 Blackjack</a></li>
+        <li><a href="slots.html" style="color:#f5c518;">🎰 Slots</a></li>
+        <li><a href="crash.html">🚀 Crash</a></li>
+    </ul>
+</nav>
+
+<div class="page-header">
+    <h1>🎰 Slots Épicos</h1>
+    <p>Gira y gana — Jackpot progresivo activo</p>
+</div>
+
+<div style="max-width:600px; margin:0 auto; padding: 0 20px;">
+    <div class="jackpot-display">
+        🏆 JACKPOT PROGRESIVO<br>
+        <span id="jackpot-val">$24,750</span>
+    </div>
+</div>
+
+<div class="maquina">
+    <h2>🎰 Midnight Slots</h2>
+
+    <div style="margin-bottom:15px; font-size:0.9rem; color:#aaa;">Selecciona tu apuesta por giro:</div>
+    <div class="apuestas-slots">
+        <button class="apuesta-slot-btn" onclick="setApuestaSlot(1, this)">$1</button>
+        <button class="apuesta-slot-btn" onclick="setApuestaSlot(5, this)">$5</button>
+        <button class="apuesta-slot-btn activo" onclick="setApuestaSlot(10, this)">$10</button>
+        <button class="apuesta-slot-btn" onclick="setApuestaSlot(25, this)">$25</button>
+        <button class="apuesta-slot-btn" onclick="setApuestaSlot(50, this)">$50</button>
+    </div>
+
+    <div style="color:#f5c518; font-weight:700; margin-bottom:15px;">
+        Apuesta: $<span id="apuesta-slot-monto">10</span> por línea ×
+        <select id="lineas-slot" style="background:#0a0a14;color:#f5c518;border:1px solid rgba(245,197,24,0.3);border-radius:6px;padding:4px 8px;font-weight:700;" onchange="calcLineas()">
+            <option value="1">1 línea</option>
+            <option value="3">3 líneas</option>
+            <option value="5" selected>5 líneas</option>
+            <option value="10">10 líneas</option>
+        </select>
+        = <strong style="color:#00ffae;">$<span id="apuesta-total-slot">50</span></strong>
+    </div>
+
+    <div class="rodillos">
+        <div class="rodillo" id="rodillo-0">🍒</div>
+        <div class="rodillo" id="rodillo-1">🎰</div>
+        <div class="rodillo" id="rodillo-2">⭐</div>
+        <div class="rodillo" id="rodillo-3">🍋</div>
+        <div class="rodillo" id="rodillo-4">💎</div>
+    </div>
+    <div class="linea-pago" id="linea-pago"></div>
+
+    <div id="resultado-slots"></div>
+
+    <button id="btn-girar-slot" class="btn-girar" onclick="girarSlots()">🎰 GIRAR</button>
+
+    <div class="tabla-pagos">
+        <h3>💰 Tabla de Pagos</h3>
+        <div class="pago-item"><span>💎💎💎💎💎 Diamantes</span><span style="color:#00ffae;">x500 JACKPOT</span></div>
+        <div class="pago-item"><span>7️⃣7️⃣7️⃣7️⃣7️⃣ Sietes</span><span style="color:#f5c518;">x100</span></div>
+        <div class="pago-item"><span>⭐⭐⭐⭐⭐ Estrellas</span><span style="color:#f5c518;">x50</span></div>
+        <div class="pago-item"><span>🎰🎰🎰🎰🎰 Slots</span><span style="color:#f5c518;">x25</span></div>
+        <div class="pago-item"><span>🍒🍒🍒🍒🍒 Cerezas</span><span style="color:#f5c518;">x15</span></div>
+        <div class="pago-item"><span>4 símbolos iguales</span><span>x10</span></div>
+        <div class="pago-item"><span>3 símbolos iguales</span><span>x3</span></div>
+        <div class="pago-item"><span>2 símbolos iguales</span><span>x1.2</span></div>
+    </div>
+</div>
+
+<footer>
+    <p>© 2026 Midnight Ingenium Casino · Juego Responsable</p>
+</footer>
+
+<script>
+    const SIMBOLOS = ['🍒','🍋','🍊','🍇','⭐','🎰','7️⃣','💎','🃏','🔔'];
+    const PESOS    = [30, 25, 20, 15, 12, 10, 8, 4, 5, 7];
+    const NUM_RODILLOS = 5;
+
+    let apuestaBase = 10;
+    let lineas = 5;
+    let girando = false;
+    let jackpot = 24750;
+
+    // Verificar sesión
+    const usuarioData = JSON.parse(localStorage.getItem('usuario') || 'null');
+    const token = localStorage.getItem('token');
+
+    if (!usuarioData || !token) {
+        document.querySelector('.maquina').innerHTML = `
+            <div class="no-sesion">
+                <h2>🔒 Acceso restringido</h2>
+                <p>Debes iniciar sesión para jugar.</p>
+                <a href="../cuenta/login.html" style="color:#f5c518; font-weight:700;">Ir al Login</a>
+            </div>`;
+        document.querySelector('.apuestas-slots') && (document.querySelector('.apuestas-slots').style.display = 'none');
+    } else {
+        document.getElementById('saldo-display').textContent = `💰 $${usuarioData.saldo.toLocaleString()}`;
+    }
+
+    function getSaldo() {
+        const u = JSON.parse(localStorage.getItem('usuario') || 'null');
+        return u ? u.saldo : 0;
+    }
+
+    function setSaldo(monto) {
+        const u = JSON.parse(localStorage.getItem('usuario'));
+        if (!u) return;
+        u.saldo = monto;
+        localStorage.setItem('usuario', JSON.stringify(u));
+        document.getElementById('saldo-display').textContent = `💰 $${monto.toLocaleString()}`;
+    }
+
+    function setApuestaSlot(val, btn) {
+        if (girando) return;
+        apuestaBase = val;
+        document.getElementById('apuesta-slot-monto').textContent = val;
+        document.querySelectorAll('.apuesta-slot-btn').forEach(b => b.classList.remove('activo'));
+        btn.classList.add('activo');
+        calcLineas();
+    }
+
+    function calcLineas() {
+        lineas = parseInt(document.getElementById('lineas-slot').value);
+        document.getElementById('apuesta-total-slot').textContent = (apuestaBase * lineas).toLocaleString();
+    }
+
+    function simboloAleatorio() {
+        const totalPeso = PESOS.reduce((a,b) => a+b, 0);
+        let r = Math.random() * totalPeso;
+        for (let i=0; i<SIMBOLOS.length; i++) {
+            r -= PESOS[i];
+            if (r <= 0) return SIMBOLOS[i];
+        }
+        return SIMBOLOS[0];
+    }
+
+    function girarSlots() {
+        if (girando) return;
+
+        const apuestaTotal = apuestaBase * lineas;
+        const saldoActual = getSaldo();
+
+        if (apuestaTotal > saldoActual) { alert('❌ Saldo insuficiente'); return; }
+
+        girando = true;
+        document.getElementById('btn-girar-slot').disabled = true;
+        const resEl = document.getElementById('resultado-slots');
+        resEl.textContent = '🎰 Girando...';
+        resEl.style.background = 'transparent';
+        resEl.style.color = '#aaa';
+        document.getElementById('linea-pago').classList.remove('activa');
+        document.querySelectorAll('.rodillo').forEach(r => r.classList.remove('ganador'));
+
+        jackpot += Math.floor(apuestaTotal * 0.05);
+        document.getElementById('jackpot-val').textContent = '$' + jackpot.toLocaleString();
+
+        const resultadoFinal = [];
+        let terminados = 0;
+
+        for (let i=0; i<NUM_RODILLOS; i++) {
+            const rodillo = document.getElementById(`rodillo-${i}`);
+            rodillo.classList.add('girando');
+
+            let intervalo = setInterval(() => {
+                rodillo.textContent = SIMBOLOS[Math.floor(Math.random() * SIMBOLOS.length)];
+            }, 70);
+
+            setTimeout(() => {
+                clearInterval(intervalo);
+                const sim = simboloAleatorio();
+                rodillo.textContent = sim;
+                resultadoFinal[i] = sim;
+                rodillo.classList.remove('girando');
+
+                terminados++;
+                if (terminados === NUM_RODILLOS) {
+                    evaluarResultado(resultadoFinal, apuestaTotal);
+                }
+            }, 800 + (i * 400));
+        }
+    }
+
+    async function evaluarResultado(res, apuestaTotal) {
+        const freq = {};
+        res.forEach(s => { freq[s] = (freq[s] || 0) + 1; });
+
+        const maxIguales = Math.max(...Object.values(freq));
+        const simMas = Object.keys(freq).find(k => freq[k] === maxIguales);
+
+        let mult = 0;
+        if (maxIguales === 5) {
+            if (simMas === '💎') mult = 500;
+            else if (simMas === '7️⃣') mult = 100;
+            else if (simMas === '⭐') mult = 50;
+            else if (simMas === '🎰') mult = 25;
+            else if (simMas === '🍒') mult = 15;
+            else mult = 10;
+        } else if (maxIguales === 4) mult = 10;
+        else if (maxIguales === 3) mult = 3;
+        else if (maxIguales === 2) mult = 1.2;
+
+        const resEl = document.getElementById('resultado-slots');
+        const lineaPago = document.getElementById('linea-pago');
+        const gano = mult > 0;
+        let ganancia = 0;
+
+        if (gano) {
+            let premio = Math.floor(apuestaTotal * mult);
+
+            if (simMas === '💎' && maxIguales === 5) {
+                premio = jackpot;
+                jackpot = 5000;
+                document.getElementById('jackpot-val').textContent = '$' + jackpot.toLocaleString();
+            }
+
+            ganancia = premio - apuestaTotal;
+            lineaPago.classList.add('activa');
+            document.querySelectorAll('.rodillo').forEach(r => {
+                if (r.textContent === simMas) r.classList.add('ganador');
+            });
+
+            resEl.style.background = 'rgba(0,255,136,0.2)';
+            resEl.style.color = '#00ff88';
+            resEl.innerHTML = `<div>✨ ¡GANASTE $${premio.toLocaleString()}! ✨</div><div style="font-size:0.9rem;opacity:0.8;">x${maxIguales} ${simMas}</div>`;
+        } else {
+            resEl.style.background = 'rgba(255,0,0,0.1)';
+            resEl.style.color = '#ff6666';
+            resEl.textContent = 'Sigue intentando...';
+        }
+
+        // Registrar en el backend
+        try {
+            const res2 = await fetch('http://localhost:5000/api/apuestas', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify({
+                    juego: 'slots',
+                    monto: apuestaTotal,
+                    resultado: gano ? 'ganó' : 'perdió',
+                    ganancia: ganancia < 0 ? 0 : ganancia
+                })
+            });
+            const data = await res2.json();
+            if (res2.ok) setSaldo(data.saldoActual);
+        } catch(err) {
+            console.error('Error al registrar apuesta:', err);
+        }
+
+        girando = false;
+        document.getElementById('btn-girar-slot').disabled = false;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        if (usuarioData) {
+            document.getElementById('saldo-display').textContent = `💰 $${usuarioData.saldo.toLocaleString()}`;
+        }
+        calcLineas();
+    });
+</script>
+</body>
+</html>
